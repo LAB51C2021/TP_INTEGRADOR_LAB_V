@@ -1,4 +1,4 @@
-package frgp.utn.edu.ar.controller;
+package controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
