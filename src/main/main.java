@@ -95,7 +95,6 @@ public class main {
 			new Cliente("Matias Gonzales", "42545321", "M", LocalDate.now(), "Martinez 1322", "Tigre", 1, 1,
 				new Usuario("MaxMatiasGonzales", CuentaList)));
 
-
 		// Cliente 6
 		CuentaList = new ArrayList<Cuenta>();
 		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "534644463421", "2356212314", 285200, 1));
@@ -112,7 +111,6 @@ public class main {
 			new Cliente("Diego Britez", "35235554", "M", LocalDate.now(), "Acceso 1245", "Tigre", 1, 1,
 				new Usuario("Diego", CuentaList)));
 		
-
 		// Cliente 8
 		CuentaList = new ArrayList<Cuenta>();
 		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "2151257547", "2362367231", 10000, 1));
@@ -122,7 +120,6 @@ public class main {
 			new Cliente("Alfonso Galarza", "33456236", "M", LocalDate.now(), "Lenue 2142", "Benavidez", 1, 1,
 				new Usuario("Alfonso", CuentaList)));
 		
-
 		// Cliente 9
 		CuentaList = new ArrayList<Cuenta>();
 		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "2152152155", "215125515", 10000, 1));
@@ -132,7 +129,6 @@ public class main {
 			new Cliente("Federico Acosta", "425453121", "M", LocalDate.now(), "Linier 4211", "San Fernando", 1, 1,
 				new Usuario("Federico", CuentaList)));
 		
-
 		// Cliente 10
 		CuentaList = new ArrayList<Cuenta>();
 		CuentaList.add(new Cuenta("Caja de ahorro en dolares", LocalDate.now(), "214215236662", "512551555", 18700, 2));
@@ -159,7 +155,5 @@ public class main {
 		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 8000, 3, 7, 3));
 		
 		hibernateConnector.SaveChange();
-
 	}
-
 }
