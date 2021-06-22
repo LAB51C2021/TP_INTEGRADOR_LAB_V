@@ -20,7 +20,7 @@
       <button>create</button>
       <p class="message">Ya estás registrado?<a href="#">  Ingresar</a></p>
     </form>
-    <form class="login-form">
+    <form class="login-form" action="/Login" method="POST">
       <input type="text" id="username" placeholder="usuario" name="txtUsername"/>
       <input type="password" placeholder="contraseña" name="txtPassword"/>
       <button>INGRESAR</button>
