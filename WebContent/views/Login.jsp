@@ -23,8 +23,8 @@
     <form class="login-form" action="/Login" method="POST">
       <input type="text" id="username" placeholder="usuario" name="txtUsername"/>
       <input type="password" placeholder="contraseña" name="txtPassword"/>
-      <button>INGRESAR</button>
-      <p class="message">No estas registrado?<a href="#">  Crear cuenta</a></p>
+      <button style="color: white">INGRESAR</button>
+      <p class="message" style="background-color: white;">No estas registrado?<a href="#" style="background-color: white;">  Crear cuenta</a></p>
     </form>
   </div>
 </div>

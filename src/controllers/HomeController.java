@@ -14,5 +14,12 @@ public class HomeController {
 		MV.setViewName("Home");
 		return MV;
 	}
-
+    
+    @RequestMapping("Home2.html")
+	public ModelAndView HomeBanco()
+	{
+		ModelAndView MV = new ModelAndView();
+		MV.setViewName("Home2");
+		return MV;
+	}
 }

@@ -42,43 +42,15 @@
                 <div class="row" style="margin-bottom: 2rem;">
                   <div class="col-md-4 offset-1">
                     <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
+                      <h1>Clientes</h1>
                     </div>
                   </div>
                   <div class="col-md-4 offset-2">
                     <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
+                      <h1>Cuentas</h1>
                     </div>
                   </div>
                   <div></div>
-                  </div>
-                      <div class="row">
-                  <div class="col-md-4 offset-1">
-                    <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
-                    </div>
-                  </div>
-                  <div class="col-md-4 offset-2">
-                    <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
-                    </div>
-                  </div>
                   </div>
               </div>
             </section>
@@ -92,8 +64,8 @@
             <nav id="menu">
             	<span>Jorge Perez</span>
               <ul>
-                <li><a href="Home.html">Cuentas</a></li>
-                <li><a href="Movimientos.html">Movimientos</a></li>
+                <li><a href="Clientes.html">Clientes</a></li>
+                <li><a href="Cuentas.html">Cuentas</a></li>
               </ul>
             </nav>
 

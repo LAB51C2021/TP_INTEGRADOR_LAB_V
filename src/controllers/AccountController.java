@@ -27,6 +27,7 @@ public class AccountController {
 			hibernateConnector.SaveChange();
 		}
 	}
+	
 	@RequestMapping("Login.html")
 	public ModelAndView Login(){
 		

@@ -7,4 +7,19 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MovimientoController {
 
+	@RequestMapping("NuevaTransferencia.html")
+	public ModelAndView Home()
+	{
+		ModelAndView MV = new ModelAndView();
+		MV.setViewName("NuevaTransferencia");
+		return MV;
+	}
+	
+	@RequestMapping("Movimientos.html")
+	public ModelAndView Listado()
+	{
+		ModelAndView MV = new ModelAndView();
+		MV.setViewName("Movimientos");
+		return MV;
+	}
 }

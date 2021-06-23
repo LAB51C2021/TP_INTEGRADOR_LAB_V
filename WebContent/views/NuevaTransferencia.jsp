@@ -30,58 +30,59 @@
               </div>
             </header>
 
-            <section class="services">
+<!-- Banner -->
+            <section class="top-image">
               <div class="container-fluid">
-              <div class="row">
+                <div class="row">
                   <div class="col-md-12" style="margin-bottom: 2rem;">
                     <div class="down-content">
-	                    <h1>Inicio</h1>
+	                    <h1>Nueva Transferencia</h1>
                       </div>
                     </div>
                   </div>
-                <div class="row" style="margin-bottom: 2rem;">
-                  <div class="col-md-4 offset-1">
-                    <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
+                  <div class="row">
+                  <div class="col-md-2">
+                  	<h4>Cuenta Origen</h4>                  
+                  	</div>
+                  <div class="col-md-4">
+                    <div class="service-item second-item" style="padding-top: 1.5rem;">
+                    	<select style="width: 80%">
+                    		<option>CUENTA 1 - 004389 / 3764 - Caja de ahorro en pesos - $437670</option>
+                    	</select>
                     </div>
                   </div>
-                  <div class="col-md-4 offset-2">
-                    <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                  	<h4>Cuenta Destino (CBU)</h4>                  
+                  	</div>
+                  <div class="col-md-4">
+                    <div class="service-item second-item"  style="padding-top: 1.5rem;">
+                    	<input style="width: 80%">
                     </div>
                   </div>
-                  <div></div>
-                  </div>
-                      <div class="row">
-                  <div class="col-md-4 offset-1">
-                    <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                  	<h4>Monto</h4>                  
+                  	</div>
+                  <div class="col-md-4">
+                    <div class="service-item second-item"  style="padding-top: 1.5rem;">
+                    	<input style="width: 80%" value="$ 476812"/>
                     </div>
                   </div>
-                  <div class="col-md-4 offset-2">
-                    <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
-                    </div>
-                  </div>
-                  </div>
-              </div>
-            </section>
+                </div><br>
+                <div class="row">
+                  <div class="col-md-5" style="text-align: center;">
+                  	<div class="primary-button">
+                        <a href="NuevaTransferencia.html">Confirmar</a>
+                 </div>                
+                 	</div>
+                </div>
+                
+			</section>
+         
+         
           </div>
         </div>
 
@@ -105,7 +106,6 @@
 
           </div>
         </div>
-
     </div>
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
