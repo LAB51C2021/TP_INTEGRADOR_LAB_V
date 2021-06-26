@@ -1,6 +1,7 @@
 package controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -44,15 +45,22 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "Login.html", method = RequestMethod.POST)
-	public ModelAndView Ingresar(HttpServletRequest request, LogonUser info){		
+	public ModelAndView Ingresar(HttpServletRequest request, HttpServletResponse response){		
 		ModelAndView MV = new ModelAndView();		
 		MV.setViewName("Login");	
 		//valido contra db
-		if(info.getUserName() != "fmansilla" && info.getPassword() != "123456"){
-			return MV;
-		}
 		
-		User user = info.getUser();
+		String username = request.getParameter("username");
+		String pass = request.getParameter("password");
+		
+		/*if(username != "fmansilla" && pass != "123456"){
+			MV.addObject("username", username);
+			MV.addObject("password", pass);
+			MV.addObject("error", "error de acceso");
+			return MV;
+		}*/
+		
+		User user =  new User();
 		
 		//seteo variable de session
 		HttpSession sessionActiva = request.getSession();
