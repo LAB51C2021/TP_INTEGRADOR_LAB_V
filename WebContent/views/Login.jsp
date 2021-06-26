@@ -13,18 +13,12 @@
 <body>
 <div class="login-page">
   <div class="form">
-    <form class="register-form">
-      <input type="text" placeholder="nombre" name="txtUsername"/>
-      <input type="password" placeholder="contraseña"/>
-      <input type="text" placeholder="email"/>
-      <button>create</button>
-      <p class="message">Ya estás registrado?<a href="#">  Ingresar</a></p>
-    </form>
-    <form class="login-form" action="/Login" method="POST">
-      <input type="text" id="username" placeholder="usuario" name="txtUsername"/>
-      <input type="password" placeholder="contraseña" name="txtPassword"/>
+
+    <form class="login-form" action="./SetLogin" method="POST">
+      <input type="text" id="username" placeholder="usuario" name="username"/>
+      <input type="password" placeholder="contraseña" name="password"/>
       <button style="color: white">INGRESAR</button>
-      <p class="message" style="background-color: white;">No estas registrado?<a href="#" style="background-color: white;">  Crear cuenta</a></p>
+      <p class="message" style="color: #dc3545;">${response.error}</p>
     </form>
   </div>
 </div>

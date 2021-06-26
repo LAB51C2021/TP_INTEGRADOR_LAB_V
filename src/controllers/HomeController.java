@@ -7,36 +7,49 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import models.LogonUser;
+import models.User;
+import models.Customer;
+import models.Representative;
+
 @Controller
 public class HomeController {
 
-    @RequestMapping("Home.html")
+	private String SetViewNameByUser(User user) {
+		if(user != null) {
+			if(user.getUserType().getDescripcion() == "Cliente")
+				return "HomeCliente";
+			else if(user.getUserType().getDescripcion() == "Representante")
+				return "HomeRepresentante";
+			else
+				return "Error";
+		}else {
+			return "Login";			
+		}
+	}
+    @RequestMapping("HomeCliente.html")
 	public ModelAndView Home(HttpServletRequest request)
 	{
+    	//obtengo variable de session
     	HttpSession sessionActiva = request.getSession();
-		String user = (String) sessionActiva.getAttribute("sessionUser");
-		String userType = (String) sessionActiva.getAttribute("sessionUserType");
+    	User user = (Customer) sessionActiva.getAttribute("sessionUser");
+    	
+    	//redirecciono a donde corresponda
 		ModelAndView MV = new ModelAndView();		
-		if(user != null) {
-			if(userType == "Cliente")
-				MV.setViewName("Home2");
-			else if(userType == "Representante")
-				MV.setViewName("Home");
-			else
-				MV.setViewName("Error");
-		}else {
-			MV.setViewName("Login");			
-		}
+		MV.setViewName(this.SetViewNameByUser(user));
 		return MV;
 	}
     
-    @RequestMapping("Home2.html")
+    @RequestMapping("HomeRepresentante.html")
 	public ModelAndView HomeBanco(HttpServletRequest request)
 	{
+    	//obtengo variable de session
     	HttpSession sessionActiva = request.getSession();
-    	sessionActiva.setAttribute("Usuario", null);
-		ModelAndView MV = new ModelAndView();
-		MV.setViewName("Home2");
+    	User user = (Representative) sessionActiva.getAttribute("sessionUser");
+    	
+    	//redirecciono a donde corresponda
+		ModelAndView MV = new ModelAndView();		
+		MV.setViewName(this.SetViewNameByUser(user));
 		return MV;
 	}
 }

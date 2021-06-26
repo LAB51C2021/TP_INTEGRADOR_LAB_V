@@ -9,76 +9,57 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import hibernate.HibernateConnector;
+import models.LogonUser;
 import models.Tipo_Cuenta;
 import models.Tipo_Movimiento;
-import models.Usuario;
+import models.User;
 
 @Controller
 public class AccountController {
 	
-	private void CargarModelosDefectos()
-	{
-		HibernateConnector hibernateConnector = new HibernateConnector();
-
-		if (hibernateConnector.GetCountRegistry(Tipo_Cuenta.class.getName()) == 0 && 
-			hibernateConnector.GetCountRegistry(Tipo_Movimiento.class.getName()) == 0)
-		{
-			hibernateConnector.AddEntity(new Tipo_Cuenta("Caja de ahorro en pesos"));
-			hibernateConnector.AddEntity(new Tipo_Cuenta("Caja de ahorro en dólares"));
-			hibernateConnector.AddEntity(new Tipo_Movimiento("Alta"));
-			hibernateConnector.AddEntity(new Tipo_Movimiento("Ingreso"));
-			hibernateConnector.AddEntity(new Tipo_Movimiento("Egreso"));
-			hibernateConnector.SaveChange();
+	private String SetViewNameByUser(User user) {
+		if(user != null) {
+			if(user.getUserType().getDescripcion() == "Cliente")
+				return "HomeCliente";
+			else if(user.getUserType().getDescripcion() == "Representante")
+				return "HomeRepresentante";
+			else
+				return "Error";
+		}else {
+			return "Login";			
 		}
 	}
-	
+		
 	@RequestMapping("Login.html")
 	public ModelAndView Login(HttpServletRequest request){
 		
-		CargarModelosDefectos();
+		//obtengo variable de session
 		HttpSession sessionActiva = request.getSession();
-		String user = (String) sessionActiva.getAttribute("sessionUser");
-		String userType = (String) sessionActiva.getAttribute("sessionUserType");
-		ModelAndView MV = new ModelAndView();		
-		if(user != null) {
-			if(userType == "Cliente")
-				MV.setViewName("Home2");
-			else if(userType == "Representante")
-				MV.setViewName("Home");
-			else
-				MV.setViewName("Error");
-		}else {
-			MV.setViewName("Login");			
-		}
-		
+		User user = (User) sessionActiva.getAttribute("sessionUser");
+
+		//redirecciono a donde corresponda
+		ModelAndView MV = new ModelAndView();
+		MV.setViewName(this.SetViewNameByUser(user));
 		return MV;
 	}
 	
-	@RequestMapping(value = "/Login", method = RequestMethod.POST)
-	public ModelAndView Ingresar(HttpServletRequest request, String txtUsername, String txtPassword){
-		
-		//valido campos
-		
+	@RequestMapping(value = "Login.html", method = RequestMethod.POST)
+	public ModelAndView Ingresar(HttpServletRequest request, LogonUser info){		
+		ModelAndView MV = new ModelAndView();		
+		MV.setViewName("Login");	
 		//valido contra db
+		if(info.getUserName() != "fmansilla" && info.getPassword() != "123456"){
+			return MV;
+		}
 		
-		Usuario user = null;
-		String userType = "";
+		User user = info.getUser();
 		
 		//seteo variable de session
 		HttpSession sessionActiva = request.getSession();
+		sessionActiva.setAttribute("sessionUser", user);
 		
-		//redirecciono a donde corresponda	
-		ModelAndView MV = new ModelAndView();		
-		if(user != null) {
-			if(userType == "Cliente")
-				MV.setViewName("Home2");
-			else if(userType == "Representante")
-				MV.setViewName("Home");
-			else
-				MV.setViewName("Error");
-		}else {
-			MV.setViewName("Login");			
-		}
+		//redirecciono a donde corresponda
+		MV.setViewName(this.SetViewNameByUser(user));
 		return MV;
 	}
 	
