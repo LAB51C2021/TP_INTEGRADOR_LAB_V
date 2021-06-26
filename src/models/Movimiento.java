@@ -2,7 +2,6 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,13 +23,21 @@ public class Movimiento implements Serializable {
 		
 	}
 
-	public Movimiento(LocalDate fecha, float monto, int idTipoMovimiento, Integer idCuentaOrigen, Integer idCuentaDestino)
+	public Movimiento(float monto, int idTipoMovimiento, Integer idCuentaOrigen, Integer idCuentaDestino)
 	{
-		this.Fecha = fecha;
+		this.Fecha = LocalDate.now();
 		this.Monto = monto;
 		
 		this.Tipo_Movimiento = new Tipo_Movimiento(idTipoMovimiento);
 		this.Cuenta_Origen = idCuentaOrigen != null ? new Cuenta(idCuentaOrigen) : null;
+		this.Cuenta_Destino = idCuentaDestino != null ? new Cuenta(idCuentaDestino) : null;
+	}
+	
+	public Movimiento(Integer idCuentaDestino)
+	{
+		this.Fecha = LocalDate.now();
+		this.Monto = 10000;
+		this.Tipo_Movimiento = new Tipo_Movimiento(1);
 		this.Cuenta_Destino = idCuentaDestino != null ? new Cuenta(idCuentaDestino) : null;
 	}
 	
@@ -57,6 +64,9 @@ public class Movimiento implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="Id_Cuenta_Destino")
 	private Cuenta Cuenta_Destino;
+	
+	@Column
+	private String Status = "A";
 	
 	// Getters and Setters
 

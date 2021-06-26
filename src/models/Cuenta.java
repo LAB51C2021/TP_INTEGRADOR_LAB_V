@@ -2,7 +2,8 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.Random;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,19 +25,34 @@ public class Cuenta implements Serializable {
 		
 	}
 	
-	public Cuenta(String nombre, LocalDate fechaCreacion, String numeroCuenta, String cbu, float saldo, int idTipoCuenta)
+	public Cuenta(int idTipoCuenta, String dniTitular, int nroCuenta)
 	{
-		this.Nombre = nombre;
-		this.Fecha_Creacion = fechaCreacion;
-		this.Numero_Cuenta = numeroCuenta;
-		this.Cbu = cbu;
-		this.Saldo = saldo;
+		this.Fecha_Creacion = LocalDate.now();
+		this.Cbu = generateCBU(dniTitular + nroCuenta);
 		this.Tipo_Cuenta = new Tipo_Cuenta(idTipoCuenta);
 	}
-
+	
 	public Cuenta(int idCuenta)
 	{
 		this.Id_Cuenta = idCuenta;
+	}
+	
+	private String generateCBU(String numero) {
+		int n = 22;
+		StringBuilder sb = new StringBuilder(n);
+		
+		for (int i = 0; i < n; i++) {
+		int index
+		= (int)(numero.length()
+		    * Math.random());
+		
+		// add Character one by one in end of sb
+		sb.append(numero
+		      .charAt(index));
+		}
+			
+		String ret = sb.toString();
+		return ret;
 	}
 	
 	// Campos
@@ -44,24 +60,22 @@ public class Cuenta implements Serializable {
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id_Cuenta;
-
-	@Column
-	private String Nombre;
 	
 	@Column
 	private LocalDate Fecha_Creacion;
 
 	@Column(unique=true)
-	private String Numero_Cuenta;
-
 	private String Cbu;
 
 	@Column
-	private float Saldo;
+	private float Saldo = 0;
 	
 	@ManyToOne
 	@JoinColumn(name="Id_Tipo_Cuenta")
 	Tipo_Cuenta Tipo_Cuenta;
+	
+	@Column
+	private String Status = "A";
 	
 	// Getters and Setters
 	public int getId_Cuenta() {
@@ -72,28 +86,12 @@ public class Cuenta implements Serializable {
 		Id_Cuenta = id_Cuenta;
 	}
 
-	public String getNombre() {
-		return Nombre;
-	}
-
-	public void setNombre(String nombre) {
-		Nombre = nombre;
-	}
-
 	public LocalDate getFecha_Creacion() {
 		return Fecha_Creacion;
 	}
 
 	public void setFecha_Creacion(LocalDate fecha_Creacion) {
 		Fecha_Creacion = fecha_Creacion;
-	}
-
-	public String getNumero_Cuenta() {
-		return Numero_Cuenta;
-	}
-
-	public void setNumero_Cuenta(String numero_Cuenta) {
-		Numero_Cuenta = numero_Cuenta;
 	}
 
 	public String getCbu() {
