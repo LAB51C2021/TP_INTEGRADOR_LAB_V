@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import hibernate.HibernateConnector;
 import models.Tipo_Cuenta;
 import models.Tipo_Movimiento;
+import models.Usuario;
 
 @Controller
 public class AccountController {
@@ -54,9 +55,30 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/Login", method = RequestMethod.POST)
-	public ModelAndView Ingresar(String txtUsername, String txtPassword){
-		ModelAndView MV = new ModelAndView();
-		MV.setViewName("Home"); 
+	public ModelAndView Ingresar(HttpServletRequest request, String txtUsername, String txtPassword){
+		
+		//valido campos
+		
+		//valido contra db
+		
+		Usuario user = null;
+		String userType = "";
+		
+		//seteo variable de session
+		HttpSession sessionActiva = request.getSession();
+		
+		//redirecciono a donde corresponda	
+		ModelAndView MV = new ModelAndView();		
+		if(user != null) {
+			if(userType == "Cliente")
+				MV.setViewName("Home2");
+			else if(userType == "Representante")
+				MV.setViewName("Home");
+			else
+				MV.setViewName("Error");
+		}else {
+			MV.setViewName("Login");			
+		}
 		return MV;
 	}
 	
