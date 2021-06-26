@@ -1,5 +1,8 @@
 package controllers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,12 +32,23 @@ public class AccountController {
 	}
 	
 	@RequestMapping("Login.html")
-	public ModelAndView Login(){
+	public ModelAndView Login(HttpServletRequest request){
 		
 		CargarModelosDefectos();
-
-		ModelAndView MV = new ModelAndView();
-		MV.setViewName("Login"); 
+		HttpSession sessionActiva = request.getSession();
+		String user = (String) sessionActiva.getAttribute("sessionUser");
+		String userType = (String) sessionActiva.getAttribute("sessionUserType");
+		ModelAndView MV = new ModelAndView();		
+		if(user != null) {
+			if(userType == "Cliente")
+				MV.setViewName("Home2");
+			else if(userType == "Representante")
+				MV.setViewName("Home");
+			else
+				MV.setViewName("Error");
+		}else {
+			MV.setViewName("Login");			
+		}
 		
 		return MV;
 	}
@@ -47,10 +61,12 @@ public class AccountController {
 	}
 	
 	@RequestMapping("Logout.html")
-	public ModelAndView Logout()
+	public ModelAndView Logout(HttpServletRequest request)
 	{
+		HttpSession sessionActiva = request.getSession();
+		sessionActiva.setAttribute("sessionUser", null);
 		ModelAndView MV = new ModelAndView();
-		MV.setViewName("Home");
+		MV.setViewName("Login");
 		return MV;
 	}
 }

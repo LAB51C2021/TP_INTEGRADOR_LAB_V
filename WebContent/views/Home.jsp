@@ -90,7 +90,7 @@
           <div class="inner">
             <!-- Menu -->
             <nav id="menu">
-            	<span>Jorge Perez</span>
+            	<span>${sessionScope.sessionUser}</span>
               <ul>
                 <li><a href="Home.html">Cuentas</a></li>
                 <li><a href="Movimientos.html">Movimientos</a></li>
