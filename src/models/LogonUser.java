@@ -57,6 +57,4 @@ public class LogonUser implements Serializable {
 	public User getUser() {
 		return User;
 	}
-	
-	
 }

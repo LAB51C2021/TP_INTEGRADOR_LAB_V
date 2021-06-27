@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import hibernate.HibernateConnector;
+import hibernate.UsuarioHibernate;
 import models.LogonUser;
 import models.Tipo_Cuenta;
 import models.Tipo_Movimiento;
@@ -47,27 +48,30 @@ public class AccountController {
 	@RequestMapping(value = "Login.html", method = RequestMethod.POST)
 	public ModelAndView Ingresar(HttpServletRequest request, HttpServletResponse response){		
 		ModelAndView MV = new ModelAndView();		
-		MV.setViewName("Login");	
+		MV.setViewName("Login");
 		//valido contra db
 		
 		String username = request.getParameter("username");
 		String pass = request.getParameter("password");
 		
-		/*if(username != "fmansilla" && pass != "123456"){
+		UsuarioHibernate usuarioHibernate = new UsuarioHibernate(); 
+		Long idUser = usuarioHibernate.GetUserId(username, "", pass);
+		
+		if(idUser == 0){
 			MV.addObject("username", username);
 			MV.addObject("password", pass);
 			MV.addObject("error", "error de acceso");
 			return MV;
-		}*/
+		}
 		
-		User user =  new User();
+		User userLogin = usuarioHibernate.GetUsuario(idUser);
 		
 		//seteo variable de session
 		HttpSession sessionActiva = request.getSession();
-		sessionActiva.setAttribute("sessionUser", user);
+		sessionActiva.setAttribute("sessionUser", userLogin);
 		
 		//redirecciono a donde corresponda
-		MV.setViewName(this.SetViewNameByUser(user));
+		MV.setViewName(this.SetViewNameByUser(userLogin));
 		return MV;
 	}
 	
