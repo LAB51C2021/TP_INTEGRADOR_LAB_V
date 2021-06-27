@@ -3,7 +3,6 @@ package hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Projections;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -98,5 +97,23 @@ public class HibernateConnector
 		CerrarConexion();
 
 		return count.intValue();
+	}
+	
+	public Object GetRegistry(String table, String where)
+	{
+		AbrirConexion();
+		Object registry = (Object) session.createQuery("FROM " + table + " WHERE " + where).uniqueResult();
+		CerrarConexion();
+
+		return registry;
+	}
+	
+	public Long RegistryId(String campo, String table, String where)
+	{
+		AbrirConexion();
+		Long id = (Long) session.createQuery("SELECT t." + campo + " FROM " + table + " t WHERE " + where).uniqueResult();
+		CerrarConexion();
+
+		return id;
 	}
 }
