@@ -21,6 +21,10 @@ public class Customer extends User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	public Customer() {
+		super();
+	}
+
 	public Customer(int representante, String nombre, String apellido, String email, String dni, String sexo, LocalDate fecha_Nacimiento,
 			String direccion, String localidad, int idPais, int idProvincia, int idUserType) {
 		super(nombre, apellido, email, dni, sexo, fecha_Nacimiento, direccion, localidad, idPais, idProvincia,

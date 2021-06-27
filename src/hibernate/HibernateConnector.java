@@ -1,10 +1,13 @@
 package hibernate;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+
+import models.LogonUser;
 
 public class HibernateConnector 
 {
@@ -102,18 +105,23 @@ public class HibernateConnector
 	public Object GetRegistry(String table, String where)
 	{
 		AbrirConexion();
-		Object registry = (Object) session.createQuery("FROM " + table + " WHERE " + where).uniqueResult();
+		Object registry = (Object) session.createSQLQuery("SELECT FROM " + table + " WHERE " + where).uniqueResult();
 		CerrarConexion();
 
 		return registry;
 	}
 	
-	public Long RegistryId(String campo, String table, String where)
+	public LogonUser GetUserByCredentials(String table, String username, String password)
 	{
 		AbrirConexion();
-		Long id = (Long) session.createQuery("SELECT t." + campo + " FROM " + table + " t WHERE " + where).uniqueResult();
+		
+		Query query = session.createQuery("FROM " + table + " WHERE username= :username AND password= :password AND Status = 'A'");
+		query.setParameter("username", username);
+		query.setParameter("password", password);
+		
+		LogonUser foundUser = (LogonUser) query.uniqueResult();
 		CerrarConexion();
 
-		return id;
+		return foundUser;
 	}
 }

@@ -17,12 +17,14 @@ public class HomeController {
 
 	private String SetViewNameByUser(User user) {
 		if(user != null) {
-			if(user.getUserType().getDescripcion() == "Cliente")
-				return "HomeCliente";
-			else if(user.getUserType().getDescripcion() == "Representante")
-				return "HomeRepresentante";
-			else
-				return "Error";
+			if(user.getUserType().getDescripcion().equals("Cliente")) {
+				return "HomeCliente";				
+			}
+			if(user.getUserType().getDescripcion().equals("Representante")) {
+				return "HomeRepresentante";				
+			}
+			
+			return "Error";
 		}else {
 			return "Login";			
 		}

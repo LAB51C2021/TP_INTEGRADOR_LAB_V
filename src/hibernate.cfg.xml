@@ -9,14 +9,16 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/DBBanco?createDatabaseIfNotExist=true</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
         <property name="show_sql">true</property>
         
         <mapping class="models.Cuenta"/>
+        <mapping class="models.Customer"/>
         <mapping class="models.LogonUser"/>
         <mapping class="models.Movimiento"/>
         <mapping class="models.Pais"/>
         <mapping class="models.Provincia"/>
+        <mapping class="models.Representative"/>
         <mapping class="models.Tipo_Cuenta"/>
         <mapping class="models.Tipo_Movimiento"/>
         <mapping class="models.User"/>

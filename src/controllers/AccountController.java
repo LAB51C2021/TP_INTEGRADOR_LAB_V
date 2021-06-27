@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import hibernate.HibernateConnector;
 import hibernate.UsuarioHibernate;
 import models.LogonUser;
-import models.Tipo_Cuenta;
-import models.Tipo_Movimiento;
 import models.User;
 
 @Controller
@@ -21,12 +18,14 @@ public class AccountController {
 	
 	private String SetViewNameByUser(User user) {
 		if(user != null) {
-			if(user.getUserType().getDescripcion() == "Cliente")
-				return "HomeCliente";
-			else if(user.getUserType().getDescripcion() == "Representante")
-				return "HomeRepresentante";
-			else
-				return "Error";
+			if(user.getUserType().getDescripcion().equals("Cliente")) {
+				return "HomeCliente";				
+			}
+			if(user.getUserType().getDescripcion().equals("Representante")) {
+				return "HomeRepresentante";				
+			}
+			
+			return "Error";
 		}else {
 			return "Login";			
 		}
@@ -55,23 +54,21 @@ public class AccountController {
 		String pass = request.getParameter("password");
 		
 		UsuarioHibernate usuarioHibernate = new UsuarioHibernate(); 
-		Long idUser = usuarioHibernate.GetUserId(username, "", pass);
+		LogonUser UserLogin = usuarioHibernate.GetUserByCredentials(username, "", pass);
 		
-		if(idUser == 0){
+		if(UserLogin == null){
 			MV.addObject("username", username);
 			MV.addObject("password", pass);
 			MV.addObject("error", "error de acceso");
 			return MV;
 		}
 		
-		User userLogin = usuarioHibernate.GetUsuario(idUser);
-		
 		//seteo variable de session
 		HttpSession sessionActiva = request.getSession();
-		sessionActiva.setAttribute("sessionUser", userLogin);
+		sessionActiva.setAttribute("sessionUser", UserLogin.getUser());
 		
 		//redirecciono a donde corresponda
-		MV.setViewName(this.SetViewNameByUser(userLogin));
+		MV.setViewName(this.SetViewNameByUser(UserLogin.getUser()));
 		return MV;
 	}
 	

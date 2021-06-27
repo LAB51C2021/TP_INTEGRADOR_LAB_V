@@ -20,7 +20,11 @@ import javax.persistence.Table;
 public class Representative extends User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+		
+	public Representative() {
+		super();
+	}
+
 	public Representative(String nombre, String apellido, String email, String dni, String sexo,
 			LocalDate fecha_Nacimiento, String direccion, String localidad, int idPais, int idProvincia,
 			int idUserType) {

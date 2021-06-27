@@ -126,5 +126,10 @@ public class User implements Serializable {
 	public UserType getUserType() {
 		return UserType;
 	}
+
+	@Override
+	public String toString() {
+		return Nombre + ", " + Apellido;
+	}
 }
 
