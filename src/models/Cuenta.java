@@ -2,17 +2,23 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Random;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import helper.ViewHelper;
 
 @Entity
 @Table
@@ -25,34 +31,19 @@ public class Cuenta implements Serializable {
 		
 	}
 	
-	public Cuenta(int idTipoCuenta, String dniTitular, int nroCuenta)
+	public Cuenta(String nombre, LocalDate fechaCreacion, String numeroCuenta, String cbu, float saldo, int idTipoCuenta)
 	{
-		this.Fecha_Creacion = LocalDate.now();
-		this.Cbu = generateCBU(dniTitular + nroCuenta);
+		this.Nombre = nombre;
+		this.Fecha_Creacion = fechaCreacion;
+		this.Numero_Cuenta = numeroCuenta;
+		this.Cbu = cbu;
+		this.Saldo = saldo;
 		this.Tipo_Cuenta = new Tipo_Cuenta(idTipoCuenta);
 	}
-	
+
 	public Cuenta(int idCuenta)
 	{
 		this.Id_Cuenta = idCuenta;
-	}
-	
-	private String generateCBU(String numero) {
-		int n = 22;
-		StringBuilder sb = new StringBuilder(n);
-		
-		for (int i = 0; i < n; i++) {
-		int index
-		= (int)(numero.length()
-		    * Math.random());
-		
-		// add Character one by one in end of sb
-		sb.append(numero
-		      .charAt(index));
-		}
-			
-		String ret = sb.toString();
-		return ret;
 	}
 	
 	// Campos
@@ -60,23 +51,39 @@ public class Cuenta implements Serializable {
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id_Cuenta;
+
+	@Column
+	private String Nombre;
 	
 	@Column
 	private LocalDate Fecha_Creacion;
 
 	@Column(unique=true)
+	private String Numero_Cuenta;
+
 	private String Cbu;
 
 	@Column
-	private float Saldo = 0;
+	private float Saldo;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Id_Tipo_Cuenta")
 	Tipo_Cuenta Tipo_Cuenta;
 	
-	@Column
-	private String Status = "A";
+    @ManyToOne()
+    @JoinColumn(name = "Id_Usuario")
+    private Usuario Usuario;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade= {CascadeType.ALL})
+    @JoinColumn(name="Id_Cuenta_Origen")
+	private List<Movimiento> Movimiento = new ArrayList<>();
 	
+    @Override
+    public String toString()
+    {
+    	return ViewHelper.GetLetraPorTipo(getTipo_Cuenta()) + " N° " + Numero_Cuenta + " - $" + Saldo;
+    }
+    
 	// Getters and Setters
 	public int getId_Cuenta() {
 		return Id_Cuenta;
@@ -86,12 +93,28 @@ public class Cuenta implements Serializable {
 		Id_Cuenta = id_Cuenta;
 	}
 
+	public String getNombre() {
+		return Nombre;
+	}
+
+	public void setNombre(String nombre) {
+		Nombre = nombre;
+	}
+
 	public LocalDate getFecha_Creacion() {
 		return Fecha_Creacion;
 	}
 
 	public void setFecha_Creacion(LocalDate fecha_Creacion) {
 		Fecha_Creacion = fecha_Creacion;
+	}
+
+	public String getNumero_Cuenta() {
+		return Numero_Cuenta;
+	}
+
+	public void setNumero_Cuenta(String numero_Cuenta) {
+		Numero_Cuenta = numero_Cuenta;
 	}
 
 	public String getCbu() {
@@ -116,5 +139,21 @@ public class Cuenta implements Serializable {
 
 	public void setTipo_Cuenta(Tipo_Cuenta tipo_Cuenta) {
 		Tipo_Cuenta = tipo_Cuenta;
+	}
+
+	public Usuario getUsuario() {
+		return Usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		Usuario = usuario;
+	}
+
+	public List<Movimiento> getMovimiento() {
+		return Movimiento;
+	}
+
+	public void setMovimiento(List<Movimiento> movimiento) {
+		Movimiento = movimiento;
 	}
 }

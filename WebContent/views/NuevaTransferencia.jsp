@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="es-AR">
   <head>
@@ -16,9 +17,7 @@
     <title></title>
   </head>
   <body>
-	
    <div id="wrapper">
-
       <!-- Main -->
         <div id="main">
           <div class="inner">
@@ -26,63 +25,60 @@
             <!-- Header -->
             <header id="header">
               <div class="logo">
-                <a href="Home.html">Banco</a>
+              	 <a href="HomeCliente.html">Home Banking</a>
               </div>
             </header>
 
-<!-- Banner -->
-            <section class="top-image">
-              <div class="container-fluid">
+		<!-- Banner -->
+          <section class="top-image">
+   			<form autocomplete="on" class="ConfirmarTransferencia-form" action="ConfirmarTransferencia.html" method="POST">
                 <div class="row">
-                  <div class="col-md-12" style="margin-bottom: 2rem;">
+                  <div class="col-md-15" style="margin-bottom: 2rem;">
                     <div class="down-content">
-	                    <h1>Nueva Transferencia</h1>
+	                    <h1>Transferencia</h1>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                   <div class="col-md-2">
-                  	<h4>Cuenta Origen</h4>                  
-                  	</div>
+                  	<h4>Cuenta origen: </h4>                  
+                  </div>
                   <div class="col-md-4">
                     <div class="service-item second-item" style="padding-top: 1.5rem;">
-                    	<select style="width: 80%">
-                    		<option>CUENTA 1 - 004389 / 3764 - Caja de ahorro en pesos - $437670</option>
-                    	</select>
+                    	<select id="cuentaorigen" style="width: 80%" onchange="getSelectValue();">
+				        	<c:forEach var="cuentaItem" items="${cuentaList}">
+                    			<option value="${cuentaItem.getId_Cuenta()}">${cuentaItem}</option>
+				        	</c:forEach>
+				        </select>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-2">
-                  	<h4>Cuenta Destino (CBU)</h4>                  
-                  	</div>
+                  	<h4>Cuenta destino: </h4>                  
+                  </div>
                   <div class="col-md-4">
-                    <div class="service-item second-item"  style="padding-top: 1.5rem;">
-                    	<input style="width: 80%">
+                    <div class="service-item second-item" style="padding-top: 1.5rem;">
+                    	 <input required autocomplete="off" style="width: 80%" type="text" id="cbu" placeholder="Ingrese el cbu" name="cbu" />
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-2">
-                  	<h4>Monto</h4>                  
+                  	<h4>Monto:</h4>                  
                   	</div>
                   <div class="col-md-4">
                     <div class="service-item second-item"  style="padding-top: 1.5rem;">
-                    	<input style="width: 80%" value="$ 476812"/>
+                    	 <input required autocomplete="off" style="width: 80%" type="number" id="monto" placeholder="Ingrese el monto" name="monto"/>
                     </div>
                   </div>
-                </div><br>
-                <div class="row">
-                  <div class="col-md-5" style="text-align: center;">
-                  	<div class="primary-button">
-                        <a href="NuevaTransferencia.html">Confirmar</a>
-                 </div>                
-                 	</div>
+                </div><br><br>
+                <div align="center" style="width: 469px; ">
+             		<button style="color: black; width: 158px">Transferir</button>
+    				<button style="color: black; width: 158px">Cancelar</button>
                 </div>
-                
-			</section>
-         
-         
+    			</form>   
+			 </section>   
           </div>
         </div>
 
@@ -91,10 +87,13 @@
           <div class="inner">
             <!-- Menu -->
             <nav id="menu">
-            	<span>Jorge Perez</span>
+            	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
-                <li><a href="Home.html">Cuentas</a></li>
-                <li><a href="Movimientos.html">Movimientos</a></li>
+                <li><a href="HomeCliente.html">Cuentas</a></li>
+                <li>Tarjetas</li>
+                <li>Beneficios</li>
+                <li>Configuración</li>
+                <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>
 

@@ -1,5 +1,9 @@
 package controllers;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,38 +11,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import models.LogonUser;
-import models.User;
-import models.Customer;
-import models.Representative;
+import helper.ViewHelper;
+import hibernate.CuentaHibernate;
+import models.Cuenta;
+import models.Persona;
+import models.Usuario;
 
 @Controller
 public class HomeController {
 
-	private String SetViewNameByUser(User user) {
-		if(user != null) {
-			if(user.getUserType().getDescripcion().equals("Cliente")) {
-				return "HomeCliente";				
-			}
-			if(user.getUserType().getDescripcion().equals("Representante")) {
-				return "HomeRepresentante";				
-			}
-			
-			return "Error";
-		}else {
-			return "Login";			
-		}
-	}
     @RequestMapping("HomeCliente.html")
 	public ModelAndView Home(HttpServletRequest request)
 	{
     	//obtengo variable de session
     	HttpSession sessionActiva = request.getSession();
-    	User user = (Customer) sessionActiva.getAttribute("sessionUser");
+    	Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
     	
     	//redirecciono a donde corresponda
 		ModelAndView MV = new ModelAndView();		
-		MV.setViewName(this.SetViewNameByUser(user));
+		MV.setViewName(ViewHelper.SetViewNameByUser(user));
+		
+		CuentaHibernate cuentaHibernate = new CuentaHibernate();
+		List datos = cuentaHibernate.GetAll(user.getId_Usuario());
+		
+		MV.addObject("lista", datos);
+		
 		return MV;
 	}
     
@@ -47,11 +44,11 @@ public class HomeController {
 	{
     	//obtengo variable de session
     	HttpSession sessionActiva = request.getSession();
-    	User user = (Representative) sessionActiva.getAttribute("sessionUser");
+    	Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
     	
     	//redirecciono a donde corresponda
 		ModelAndView MV = new ModelAndView();		
-		MV.setViewName(this.SetViewNameByUser(user));
+		MV.setViewName(ViewHelper.SetViewNameByUser(user));
 		return MV;
 	}
 }

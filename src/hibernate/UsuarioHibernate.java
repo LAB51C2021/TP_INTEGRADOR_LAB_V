@@ -1,25 +1,20 @@
 package hibernate;
 
-import models.LogonUser;
-import models.User;
+import models.Usuario;
 
-public class UsuarioHibernate{
-
-	public UsuarioHibernate()
-	{
-		
-	}
-	
-	public LogonUser GetUserByCredentials(String name, String dni, String clave)
+public class UsuarioHibernate
+{	
+	public Usuario GetUserByCredentials(String name, String dni, String clave)
 	{
 		HibernateConnector hibernateConnector = new HibernateConnector();		
-		LogonUser user = hibernateConnector.GetUserByCredentials(LogonUser.class.getSimpleName(), name, clave);
+		Usuario user = hibernateConnector.GetUserByCredentials(Usuario.class.getSimpleName(), name, clave);
+
 		return user;
 	}
 	
-	public User GetUsuario(int idUser)
+	public Usuario GetUsuario(int idUser)
 	{
 		HibernateConnector hibernateConnector = new HibernateConnector();
-		return (User) hibernateConnector.GetRegistry(User.class.getName(), "Id_User = " + idUser + " AND Status = 'A'");
+		return (Usuario) hibernateConnector.GetRegistry(Usuario.class.getSimpleName(), "Id_User = " + idUser + " AND Status = 'A'");
 	}
 }

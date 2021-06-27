@@ -37,9 +37,6 @@ public class Pais implements Serializable {
 
 	@Column(unique=true)
 	private String Nombre;
-	
-	@Column
-	private String Status = "A";
 
 	// Getters and Setters
 	public int getId_Pais() {

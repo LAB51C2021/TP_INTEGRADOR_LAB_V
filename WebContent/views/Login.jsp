@@ -15,12 +15,14 @@
 <body>
 <div class="login-page">
   <div class="form">
-
-    <form autocomplete="off" class="login-form" action="Login.html" method="POST">
-      <input required autocomplete="off" type="text" id="username" placeholder="usuario" name="username" value="${pageContext.request.getAttribute("username")}"/>
-      <input required autocomplete="off" type="password" placeholder="contraseña" name="password" value="${pageContext.request.getAttribute("password")}"/>
-      <button style="color: white">INGRESAR</button>
+	<H3>Ingresar al Home Banking</H3><br>
+    <form autocomplete="on" class="login-form" action="Login.html" method="POST">
+      <input required autocomplete="off" type="text" id="username" placeholder="Usuario" name="username" value="${pageContext.request.getAttribute("username")}"/>
+      <input required autocomplete="off" type="text" id="dni" placeholder="Dni" name="dni" value="${pageContext.request.getAttribute("dni")}"/>
+      <input required autocomplete="off" type="password" placeholder="Clave" name="password" value="${pageContext.request.getAttribute("password")}"/>
+      <button style="color: white; width: 158px">Ingresar</button>
       <p class="message" style="color: #dc3545;">${pageContext.request.getAttribute("error")}</p>
+      <p class="message" style="background-color: white;">¿Olvido sus credenciales?<a href="#" style="background-color: white;"> Recuperar cuenta</a></p>
     </form>
   </div>
 </div>

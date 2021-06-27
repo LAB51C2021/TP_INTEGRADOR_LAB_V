@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="es-AR">
   <head>
@@ -22,63 +23,33 @@
       <!-- Main -->
         <div id="main">
           <div class="inner">
-
             <!-- Header -->
             <header id="header">
               <div class="logo">
-                <a href="Home.html">Banco</a>
+              	 <a>Home Banking</a>
               </div>
             </header>
-
             <section class="services">
               <div class="container-fluid">
-              <div class="row">
-                  <div class="col-md-12" style="margin-bottom: 2rem;">
-                    <div class="down-content">
-	                    <h1>Inicio</h1>
-                      </div>
-                    </div>
-                  </div>
+                
                 <div class="row" style="margin-bottom: 2rem;">
-                  <div class="col-md-4 offset-1">
-                    <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
-                    </div>
-                  </div>
-                  <div class="col-md-4 offset-2">
-                    <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
-                    </div>
-                  </div>
-                  <div></div>
-                  </div>
-                      <div class="row">
-                  <div class="col-md-4 offset-1">
-                    <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
-                    </div>
-                  </div>
-                  <div class="col-md-4 offset-2">
-                    <div class="service-item second-item">
-                      <h1>CUENTA 1</h1>
-                      <p>Caja de ahorro en pesos</p>
-                      <h4>N° 004389 / 3764</h4>
-                      <p>ALIAS.DE.CUENTA</p>
-                      <p>CBU 0009398739810097312</p>
-                    </div>
-                  </div>
+                <c:set var="contador" value="${1}" />
+	                <c:forEach var="dato" items="${lista}">
+	       				<tr>
+		                  	<div class="col-md-4 offset-1">
+								<a href="Movimientos.html?id=${dato.getId_Cuenta()}">
+				                    <div class="service-item second-item" >
+					                      	<h1>CUENTA ${contador}</h1>
+					                      	<p>${dato.getNombre()}</p>
+					                      	<h4>N° ${dato.getNumero_Cuenta()}</h4>
+					                      	<p>${dato.getSaldo()}$</p>
+					                      	<p>CBU ${dato.getCbu()}</p>
+					                    	<c:set var="contador" value="${contador + 1}" />
+				                    </div>
+	             				</a>
+		                  	</div>
+	       				</tr>
+	        		</c:forEach>
                   </div>
               </div>
             </section>
@@ -90,10 +61,13 @@
           <div class="inner">
             <!-- Menu -->
             <nav id="menu">
-            	<span>${sessionScope.sessionUser.toString()}</span>
+            	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
-                <li><a href="Home.html">Cuentas</a></li>
-                <li><a href="Movimientos.html">Movimientos</a></li>
+                <li><a href="HomeCliente.html">Cuentas</a></li>
+                <li>Tarjetas</li>
+                <li>Beneficios</li>
+                <li>Configuración</li>
+                <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>
 

@@ -26,7 +26,7 @@
             <!-- Header -->
             <header id="header">
               <div class="logo">
-                <a href="Home.html">Banco</a>
+              	 <a href="HomeCliente.html">Home Banking</a>
               </div>
             </header>
 

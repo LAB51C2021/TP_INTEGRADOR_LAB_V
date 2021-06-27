@@ -1,5 +1,9 @@
 package controllers;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,66 +13,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import helper.ViewHelper;
 import hibernate.UsuarioHibernate;
-import models.LogonUser;
-import models.User;
+import models.Cuenta;
+import models.Persona;
+import models.Usuario;
 
 @Controller
-public class AccountController {
+public class AccountController 
+{
+	int intentos = 3;
 	
-	private String SetViewNameByUser(User user) {
-		if(user != null) {
-			if(user.getUserType().getDescripcion().equals("Cliente")) {
-				return "HomeCliente";				
-			}
-			if(user.getUserType().getDescripcion().equals("Representante")) {
-				return "HomeRepresentante";				
-			}
-			
-			return "Error";
-		}else {
-			return "Login";			
-		}
-	}
-		
 	@RequestMapping("Login.html")
 	public ModelAndView Login(HttpServletRequest request){
 		
 		//obtengo variable de session
 		HttpSession sessionActiva = request.getSession();
-		User user = (User) sessionActiva.getAttribute("sessionUser");
+		Usuario persona = (Usuario) sessionActiva.getAttribute("sessionUser");
 
 		//redirecciono a donde corresponda
 		ModelAndView MV = new ModelAndView();
-		MV.setViewName(this.SetViewNameByUser(user));
+		MV.setViewName(ViewHelper.SetViewNameByUser(persona));
+		
 		return MV;
 	}
 	
 	@RequestMapping(value = "Login.html", method = RequestMethod.POST)
 	public ModelAndView Ingresar(HttpServletRequest request, HttpServletResponse response){		
-		ModelAndView MV = new ModelAndView();		
+		ModelAndView MV = new ModelAndView();
 		MV.setViewName("Login");
-		//valido contra db
 		
 		String username = request.getParameter("username");
+		String dni = request.getParameter("dni");
 		String pass = request.getParameter("password");
 		
 		UsuarioHibernate usuarioHibernate = new UsuarioHibernate(); 
-		LogonUser UserLogin = usuarioHibernate.GetUserByCredentials(username, "", pass);
+		Usuario usuario = usuarioHibernate.GetUserByCredentials(username, dni, pass);
 		
-		if(UserLogin == null){
+		if(usuario == null)
+		{
 			MV.addObject("username", username);
+			MV.addObject("dni", dni);
 			MV.addObject("password", pass);
-			MV.addObject("error", "error de acceso");
+			MV.addObject("error", "Datos ingresados incorrectos");
+			
 			return MV;
 		}
 		
 		//seteo variable de session
 		HttpSession sessionActiva = request.getSession();
-		sessionActiva.setAttribute("sessionUser", UserLogin.getUser());
+		sessionActiva.setAttribute("sessionUser", usuario);
 		
 		//redirecciono a donde corresponda
-		MV.setViewName(this.SetViewNameByUser(UserLogin.getUser()));
+		MV.setViewName(ViewHelper.SetViewNameByUser(usuario));
 		return MV;
 	}
 	

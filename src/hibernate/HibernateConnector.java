@@ -1,5 +1,7 @@
 package hibernate;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import models.LogonUser;
+import models.Usuario;
 
 public class HibernateConnector 
 {
@@ -111,15 +113,24 @@ public class HibernateConnector
 		return registry;
 	}
 	
-	public LogonUser GetUserByCredentials(String table, String username, String password)
+	public List<Object> GetList(String table, String where)
+	{
+		AbrirConexion();
+		List<Object> registryList = session.createQuery("FROM " + table + " WHERE " + where).list();
+		CerrarConexion();
+
+		return registryList;
+	}
+	
+	public Usuario GetUserByCredentials(String table, String nombre, String clave)
 	{
 		AbrirConexion();
 		
-		Query query = session.createQuery("FROM " + table + " WHERE username= :username AND password= :password AND Status = 'A'");
-		query.setParameter("username", username);
-		query.setParameter("password", password);
+		Query query = session.createQuery("FROM " + table + " WHERE nombre=:nombre AND clave=:clave");
+		query.setParameter("nombre", nombre);
+		query.setParameter("clave", clave);
 		
-		LogonUser foundUser = (LogonUser) query.uniqueResult();
+		Usuario foundUser = (Usuario) query.uniqueResult();
 		CerrarConexion();
 
 		return foundUser;

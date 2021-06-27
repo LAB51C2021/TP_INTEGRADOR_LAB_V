@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="es-AR">
   <head>
@@ -26,18 +27,17 @@
             <!-- Header -->
             <header id="header">
               <div class="logo">
-                <a href="Home.html">Banco</a>
+              	 <a href="HomeCliente.html">Home Banking</a>
               </div>
             </header>
 
             <!-- Banner -->
             <section class="top-image">
-              <div class="container-fluid">
               <div class="row">
                   <div class="col-md-12">
                     <div class="down-content">
 	                    <h1>Movimientos</h1>
-	                    <p>CUENTA N° 004389 / 3764 - Caja de ahorro en pesos</p>
+	                    <p>${datosCuenta}</p>
                     </div>
                     </div>
                   </div>
@@ -49,65 +49,39 @@
                       </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-md-10 offset-1">
-                  	<table id="example" class="display" style="width:100%; margin-bottom: 2rem;">
+                  <div class="col-md-10 offset-0">
+                  	<table id="example" class="display" style="width:120%; margin-bottom: 1rem;">
 				        <thead>
 				            <tr>
-				                <th>Fecha</th>
-				                <th>Detalle</th>
+				                <th>Fecha movimiento</th>
+				                <th>Tipo operación</th>
+				                <th>Cuenta Origen</th>
 				                <th>Cuenta Destino</th>
 				                <th>Monto</th>
 				            </tr>
 				        </thead>
 				        <tbody>
-				            <tr>
-				                <td>22/06/2021</td>
-				                <td>Transferencia</td>
-				                <td>004389376400438937640</td>
-				                <td>$320,800</td>
-				            </tr>
-				            <tr>
-				                <td>22/06/2021</td>
-				                <td>Debito ejemplo</td>
-				                <td>004389376400438937640</td>
-				                <td>- $320,800</td>
-				            </tr>
-				            <tr>
-				                <td>22/06/2021</td>
-				                <td>Transferencia</td>
-				                <td>004389376400438937640</td>
-				                <td>$320,800</td>
-				            </tr>
-				            <tr>
-				                <td>22/06/2021</td>
-				                <td>Debito ejemplo</td>
-				                <td>004389376400438937640</td>
-				                <td>- $320,800</td>
-				            </tr>
-				            <tr>
-				                <td>22/06/2021</td>
-				                <td>Debito ejemplo</td>
-				                <td>004389376400438937640</td>
-				                <td>- $320,800</td>
-				            </tr>
+				        	<c:forEach var="dato" items="${listamovimientos}">
+					            <tr>
+					                <td>${dato.getFecha()}</td>
+					                <td>${dato.getTipo_Movimiento().getNombre()}</td>
+					                <td>${dato.getCuenta_Origen().getCbu()}</td>
+					                <td>${dato.getCuenta_Destino().getCbu()}</td>
+					                <td>$${dato.getMonto()}</td>
+					            </tr>
+				            </c:forEach>
 			            </tbody>
-		            </table>		            
-                  	<div class="row" style="text-align: center;">
-                  		<div class="col-md-4 offset-4">
-                  			<span style="padding: 0 1rem 0 0;">1</span>
-                  			<span style="padding: 0 1rem 0 0;">2</span>
-                  			<span style="padding: 0 1rem 0 0;">3</span>
-                  		</div>
-                  	</div>
+		            </table>
                   </div>
                 </div>
-               
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="down-content" style="text-align: right;">
+	                    <p>Movimientos totales: ${cantidadRegistros}</p>
+                    </div>
+                    </div>
+                  </div>
 			</section>
-		
-		
-		
-		
 		</div>
 	</div>
 
@@ -116,10 +90,13 @@
           <div class="inner">
             <!-- Menu -->
             <nav id="menu">
-            	<span>Jorge Perez</span>
+            	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
-                <li><a href="Home.html">Cuentas</a></li>
-                <li><a href="Movimientos.html">Movimientos</a></li>
+                <li><a href="HomeCliente.html">Cuentas</a></li>
+                <li>Tarjetas</li>
+                <li>Beneficios</li>
+                <li>Configuración</li>
+                <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>
 
