@@ -26,7 +26,7 @@
             <!-- Header -->
             <header id="header">
               <div class="logo">
-              	 <a>Home Banking</a>
+              	 <a href="HomeCliente.html">Home Banking</a>
               </div>
             </header>
             <section class="services">
@@ -64,9 +64,10 @@
             	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
                 <li><a href="HomeCliente.html">Cuentas</a></li>
-                <li>Tarjetas</li>
+                <li><a href="Movimiento.html">Transferencias</a></li>
+                <!-- <li>Tarjetas</li>
                 <li>Beneficios</li>
-                <li>Configuración</li>
+                <li>Configuración</li> -->
                 <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>

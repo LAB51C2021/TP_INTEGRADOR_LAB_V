@@ -26,7 +26,7 @@
             <!-- Header -->
             <header id="header">
               <div class="logo">
-                <a href="Home.html">Banco</a>
+                <a href="HomeRepresentante.html">Home Banking</a>
               </div>
             </header>
 
@@ -62,10 +62,11 @@
           <div class="inner">
             <!-- Menu -->
             <nav id="menu">
-            	<span>Jorge Perez</span>
+            	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
                 <li><a href="Clientes.html">Clientes</a></li>
                 <li><a href="Cuentas.html">Cuentas</a></li>
+                <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>
 

@@ -163,5 +163,10 @@ public class Persona implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		Usuario = usuario;
 	}
-	
+
+	@Override
+	public String toString() {
+		return Nombre_Apellido;
+	}
+		
 }
