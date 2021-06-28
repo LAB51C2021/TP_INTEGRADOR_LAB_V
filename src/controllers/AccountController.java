@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class AccountController
 	int intentos = 3;
 	
 	@RequestMapping("Login.html")
-	public ModelAndView Login(HttpServletRequest request){
+	public ModelAndView Login(HttpServletRequest request) {
 		
 		//obtengo variable de session
 		HttpSession sessionActiva = request.getSession();
@@ -39,7 +40,7 @@ public class AccountController
 	}
 	
 	@RequestMapping(value = "Login.html", method = RequestMethod.POST)
-	public ModelAndView Ingresar(HttpServletRequest request, HttpServletResponse response){		
+	public ModelAndView Ingresar(HttpServletRequest request, HttpServletResponse response) throws IOException{		
 		ModelAndView MV = new ModelAndView();
 		MV.setViewName("Login");
 		
@@ -63,6 +64,8 @@ public class AccountController
 		//seteo variable de session
 		HttpSession sessionActiva = request.getSession();
 		sessionActiva.setAttribute("sessionUser", usuario);
+		
+		response.sendRedirect(ViewHelper.SetViewNameByUser(usuario) + ".html");
 		
 		//redirecciono a donde corresponda
 		MV.setViewName(ViewHelper.SetViewNameByUser(usuario));
