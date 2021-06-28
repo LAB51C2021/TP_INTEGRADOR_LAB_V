@@ -41,12 +41,12 @@
                   </div>
                 <div class="row" style="margin-bottom: 2rem;">
                   <div class="col-md-4 offset-1">
-                    <div class="service-item second-item">
+                    <div class="service-item second-item" href="Clientes.html">
                       <h1>Clientes</h1>
                     </div>
                   </div>
                   <div class="col-md-4 offset-2">
-                    <div class="service-item second-item">
+                    <div class="service-item second-item" href="Cuentas.html">
                       <h1>Cuentas</h1>
                     </div>
                   </div>
@@ -87,5 +87,14 @@
     <script src="./js/transition.js"></script>
     <script src="./js/owl-carousel.js"></script>
     <script src="./js/custom.js"></script>
+    
+    
+    <script>
+    	$(() =>{
+    		$('.second-item').click((e) => {
+    			location.href = e.currentTarget.getAttribute('href')
+    		})
+    	})
+    </script>
   </body>
 </html>

@@ -64,7 +64,7 @@
             	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
                 <li><a href="HomeCliente.html">Cuentas</a></li>
-                <li><a href="Movimiento.html">Transferencias</a></li>
+                <li><a href="NuevaTransferencia.html">Nueva Transferencia</a></li>
                 <!-- <li>Tarjetas</li>
                 <li>Beneficios</li>
                 <li>Configuración</li> -->

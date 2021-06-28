@@ -172,6 +172,7 @@ section {
 	padding: 50px;
 	text-align: center;
 	transition: all 0.5s;
+	cursor: pointer;
 }
 
 .services .service-item .icon {
