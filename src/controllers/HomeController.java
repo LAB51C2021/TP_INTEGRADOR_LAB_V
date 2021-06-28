@@ -23,18 +23,21 @@ public class HomeController {
     @RequestMapping("HomeCliente.html")
 	public ModelAndView Home(HttpServletRequest request)
 	{
+    	ModelAndView MV = new ModelAndView();
     	//obtengo variable de session
     	HttpSession sessionActiva = request.getSession();
-    	Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
-    	
+    	Usuario user = null;
+    	if(sessionActiva.getAttribute("sessionUser") != null) {
+    		user = (Usuario) sessionActiva.getAttribute("sessionUser");
+    		
+    		CuentaHibernate cuentaHibernate = new CuentaHibernate();
+    		List datos = cuentaHibernate.GetAll(user.getId_Usuario());
+    		
+    		MV.addObject("lista", datos);
+    	}
+    	    	
     	//redirecciono a donde corresponda
-		ModelAndView MV = new ModelAndView();		
 		MV.setViewName(ViewHelper.SetViewNameByUser(user));
-		
-		CuentaHibernate cuentaHibernate = new CuentaHibernate();
-		List datos = cuentaHibernate.GetAll(user.getId_Usuario());
-		
-		MV.addObject("lista", datos);
 		
 		return MV;
 	}
@@ -44,7 +47,10 @@ public class HomeController {
 	{
     	//obtengo variable de session
     	HttpSession sessionActiva = request.getSession();
-    	Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
+    	Usuario user = null;
+    	if(sessionActiva.getAttribute("sessionUser") != null) {
+    		user = (Usuario) sessionActiva.getAttribute("sessionUser");
+    	}
     	
     	//redirecciono a donde corresponda
 		ModelAndView MV = new ModelAndView();		
