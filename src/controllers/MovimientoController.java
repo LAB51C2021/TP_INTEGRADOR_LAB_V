@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import hibernate.CuentaHibernate;
 import hibernate.HibernateConnector;
+import hibernate.MovimientoHibernate;
 import models.Cuenta;
 import models.Movimiento;
 
@@ -63,15 +64,21 @@ public class MovimientoController
 	{
 		ModelAndView MV = new ModelAndView();
 
-		Cuenta cuentaOrigen =  cuenta;//request.getParameter("cuentaOrigen"); HAY QUE AGARRAR EL OBJECT DEL COMBOBOX CON LA CUENTA SELECCIONADA
-		String cbu = request.getParameter("cbu");
-		String monto = request.getParameter("monto");
-
-		HibernateConnector hibernateConnector = new HibernateConnector();
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 2, cuenta.getId_Cuenta(), null));
-		//hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), monto, 3, , cuentaOrigen.getId_Cuenta()));
-
-		MV.setViewName("ClienteHome");
+		try
+		{
+			Cuenta cuentaOrigen =  cuenta;//request.getParameter("cuentaOrigen"); HAY QUE AGARRAR EL OBJECT DEL COMBOBOX CON LA CUENTA SELECCIONADA
+			String cbu = request.getParameter("cbu");
+			Float monto = Float.parseFloat(request.getParameter("monto"));
+			
+			MovimientoHibernate movimientoHibernate = new MovimientoHibernate();
+			movimientoHibernate.NuevaTransferencia(cuenta, cbu, monto);
+			MV.setViewName("HomeCliente");
+		} 
+		catch (Exception e) 
+		{
+			System.out.print(e.getMessage());
+			MV.setViewName("NuevaTransferencia");
+		}
 		
 		return MV;
 	}

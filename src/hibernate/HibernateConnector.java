@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import models.Cuenta;
 import models.Usuario;
 
 public class HibernateConnector 
@@ -122,11 +123,11 @@ public class HibernateConnector
 		return registryList;
 	}
 	
-	public Usuario GetUserByCredentials(String table, String nombre, String clave)
+	public Usuario GetUserByCredentials(String nombre, String clave)
 	{
 		AbrirConexion();
 		
-		Query query = session.createQuery("FROM " + table + " WHERE nombre=:nombre AND clave=:clave");
+		Query query = session.createQuery("FROM " + Usuario.class.getSimpleName() + " WHERE nombre=:nombre AND clave=:clave");
 		query.setParameter("nombre", nombre);
 		query.setParameter("clave", clave);
 		
@@ -134,5 +135,18 @@ public class HibernateConnector
 		CerrarConexion();
 
 		return foundUser;
+	}
+	
+	public Cuenta GetAccountByCredentials(String cbu)
+	{
+		AbrirConexion();
+		
+		Query query = session.createQuery("FROM " + Cuenta.class.getSimpleName() + " WHERE cbu=:cbu");
+		query.setParameter("cbu", cbu);
+		
+		Cuenta foundAccount = (Cuenta) query.uniqueResult();
+		CerrarConexion();
+
+		return foundAccount;
 	}
 }

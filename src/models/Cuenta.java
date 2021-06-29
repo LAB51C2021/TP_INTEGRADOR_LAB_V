@@ -61,6 +61,7 @@ public class Cuenta implements Serializable {
 	@Column(unique=true)
 	private String Numero_Cuenta;
 
+	@Column(unique=true)
 	private String Cbu;
 
 	@Column
@@ -131,6 +132,14 @@ public class Cuenta implements Serializable {
 
 	public void setSaldo(float saldo) {
 		Saldo = saldo;
+	}
+
+	public void setSumarSaldo(float monto) {
+		Saldo += monto;
+	}
+
+	public void setRestarSaldo(float monto) {
+		Saldo -= monto;
 	}
 
 	public Tipo_Cuenta getTipo_Cuenta() {
