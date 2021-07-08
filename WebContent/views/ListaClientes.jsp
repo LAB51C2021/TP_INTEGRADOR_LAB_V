@@ -24,7 +24,7 @@
 	            </tr>
                 <c:forEach var="cliente" items="${clientes}">
                 <tr>
-		            <td><a href="Cliente/Editar.html?idCliente=${cliente.getId_Cliente()} }"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+		            <td><a href="./Editar.html?idCliente=${cliente.getId_Cliente()} }"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
 		                <td>${cliente.getNombre_Apellido()}</td>
 		                <td>${cliente.getDni()}</td>
 		                <td>${cliente.getFecha_Nacimiento()}</td>
