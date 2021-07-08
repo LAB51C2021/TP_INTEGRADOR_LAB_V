@@ -50,107 +50,7 @@
                     </div>
                   </div>
                   <div class="col-md-10 offset-1">
-                  	<table id="example" class="display" style="width:100%; margin-bottom: 2rem;">
-				        <thead>
-				            <tr>
-				            	<th></th>
-				                <th>Nombre</th>
-				                <th>DNI</th>
-				                <th>Fec. Nacimiento</th>
-				                <th>Direccion</th>
-				                <th>Localidad</th>
-				                <th>Provincia</th>	
-				                <th>Activo</th>			                
-				            </tr>
-				        </thead>
-				        <tbody>
-				       	 	<tr>
-				                <td></td>
-				                <td><input placeholder="Nombre"></td>
-				                <td><input placeholder="DNI"></td>		
-				                <td></td>
-				                <td></td>
-				                <td></td>
-				                <td></td>
-				                <td></td>		               
-				            </tr>
-				            <tr>
-				            <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-				                <td>Jorge Perez</td>
-				                <td>24586594</td>
-				                <td>01/01/1981</td>
-				                <td>Calle Prueba 1</td>
-				                <td>General Pacheco</td>
-				                <td>Buenos Aires</td>
-				                <td>
-									<label class="switch">
-								    <input type="checkbox" checked>
-								    <span class="slider round"></span>
-									</label>
-								</td>
-				            </tr>
-				            <tr>
-				            <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-				                <td>Jorge Perez</td>
-				                <td>24586594</td>
-				                <td>01/01/1981</td>
-				                <td>Calle Prueba 1</td>
-				                <td>General Pacheco</td>
-				                <td>Buenos Aires</td>
-				                <td>
-									<label class="switch">
-								    <input type="checkbox" checked>
-								    <span class="slider round"></span>
-									</label>
-								</td>
-				            </tr>
-				            <tr>
-				            <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-				                <td>Jorge Perez</td>
-				                <td>24586594</td>
-				                <td>01/01/1981</td>
-				                <td>Calle Prueba 1</td>
-				                <td>General Pacheco</td>
-				                <td>Buenos Aires</td>
-				                <td>
-									<label class="switch">
-								    <input type="checkbox" checked>
-								    <span class="slider round"></span>
-									</label>
-								</td>
-				            </tr>
-				            <tr>
-				            <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-				                <td>Jorge Perez</td>
-				                <td>24586594</td>
-				                <td>01/01/1981</td>
-				                <td>Calle Prueba 1</td>
-				                <td>General Pacheco</td>
-				                <td>Buenos Aires</td>
-				                <td>
-									<label class="switch">
-								    <input type="checkbox" checked>
-								    <span class="slider round"></span>
-									</label>
-								</td>
-				            </tr>
-				            <tr>
-				            <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-				                <td>Jorge Perez</td>
-				                <td>24586594</td>
-				                <td>01/01/1981</td>
-				                <td>Calle Prueba 1</td>
-				                <td>General Pacheco</td>
-				                <td>Buenos Aires</td>
-				                <td>
-									<label class="switch">
-								    <input type="checkbox" checked>
-								    <span class="slider round"></span>
-									</label>
-								</td>
-				            </tr>
-			            </tbody>
-		            </table>		            
+                  	<div id="result"></div>		            
                   	<div class="row" style="text-align: center;">
                   		<div class="col-md-4 offset-4">
                   			<span style="padding: 0 1rem 0 0;">1</span>
@@ -201,4 +101,12 @@
     <script src="./js/owl-carousel.js"></script>
     <script src="./js/custom.js"></script>
   </body>
+  
+  <script>
+  	$(() =>{
+  		$.get('./GetAllClientes.html', (data) =>{
+  			$('#result').html(data);
+  		})
+  	})
+  </script>
 </html>
