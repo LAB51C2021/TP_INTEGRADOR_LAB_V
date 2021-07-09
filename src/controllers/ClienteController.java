@@ -16,7 +16,7 @@ import models.Usuario;
 @Controller
 public class ClienteController {
 
-	@RequestMapping("GetAllClientes.html")
+	@RequestMapping("Clientes.html")
 	public ModelAndView Clientes(HttpServletRequest request)
 	{
 		ModelAndView MV = new ModelAndView();
@@ -30,7 +30,7 @@ public class ClienteController {
     		List datos = ClienteHibernate.GetAllClientes();
     		
     		MV.addObject("clientes", datos);
-    		MV.setViewName("ListaClientes");
+    		MV.setViewName("Clientes");
     	}else {
     		MV.setViewName("Login");
     	}

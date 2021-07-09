@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="es-AR">
   <head>
@@ -50,16 +51,54 @@
                     </div>
                   </div>
                   <div class="col-md-10 offset-1">
-                  	<div id="result"></div>		            
-                  	<div class="row" style="text-align: center;">
-                  		<div class="col-md-4 offset-4">
-                  			<span style="padding: 0 1rem 0 0;">1</span>
-                  			<span style="padding: 0 1rem 0 0;">2</span>
-                  			<span style="padding: 0 1rem 0 0;">3</span>
-                  			<span style="padding: 0 1rem 0 0;">4</span>
-                  			<span style="padding: 0 1rem 0 0;">5</span>
-                  		</div>
-                  	</div>
+                  	<table id="table" class="display" style="width:100%; margin-bottom: 2rem;">
+	        <thead>
+	            <tr>
+	            	<th></th>
+	                <th>Nombre</th>
+	                <th>DNI</th>
+	                <th>Fec. Nacimiento</th>
+	                <th>Direccion</th>
+	                <th>Localidad</th>
+	                <th>Provincia</th>	
+	                <th>Activo</th>			                
+	            </tr>
+	        </thead>
+	        <tbody>
+	       	 	<tr id="notHidden">
+	                <td></td>
+	                <td><input id="nombre" placeholder="Nombre" onkeyup="BusquedaNombreApellido()"></td>
+	                <td><input id="DNI" placeholder="DNI" onkeyup="BusquedaDNI()"></td>		
+	                <td></td>
+	                <td></td>
+	                <td></td>
+	                <td></td>
+	                <td></td>		               
+	            </tr>
+                <c:forEach var="cliente" items="${clientes}">
+                <tr>
+		            <td><a href="./Editar.html?idCliente=${cliente.getId_Cliente()}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+		                <td>${cliente.getNombre_Apellido()}</td>
+		                <td>${cliente.getDni()}</td>
+		                <td>${cliente.getFecha_Nacimiento()}</td>
+		                <td>${cliente.getDireccion()}</td>
+		                <td>${cliente.getLocalidad()}</td>
+		                <td>${cliente.getProvincia().getNombre()}</td>
+		                <td>
+							<label class="switch">
+							<c:if test="${cliente.isHabilitado()}">
+								<input type="checkbox" checked>
+							</c:if>
+							<c:if test="${!cliente.isHabilitado()}">
+								<input type="checkbox">
+							</c:if>
+						    <span class="slider round"></span>
+							</label>
+						</td>
+		            </tr>
+        		</c:forEach>
+            </tbody>
+           </table> 
                   </div>
                 </div>
                
@@ -103,10 +142,52 @@
   </body>
   
   <script>
+  function BusquedaNombreApellido() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("nombre");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+    	  if(tr[i].id != 'notHidden'){
+	          td = tr[i].getElementsByTagName("td")[1];
+	          if (td) {
+	              txtValue = td.textContent || td.innerText;
+	              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	                  tr[i].style.display = "";
+	              } else {
+	                  tr[i].style.display = "none";
+	              }
+	          }    		  
+    	  }
+      }
+  }
+
+  
+  function BusquedaDNI() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("DNI");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+    	  if(tr[i].id != 'notHidden'){
+	          td = tr[i].getElementsByTagName("td")[2];
+	          if (td) {
+	              txtValue = td.textContent || td.innerText;
+	              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	                  tr[i].style.display = "";
+	              } else {
+	                  tr[i].style.display = "none";
+	              }
+	          }    		  
+    	  }
+      }
+  }
+
+  
   	$(() =>{
-  		$.get('./GetAllClientes.html', (data) =>{
-  			$('#result').html(data);
-  		})
+  		
   	})
   </script>
 </html>

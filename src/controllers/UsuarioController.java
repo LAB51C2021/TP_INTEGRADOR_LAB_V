@@ -15,14 +15,6 @@ import models.Usuario;
 @Controller
 public class UsuarioController {
 
-	@RequestMapping("Clientes.html")
-	public ModelAndView Index()
-	{
-		ModelAndView MV = new ModelAndView();
-		MV.setViewName("Clientes");
-		return MV;
-	}
-	
 	@RequestMapping("ClienteDetalle.html")
 	public ModelAndView Details()
 	{
