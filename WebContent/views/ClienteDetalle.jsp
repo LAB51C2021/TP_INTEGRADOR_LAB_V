@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="es-AR">
   <head>
@@ -46,7 +47,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input style="width:80%;">
+	                    	<input style="width:80%;" value="${cliente.getNombre_Apellido()}">
 	                    </div>
 	                  </div>
                 	</div>
@@ -56,7 +57,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input style="width:80%;">
+	                    	<input style="width:80%;" value="${cliente.getDni()}">
 	                    </div>
 	                  </div>
                 	</div>
@@ -66,7 +67,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input style="width:80%;">
+	                    	<input style="width:80%;" type="date" value="${cliente.getFecha_Nacimiento()}">
 	                    </div>
 	                  </div>
                 	</div>
@@ -88,7 +89,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input style="width:80%;">
+	                    	<input style="width:80%;" value="${cliente.getDireccion()}">
 	                    </div>
 	                  </div>
                 	</div>
@@ -129,11 +130,14 @@
 	                  </div>
                 	</div>	
                 <div class="row">
-                  <div class="col-md-5" style="text-align: center;">
+                  <div class="row" style="text-align: center;">
                   	<div class="primary-button">
                         <a href="NuevaTransferencia.html">Confirmar</a>
-                 </div>                
-                 	</div>
+               		</div>                
+                  	<div class="primary-button">
+                        <a href="./Clientes.html">Volver</a>
+               		</div> 
+                  </div>
                 </div>
 			</section>
          

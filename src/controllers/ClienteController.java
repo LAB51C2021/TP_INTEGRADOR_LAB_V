@@ -48,15 +48,17 @@ public class ClienteController {
     	if(sessionActiva.getAttribute("sessionUser") != null) {
     		user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
-    		if(request.getParameter("idPersona") != null) {
-    			String idPersona = request.getParameter("idPersona");
+    		if(request.getParameter("idCliente") != null) {
+    			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
         		        		
         		ClienteHibernate ClienteHibernate = new ClienteHibernate();
         		Persona datos = ClienteHibernate.GetCliente(id);
         		MV.addObject("cliente", datos);
-    		}    		
-    		MV.setViewName("ClienteDetalle");
+        		MV.setViewName("ClienteDetalle");
+    		}else {
+    			MV.setViewName("Clientes");    			
+    		}
     	}else {
     		MV.setViewName("Login");    		
     	}
