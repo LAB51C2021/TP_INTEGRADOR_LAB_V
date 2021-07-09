@@ -18,15 +18,15 @@ public class CuentaHibernate
 		return (Cuenta) hibernateConnector.GetEntityKey(idCuenta, Cuenta.class.getName());
 	}
 	
-	public List<Object> GetAll(int idCuenta)
+	public List<Object> GetAll(int idUsuario)
 	{
 		HibernateConnector hibernateConnector = new HibernateConnector();
-		return hibernateConnector.GetList(Cuenta.class.getSimpleName(), "Id_Usuario = " + idCuenta);
+		return hibernateConnector.GetList(Cuenta.class.getSimpleName(), "Id_Usuario = " + idUsuario);
 	}
 	
 	public Cuenta GetCuentaPorCbu(String cbu)
 	{
 		HibernateConnector hibernateConnector = new HibernateConnector();
-		return (Cuenta) hibernateConnector.GetRegistry(Cuenta.class.getSimpleName(), "Cbu = " + cbu);
+		return (Cuenta) hibernateConnector.GetAccountByCredentials(cbu);
 	}
 }

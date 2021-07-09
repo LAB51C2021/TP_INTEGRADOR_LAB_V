@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="./css/flex-slider.css">
 	<link rel="stylesheet" href="./css/owl.css">
 	<link rel="stylesheet" href="./css/style.css">
+	<script src="./js/jquery-validation-1.19.3/dist/jquery.validate.min.js"></script>
     <title></title>
   </head>
   <body>
@@ -31,7 +32,7 @@
 
 		<!-- Banner -->
           <section class="top-image">
-   			<form autocomplete="on" class="ConfirmarTransferencia-form" action="ConfirmarTransferencia.html" method="POST">
+   			<form id="formTransferencia" autocomplete="on" class="ConfirmarTransferencia-form" action="ConfirmarTransferencia.html" method="POST">
                 <div class="row">
                   <div class="col-md-15" style="margin-bottom: 2rem;">
                     <div class="down-content">
@@ -45,7 +46,7 @@
                   </div>
                   <div class="col-md-4">
                     <div class="service-item second-item" style="padding-top: 1.5rem;">
-                    	<select id="cuentaorigen" style="width: 80%" onchange="getSelectValue();">
+                    	<select id="cuentaOrigen" name="cuentaOrigen" style="width: 80%" onchange="getSelectValue();">
 				        	<c:forEach var="cuentaItem" items="${cuentaList}">
                     			<option value="${cuentaItem.getId_Cuenta()}">${cuentaItem}</option>
 				        	</c:forEach>
@@ -59,7 +60,7 @@
                   </div>
                   <div class="col-md-4">
                     <div class="service-item second-item" style="padding-top: 1.5rem;">
-                    	 <input required autocomplete="off" style="width: 80%" type="text" id="cbu" placeholder="Ingrese el cbu" name="cbu" />
+                    	 <input required autocomplete="off" style="width: 80%" type="text" id="cbuDestino" placeholder="Ingrese el cbu" name="cbu" />
                     </div>
                   </div>
                 </div>
@@ -73,11 +74,19 @@
                     </div>
                   </div>
                 </div><br><br>
+                
+                <div class="row" style="text-align: center; color:red;">                  
+                  <div class="col-md-6">
+                    <c:forEach var="error" items="${listaErrores}">
+                  		<p class=".error">${error}</p>
+		        	</c:forEach>
+                  </div>
+                </div><br><br>
                 <div align="center" style="width: 469px; ">
-             		<button style="color: black; width: 158px">Transferir</button>
-    				<button style="color: black; width: 158px">Cancelar</button>
+             		<button style="color: black; width: 158px" id="transferirButton" type="submit">Transferir</button>
+    				<button style="color: black; width: 158px" id="volverButton">Volver</button>
                 </div>
-    			</form>   
+               </form> 
 			 </section>   
           </div>
         </div>
@@ -114,5 +123,39 @@
     <script src="./js/transition.js"></script>
     <script src="./js/owl-carousel.js"></script>
     <script src="./js/custom.js"></script>
+    <script>
+   		 $(document).ready(function() {
+
+   		  $('form[id="formTransferencia"]').validate({
+   			    rules: {
+   			      cuentaOrigen: 'required',
+   			      cbuDestino: 'required',
+   			   	  monto:{ required: true, montoMaximo : true}
+   			    },
+   			    messages: {
+   			      cuentaOrigen: 'Campo requerido',
+   			   	  cbuDestino: 'Campo requerido',
+   			      monto: {
+   			    	required: 'Campo requerido',
+   			    	montoMaximo: 'El monto ingresado no puede superar el saldo'
+   			      }
+   			    },
+   			    submitHandler: function(form) {
+   			      form.submit();
+   			    }
+   			  });
+   	  	});
+    
+   		jQuery.validator.addMethod("montoMaximo", function(value, element) {
+   		  return value <= parseFloat(document.getElementById("cuentaOrigen")[document.getElementById("cuentaOrigen").selectedIndex].innerText.split(" ").slice(-1));
+   		}, "El monto ingresado no puede superar el saldo.");
+   		
+   		 
+	    $(document).on("click", "#volverButton", function() { 
+	    	e.preventDefault();
+	    	$.get("HomeCliente.html", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+	        });
+	    });
+    </script>
   </body>
 </html>

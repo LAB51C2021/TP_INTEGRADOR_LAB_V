@@ -67,7 +67,7 @@
 					                <td>${dato.getTipo_Movimiento().getNombre()}</td>
 					                <td>${dato.getCuenta_Origen().getCbu()}</td>
 					                <td>${dato.getCuenta_Destino().getCbu()}</td>
-					                <td>$${dato.getMonto()}</td>
+					                <td>${dato.getCuenta_Origen().getTipo_Cuenta().getMoneda()} ${dato.getMonto()}</td>
 					            </tr>
 				            </c:forEach>
 			            </tbody>
@@ -93,9 +93,10 @@
             	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
                 <li><a href="HomeCliente.html">Cuentas</a></li>
-                <li>Tarjetas</li>
+                <li><a href="NuevaTransferencia.html">Nueva Transferencia</a></li>
+                <!-- <li>Tarjetas</li>
                 <li>Beneficios</li>
-                <li>Configuración</li>
+                <li>Configuración</li> -->
                 <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>

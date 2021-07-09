@@ -1,10 +1,12 @@
 package controllers;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import hibernate.HibernateConnector;
 import hibernate.MovimientoHibernate;
 import models.Cuenta;
 import models.Movimiento;
+import models.Usuario;
 
 @Controller
 public class MovimientoController 
@@ -46,8 +49,10 @@ public class MovimientoController
 	@RequestMapping("NuevaTransferencia.html")
 	public ModelAndView NuevaTransferencia(HttpServletRequest request)
 	{
+		HttpSession sessionActiva = request.getSession();
+		Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
 		CuentaHibernate cuentaHibernate = new CuentaHibernate();
-		List listaCuentas = cuentaHibernate.GetAll(idCuenta);
+		List listaCuentas = cuentaHibernate.GetAll(user.getId_Usuario());
 		
 		ModelAndView MV = new ModelAndView();
 		MV.setViewName("NuevaTransferencia");
@@ -59,27 +64,40 @@ public class MovimientoController
 		return MV;
 	}
 
-	@RequestMapping("ConfirmarTransferencia.html")
+	@RequestMapping(value= "ConfirmarTransferencia.html", method = RequestMethod.POST)
 	public ModelAndView ConfirmarTransferenciaPost(HttpServletRequest request)
 	{
 		ModelAndView MV = new ModelAndView();
-
+		HttpSession sessionActiva = request.getSession();
+		Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
+		
 		try
 		{
-			Cuenta cuentaOrigen =  cuenta;//request.getParameter("cuentaOrigen"); HAY QUE AGARRAR EL OBJECT DEL COMBOBOX CON LA CUENTA SELECCIONADA
-			String cbu = request.getParameter("cbu");
+			CuentaHibernate cuentaHibernate = new CuentaHibernate();
+			List listaCuentas = cuentaHibernate.GetAll(user.getId_Usuario());
+			Cuenta cuentaOrigen = cuentaHibernate.GetId(Integer.parseInt(request.getParameter("cuentaOrigen")));
+			Cuenta cuentaDestino = cuentaHibernate.GetCuentaPorCbu(request.getParameter("cbu"));
 			Float monto = Float.parseFloat(request.getParameter("monto"));
 			
-			MovimientoHibernate movimientoHibernate = new MovimientoHibernate();
-			movimientoHibernate.NuevaTransferencia(cuenta, cbu, monto);
-			MV.setViewName("HomeCliente");
+			if(cuentaDestino == null) {
+				List<String> listaErrores = new ArrayList<String>();
+				listaErrores.add("No existe el CBU de destino.");
+				MV.addObject("errores", listaErrores);
+			}
+			else {
+				MV.addObject("id", cuentaOrigen.getId_Cuenta());
+				MV.addObject("cuenta", cuentaOrigen);
+				MV.addObject("cuentaList", listaCuentas);
+				MovimientoHibernate movimientoHibernate = new MovimientoHibernate();
+				movimientoHibernate.NuevaTransferencia(cuentaOrigen, cuentaDestino.getCbu(), monto);
+			}
 		} 
 		catch (Exception e) 
 		{
 			System.out.print(e.getMessage());
-			MV.setViewName("NuevaTransferencia");
 		}
-		
+
+		MV.setViewName("NuevaTransferencia");
 		return MV;
 	}
 }
