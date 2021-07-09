@@ -123,7 +123,7 @@ public class HibernateConnector
 		return registryList;
 	}
 	
-	public Usuario GetUserByCredentials(String nombre, String clave)
+	public Usuario GetUserByCredentials(String nombre, String dni, String clave)
 	{
 		AbrirConexion();
 		
@@ -148,5 +148,5 @@ public class HibernateConnector
 		CerrarConexion();
 
 		return foundAccount;
-	}
+	}	
 }

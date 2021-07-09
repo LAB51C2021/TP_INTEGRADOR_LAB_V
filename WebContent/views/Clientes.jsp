@@ -60,8 +60,7 @@
 	                <th>Fec. Nacimiento</th>
 	                <th>Direccion</th>
 	                <th>Localidad</th>
-	                <th>Provincia</th>	
-	                <th>Activo</th>			                
+	                <th>Provincia</th>		                
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -72,8 +71,7 @@
 	                <td></td>
 	                <td></td>
 	                <td></td>
-	                <td></td>
-	                <td></td>		               
+	                <td></td>	               
 	            </tr>
                 <c:forEach var="cliente" items="${clientes}">
                 <tr>
@@ -84,17 +82,6 @@
 		                <td>${cliente.getDireccion()}</td>
 		                <td>${cliente.getLocalidad()}</td>
 		                <td>${cliente.getProvincia().getNombre()}</td>
-		                <td>
-							<label class="switch">
-							<c:if test="${cliente.isHabilitado()}">
-								<input type="checkbox" checked>
-							</c:if>
-							<c:if test="${!cliente.isHabilitado()}">
-								<input type="checkbox">
-							</c:if>
-						    <span class="slider round"></span>
-							</label>
-						</td>
 		            </tr>
         		</c:forEach>
             </tbody>

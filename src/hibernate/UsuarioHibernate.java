@@ -7,7 +7,7 @@ public class UsuarioHibernate
 	public Usuario GetUserByCredentials(String name, String dni, String clave)
 	{
 		HibernateConnector hibernateConnector = new HibernateConnector();		
-		Usuario user = hibernateConnector.GetUserByCredentials(name, clave);
+		Usuario user = hibernateConnector.GetUserByCredentials(name, dni, clave);
 
 		return user;
 	}
