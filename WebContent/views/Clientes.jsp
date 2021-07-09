@@ -45,7 +45,7 @@
                   <div class="col-md-12" style="margin-bottom: 2rem;">
                     <div class="down-content">
                     <div class="primary-button">
-                        <a href="ClienteDetalle.html">Nuevo Cliente</a>
+                        <a href="./Editar.html">Nuevo Cliente</a>
                       </div>
                       </div>
                     </div>

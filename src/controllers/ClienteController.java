@@ -48,6 +48,9 @@ public class ClienteController {
 	public ModelAndView Cliente(HttpServletRequest request)
 	{
 		ModelAndView MV = new ModelAndView();
+		ClienteHibernate ClienteHibernate = new ClienteHibernate();
+		MV.addObject("provincias", ClienteHibernate.getProvincias());
+		MV.addObject("paises", ClienteHibernate.getPaises());
 		
 		HttpSession sessionActiva = request.getSession();
     	Usuario user = null;
@@ -58,18 +61,11 @@ public class ClienteController {
     			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
         		        		
-        		ClienteHibernate ClienteHibernate = new ClienteHibernate();
         		Persona datos = ClienteHibernate.GetCliente(id);
         		MV.addObject("cliente", datos);
-        		MV.setViewName("ClienteDetalle");
         		
-        		
-        		MV.addObject("provincias", ClienteHibernate.getProvincias());
-				MV.addObject("paises", ClienteHibernate.getPaises());
-        		
-    		}else {
-    			MV.setViewName("Clientes");    			
     		}
+    		MV.setViewName("ClienteDetalle");   
     	}else {
     		MV.setViewName("Login");    		
     	}
@@ -77,8 +73,8 @@ public class ClienteController {
 		return MV;
 	}
 	
-	@RequestMapping(value = "Editar.html", method = RequestMethod.POST)
-	public ModelAndView Editar(HttpServletRequest request, HttpServletResponse response) throws IOException
+	@RequestMapping(value = "Grabar.html", method = RequestMethod.POST)
+	public ModelAndView Grabar(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		ModelAndView MV = new ModelAndView();
 		

@@ -91,8 +91,8 @@
 	                  	<h4>Dirección</h4>                  
                   	  </div>
 	                  <div class="col-md-4">
-	                    <div class="service-item second-item" style="padding-top: 1.5rem;" id="direccion" placeholder="Ingrese direccion" name="direccion">
-	                    	<input required class="form-control" style="width:80%;" value="${cliente.getDireccion()}">
+	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
+	                    	<input required id="direccion" placeholder="Ingrese direccion" name="direccion" class="form-control" style="width:80%;" value="${cliente.getDireccion()}">
 	                    </div>
 	                  </div>
                 	</div>
@@ -128,14 +128,16 @@
                   <div class="row" style="text-align: center;">
                   	<div class="col">
 	                  	<div class="primary-button">
-	                        <a id="saveClient" href="NuevaTransferencia.html">Guardar</a>
+	                        <a id="saveClient" href="Guardar.html">Guardar</a>
 	               		</div>   
                   	</div>
-                  	<div class="col">
-	                  	<div class="primary-button">
-	                        <a href="#" id="deleteClient">Eliminar</a>
-	               		</div>   
-                  	</div>
+                  	<c:if test="${cliente.getId_Cliente() != null}">
+                  		<div class="col">
+		                  	<div class="primary-button">
+		                        <a href="#" id="deleteClient">Eliminar</a>
+		               		</div>   
+	                  	</div>
+                  	</c:if>
                   	<div class="col">
 	                  	<div class="primary-button">
 	                        <a href="./Clientes.html">Volver</a>
@@ -205,7 +207,7 @@
     			e.preventDefault()
     			
     			if($('#mainForm').valid()){
-    				$.post('./Editar.html', $('#mainForm').serialize())
+    				$.post('./Grabar.html', $('#mainForm').serialize())
     			}
     		})
     		
@@ -229,7 +231,8 @@
     			    },
     			    callback: function (result) {
     			    	if(result){
-    			    		$.post('./Eliminar.html', {idCliente: ${cliente.getId_Cliente()}}, (data) => {
+    			    		var code = ${cliente.getId_Cliente() != null ? cliente.getId_Cliente() : cliente.getId_Cliente()}
+    			    		$.post('./Eliminar.html', { idCliente: code }, (data) => {
     			    			location.href = "./Clientes.html"
     			    		})
     			    	}
