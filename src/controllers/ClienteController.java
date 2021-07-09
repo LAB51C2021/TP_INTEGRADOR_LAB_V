@@ -3,10 +3,12 @@ package controllers;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import hibernate.ClienteHibernate;
@@ -58,6 +60,33 @@ public class ClienteController {
         		MV.setViewName("ClienteDetalle");
     		}else {
     			MV.setViewName("Clientes");    			
+    		}
+    	}else {
+    		MV.setViewName("Login");    		
+    	}
+		
+		return MV;
+	}
+		
+	@RequestMapping(value = "Eliminar.html", method = RequestMethod.POST)
+	public ModelAndView Eliminar(HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView MV = new ModelAndView();
+		
+		HttpSession sessionActiva = request.getSession();
+    	Usuario user = null;
+    	if(sessionActiva.getAttribute("sessionUser") != null) {
+    		user = (Usuario) sessionActiva.getAttribute("sessionUser");
+    		
+    		if(request.getParameter("idCliente") != null) {
+    			String idPersona = request.getParameter("idCliente");
+    			int id = Integer.parseInt(idPersona);
+        		        		
+        		ClienteHibernate ClienteHibernate = new ClienteHibernate();
+        		Persona datos = ClienteHibernate.GetCliente(id);
+        		datos.setHabilitado(false);
+        		ClienteHibernate.Actualizar(datos);
+        		MV.setViewName("Clientes");
     		}
     	}else {
     		MV.setViewName("Login");    		

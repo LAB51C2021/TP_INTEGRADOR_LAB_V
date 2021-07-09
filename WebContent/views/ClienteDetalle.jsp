@@ -131,12 +131,21 @@
                 	</div>	
                 <div class="row">
                   <div class="row" style="text-align: center;">
-                  	<div class="primary-button">
-                        <a href="NuevaTransferencia.html">Confirmar</a>
-               		</div>                
-                  	<div class="primary-button">
-                        <a href="./Clientes.html">Volver</a>
-               		</div> 
+                  	<div class="col">
+	                  	<div class="primary-button">
+	                        <a href="NuevaTransferencia.html">Confirmar</a>
+	               		</div>   
+                  	</div>
+                  	<div class="col">
+	                  	<div class="primary-button">
+	                        <a href="#" id="deleteClient">Eliminar</a>
+	               		</div>   
+                  	</div>
+                  	<div class="col">
+	                  	<div class="primary-button">
+	                        <a href="./Clientes.html">Volver</a>
+	               		</div> 
+                  	</div>
                   </div>
                 </div>
 			</section>
@@ -177,5 +186,42 @@
     <script src="./js/transition.js"></script>
     <script src="./js/owl-carousel.js"></script>
     <script src="./js/custom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js" integrity="sha512-RdSPYh1WA6BF0RhpisYJVYkOyTzK4HwofJ3Q7ivt/jkpW6Vc8AurL1R+4AUcvn9IwEKAPm/fk7qFZW3OuiUDeg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    
+    <script type="text/javascript">
+    	$(() =>{
+    		$('#deleteClient').click((e)=>{
+    			e.preventDefault()
+    			
+    			
+    			bootbox.confirm({
+    			    message: "Esta seguro que desea eliminar el cliente y todas sus cuentas asociadas?",
+    			    backdrop: true,
+    			    closeButton: false,
+    			    buttons: {
+    			        confirm: {
+    			            label: 'Aceptar',
+    			            className: 'btn-success'
+    			        },
+    			        cancel: {
+    			            label: 'Cancelar',
+    			            className: 'btn-danger'
+    			        }
+    			    },
+    			    callback: function (result) {
+    			    	if(result){
+    			    		$.post('./Eliminar.html', {idCliente: ${cliente.getId_Cliente()}}, (data) => {
+    			    			location.href = "./Clientes.html"
+    			    		})
+    			    	}
+    			    }
+    			});
+    		})
+    		
+    		
+    	})
+    
+    </script>
   </body>
 </html>
