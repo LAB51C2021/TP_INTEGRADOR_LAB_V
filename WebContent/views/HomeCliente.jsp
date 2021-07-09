@@ -37,12 +37,12 @@
 	                <c:forEach var="dato" items="${lista}">
 	       				<tr>
 		                  	<div class="col-md-4 offset-1">
-								<a href="Movimientos.html?id=${dato.getId_Cuenta()}">
+								<a href="Movimientos.html?id=${dato.getId_Cuenta()}" class="cuenta">
 				                    <div class="service-item second-item" >
 					                      	<h1>CUENTA ${contador}</h1>
 					                      	<p>${dato.getNombre()}</p>
 					                      	<h4>N° ${dato.getNumero_Cuenta()}</h4>
-					                      	<p>${dato.getSaldo()}$</p>
+					                      	<p>${dato.getTipo_Cuenta().getMoneda()} ${dato.getSaldo()}</p>
 					                      	<p>CBU ${dato.getCbu()}</p>
 					                    	<c:set var="contador" value="${contador + 1}" />
 				                    </div>

@@ -67,7 +67,7 @@
 					                <td>${dato.getTipo_Movimiento().getNombre()}</td>
 					                <td>${dato.getCuenta_Origen().getCbu()}</td>
 					                <td>${dato.getCuenta_Destino().getCbu()}</td>
-					                <td>$${dato.getMonto()}</td>
+					                <td>${dato.getCuenta_Origen().getTipo_Cuenta().getMoneda()} ${dato.getMonto()}</td>
 					            </tr>
 				            </c:forEach>
 			            </tbody>

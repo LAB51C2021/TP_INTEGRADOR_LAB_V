@@ -1443,3 +1443,11 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.cuenta {
+	text-decoration: none;
+}
+
+.error {
+	color: red;
+}

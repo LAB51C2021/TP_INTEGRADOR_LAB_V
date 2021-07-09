@@ -82,7 +82,7 @@ public class Cuenta implements Serializable {
     @Override
     public String toString()
     {
-    	return ViewHelper.GetLetraPorTipo(getTipo_Cuenta()) + " N° " + Numero_Cuenta + " - $" + Saldo;
+    	return ViewHelper.GetLetraPorTipo(getTipo_Cuenta()) + " N° " + Numero_Cuenta + " - " + getTipo_Cuenta().getMoneda() + " " + Saldo;
     }
     
 	// Getters and Setters

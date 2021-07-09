@@ -54,4 +54,8 @@ public class Tipo_Cuenta implements Serializable {
 	public void setNombre(String nombre) {
 		Nombre = nombre;
 	}
+	
+	public String getMoneda() {
+		return this.Id_Tipo_Cuenta == 1 || this.Id_Tipo_Cuenta == 3 ? "$" : "U$S";
+	}
 }
