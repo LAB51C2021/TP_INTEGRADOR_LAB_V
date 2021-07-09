@@ -1,6 +1,8 @@
 package hibernate;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import models.Cuenta;
@@ -8,20 +10,24 @@ import models.Movimiento;
 
 public class MovimientoHibernate 
 {
-	public void NuevaTransferencia(Cuenta cuentaOrigen, String cbuCuentaDestino, float monto) throws Exception
+	public void NuevaTransferencia(int idCuentaOrigen, String cbuCuentaDestino, float monto) throws Exception
 	{
 		HibernateConnector hibernateConnector = new HibernateConnector();
-		Cuenta cuentaDestino = hibernateConnector.GetAccountByCredentials(cbuCuentaDestino);
-		
+		CuentaHibernate cuentaHibernate = new CuentaHibernate();
+
+		Cuenta cuentaDestino = cuentaHibernate.GetCuentaPorCbu(cbuCuentaDestino);
+
 		if (cuentaDestino == null)
 		{
-			throw new Exception("El cbu de la cuenta destino no fue encontrada.");
+			throw new Exception("La cuenta destino ingresada no existe en el sistema.");
 		}
 		
-		if (cuentaOrigen.getCbu() == cuentaDestino.getCbu())
+		if (idCuentaOrigen == cuentaDestino.getId_Cuenta())
 		{
 			throw new Exception("No es posible transferir dinero a la misma cuenta.");
 		}
+		
+		Cuenta cuentaOrigen = cuentaHibernate.GetId(idCuentaOrigen);
 
 		if (cuentaDestino.getTipo_Cuenta() == cuentaOrigen.getTipo_Cuenta())
 		{
@@ -39,7 +45,7 @@ public class MovimientoHibernate
 
 		cuentaDestino.setSumarSaldo(monto);
 		hibernateConnector.UpdateEntity(cuentaDestino);
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), monto, 2, cuentaDestino.getId_Cuenta(), cuentaOrigen.getId_Cuenta()));
+		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), monto, 2, cuentaDestino.getId_Cuenta(), cuentaDestino.getId_Cuenta()));
 
 		hibernateConnector.SaveChange();
 	}

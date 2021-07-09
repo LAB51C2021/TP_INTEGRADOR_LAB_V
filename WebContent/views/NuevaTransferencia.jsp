@@ -32,7 +32,7 @@
 
 		<!-- Banner -->
           <section class="top-image">
-   			<form id="formTransferencia" autocomplete="on" class="ConfirmarTransferencia-form" action="ConfirmarTransferencia.html" method="POST">
+   			<form id="formTransferencia" autocomplete="on" class="confirmartransferencia-form" action="NuevaTransferencia.html" method="POST">
                 <div class="row">
                   <div class="col-md-15" style="margin-bottom: 2rem;">
                     <div class="down-content">
@@ -46,7 +46,7 @@
                   </div>
                   <div class="col-md-4">
                     <div class="service-item second-item" style="padding-top: 1.5rem;">
-                    	<select id="cuentaOrigen" name="cuentaOrigen" style="width: 80%" onchange="getSelectValue();">
+                    	<select id="cuentaOrigen" name="cuentaOrigen" style="width: 80%">
 				        	<c:forEach var="cuentaItem" items="${cuentaList}">
                     			<option value="${cuentaItem.getId_Cuenta()}">${cuentaItem}</option>
 				        	</c:forEach>
@@ -58,9 +58,9 @@
                   <div class="col-md-2">
                   	<h4>Cuenta destino: </h4>                  
                   </div>
-                  <div class="col-md-4">
-                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-                    	 <input required autocomplete="off" style="width: 80%" type="text" id="cbuDestino" placeholder="Ingrese el cbu" name="cbu" />
+                   <div class="col-md-4">
+                   	<div class="service-item second-item"  style="padding-top: 1.5rem;">
+                    	 <input required autocomplete="off" style="width: 80%" type="number" id="cbuDestino" placeholder="Ingrese un CBU" name="cbuDestino" value="${cbuDestino}"/>
                     </div>
                   </div>
                 </div>
@@ -70,21 +70,14 @@
                   	</div>
                   <div class="col-md-4">
                     <div class="service-item second-item"  style="padding-top: 1.5rem;">
-                    	 <input required autocomplete="off" style="width: 80%" type="number" id="monto" placeholder="Ingrese el monto" name="monto"/>
+                    	 <input required autocomplete="off" style="width: 80%" type="number" id="monto" placeholder="0.00" name="monto" value="${monto}"/>
                     </div>
                   </div>
                 </div><br><br>
-                
-                <div class="row" style="text-align: center; color:red;">                  
-                  <div class="col-md-6">
-                    <c:forEach var="error" items="${listaErrores}">
-                  		<p class=".error">${error}</p>
-		        	</c:forEach>
-                  </div>
+      				<p class="message" style="color: #dc3545;">${error}</p>
                 </div><br><br>
                 <div align="center" style="width: 469px; ">
              		<button style="color: black; width: 158px" id="transferirButton" type="submit">Transferir</button>
-    				<button style="color: black; width: 158px" id="volverButton">Volver</button>
                 </div>
                </form> 
 			 </section>   
@@ -98,11 +91,11 @@
             <nav id="menu">
             	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
-                <li><a href="HomeCliente.html">Cuentas</a></li>
-                <li><a href="NuevaTransferencia.html">Nueva Transferencia</a></li>
-                <!-- <li>Tarjetas</li>
+                <li><a href="HomeCliente.html">Inicio</a></li>
+                <li style="color:#286797">Nueva Transferencia</li>
+                <li>Tarjetas</li>
                 <li>Beneficios</li>
-                <li>Configuración</li> -->
+                <li>Configuración</li>
                 <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>
@@ -128,13 +121,13 @@
 
    		  $('form[id="formTransferencia"]').validate({
    			    rules: {
-   			      cuentaOrigen: 'required',
-   			      cbuDestino: 'required',
-   			   	  monto:{ required: true, montoMaximo : true}
+   			      cuentaOrigen: { required: true },
+   			      cbuDestino: { required: true },
+   			   	  monto:{ required: true, montoMaximo: true}
    			    },
    			    messages: {
-   			      cuentaOrigen: 'Campo requerido',
-   			   	  cbuDestino: 'Campo requerido',
+   			      cuentaOrigen: { required: 'Campo requerido' },
+   			   	  cbuDestino: { required: 'Campo requerido' },
    			      monto: {
    			    	required: 'Campo requerido',
    			    	montoMaximo: 'El monto ingresado no puede superar el saldo'
@@ -149,13 +142,6 @@
    		jQuery.validator.addMethod("montoMaximo", function(value, element) {
    		  return value <= parseFloat(document.getElementById("cuentaOrigen")[document.getElementById("cuentaOrigen").selectedIndex].innerText.split(" ").slice(-1));
    		}, "El monto ingresado no puede superar el saldo.");
-   		
-   		 
-	    $(document).on("click", "#volverButton", function() { 
-	    	e.preventDefault();
-	    	$.get("HomeCliente.html", function(responseText) {   // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-	        });
-	    });
     </script>
   </body>
 </html>
