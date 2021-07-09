@@ -1,11 +1,8 @@
 package controllers;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -14,16 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import hibernate.CuentaHibernate;
-import hibernate.HibernateConnector;
 import hibernate.MovimientoHibernate;
 import models.Cuenta;
-import models.Movimiento;
 import models.Usuario;
 
 @Controller
 public class MovimientoController 
 {
-	private Cuenta cuenta;
 	private int idCuenta = 0;
 	
 	@RequestMapping(value = "Movimientos.html", method = RequestMethod.GET)
@@ -33,7 +27,7 @@ public class MovimientoController
 		idCuenta = id == null ? idCuenta : id;
 
 		CuentaHibernate cuentaHibernate = new CuentaHibernate();
-		cuenta = cuentaHibernate.GetId(idCuenta);
+		Cuenta cuenta = cuentaHibernate.GetId(idCuenta);
 		
 		ModelAndView MV = new ModelAndView();
 		MV.addObject("datosCuenta", "Cuenta N° " + cuenta.getNumero_Cuenta() + " - " + cuenta.getNombre());
@@ -46,7 +40,7 @@ public class MovimientoController
 		return MV;
 	}
 
-	@RequestMapping("NuevaTransferencia.html")
+	@RequestMapping("Transferencia.html")
 	public ModelAndView NuevaTransferencia(HttpServletRequest request)
 	{
 		HttpSession sessionActiva = request.getSession();
@@ -57,47 +51,52 @@ public class MovimientoController
 		ModelAndView MV = new ModelAndView();
 		MV.setViewName("NuevaTransferencia");
 		MV.addObject("id", idCuenta);
-		MV.addObject("cuenta", cuenta);
-		
 		MV.addObject("cuentaList", listaCuentas);
 		
 		return MV;
 	}
 
-	@RequestMapping(value= "ConfirmarTransferencia.html", method = RequestMethod.POST)
+	@RequestMapping(value="NuevaTransferencia.html", method = RequestMethod.POST)
 	public ModelAndView ConfirmarTransferenciaPost(HttpServletRequest request)
 	{
 		ModelAndView MV = new ModelAndView();
 		HttpSession sessionActiva = request.getSession();
 		Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
+
+		int idCuentaOrigen = Integer.parseInt(request.getParameter("cuentaOrigen"));
+		String cbuCuentaDestino = String.valueOf(request.getParameter("cbuDestino"));
+		float monto = Float.parseFloat(request.getParameter("monto"));
 		
 		try
 		{
-			CuentaHibernate cuentaHibernate = new CuentaHibernate();
-			List listaCuentas = cuentaHibernate.GetAll(user.getId_Usuario());
-			Cuenta cuentaOrigen = cuentaHibernate.GetId(Integer.parseInt(request.getParameter("cuentaOrigen")));
-			Cuenta cuentaDestino = cuentaHibernate.GetCuentaPorCbu(request.getParameter("cbu"));
-			Float monto = Float.parseFloat(request.getParameter("monto"));
-			
-			if(cuentaDestino == null) {
-				List<String> listaErrores = new ArrayList<String>();
-				listaErrores.add("No existe el CBU de destino.");
-				MV.addObject("errores", listaErrores);
-			}
-			else {
-				MV.addObject("id", cuentaOrigen.getId_Cuenta());
-				MV.addObject("cuenta", cuentaOrigen);
-				MV.addObject("cuentaList", listaCuentas);
-				MovimientoHibernate movimientoHibernate = new MovimientoHibernate();
-				movimientoHibernate.NuevaTransferencia(cuentaOrigen, cuentaDestino.getCbu(), monto);
-			}
+			new MovimientoHibernate().NuevaTransferencia(idCuentaOrigen, cbuCuentaDestino, monto);
+			MV.setViewName("HomeCliente");
 		} 
 		catch (Exception e) 
 		{
-			System.out.print(e.getMessage());
+			CuentaHibernate cuentaHibernate = new CuentaHibernate();
+			List listaCuentas = cuentaHibernate.GetAll(user.getId_Usuario());
+
+			MV.setViewName("NuevaTransferencia");
+			MV.addObject("cuentaList", listaCuentas);
+
+			MV.addObject("cuentaOrigen", idCuentaOrigen);
+			MV.addObject("cbuDestino", cbuCuentaDestino);
+			MV.addObject("monto", monto);
+			
+			MV.addObject("error", e.getMessage());
 		}
 
-		MV.setViewName("NuevaTransferencia");
+		return MV;
+	}
+	
+
+	@RequestMapping(value="NuevaTransferencia.html")
+	public ModelAndView ConfirmarTransferenciaGet(HttpServletRequest request)
+	{
+		ModelAndView MV = new ModelAndView();
+		MV.setViewName("HomeCliente.html");
+		
 		return MV;
 	}
 }

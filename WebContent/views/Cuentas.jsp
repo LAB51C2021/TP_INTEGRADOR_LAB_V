@@ -44,7 +44,7 @@
                   <div class="col-md-12" style="margin-bottom: 2rem;">
                     <div class="down-content">
                     <div class="primary-button">
-                        <a href="NuevaTransferencia.html">Nueva Cuenta</a>
+                        <a href="Transferencia.html">Nueva Cuenta</a>
                       </div>
                       </div>
                     </div>
@@ -162,12 +162,7 @@
                   	</div>
                   </div>
                 </div>
-               
 			</section>
-		
-		
-		
-		
 		</div>
 	</div>
 

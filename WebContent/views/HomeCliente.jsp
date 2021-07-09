@@ -63,11 +63,11 @@
             <nav id="menu">
             	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
-                <li><a href="HomeCliente.html">Cuentas</a></li>
-                <li><a href="NuevaTransferencia.html">Nueva Transferencia</a></li>
-                <!-- <li>Tarjetas</li>
+                <li><a href="HomeCliente.html">Inicio</a></li>
+                <li><a href="Transferencia.html">Nueva Transferencia</a></li>
+                <li>Tarjetas</li>
                 <li>Beneficios</li>
-                <li>Configuración</li> -->
+                <li>Configuración</li>
                 <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>
