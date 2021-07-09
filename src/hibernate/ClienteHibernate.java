@@ -5,7 +5,9 @@ import java.util.List;
 
 import models.Cuenta;
 import models.Movimiento;
+import models.Pais;
 import models.Persona;
+import models.Provincia;
 
 public class ClienteHibernate {
 	
@@ -33,6 +35,19 @@ public class ClienteHibernate {
 			throw ex;
 		}
 		
+	}
+	
+	
+	public List<Object> getProvincias()
+	{
+		HibernateConnector hibernateConnector = new HibernateConnector();
+		return hibernateConnector.GetList(Provincia.class.getSimpleName(), "1 = 1");
+	}
+	
+	public List<Object> getPaises()
+	{
+		HibernateConnector hibernateConnector = new HibernateConnector();
+		return hibernateConnector.GetList(Pais.class.getSimpleName(), "1 = 1");
 	}
 
 }

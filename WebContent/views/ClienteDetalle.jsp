@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="./css/flex-slider.css">
 	<link rel="stylesheet" href="./css/owl.css">
 	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.bootstrap4.min.css" integrity="sha512-MMojOrCQrqLg4Iarid2YMYyZ7pzjPeXKRvhW9nZqLo6kPBBTuvNET9DBVWptAo/Q20Fy11EIHM5ig4WlIrJfQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title></title>
   </head>
   <body>
@@ -41,13 +42,14 @@
                       </div>
                     </div>
                   </div>
+                  <form autocomplete="off" id="mainForm" action="Editar.html" method="POST">
                   <div class="row">
 	                  <div class="col-md-2">
 	                  	<h4>Nombre y Apellido</h4>                  
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input style="width:80%;" value="${cliente.getNombre_Apellido()}">
+	                    	<input required class="form-control" style="width:80%;" id="nombre_apellido" placeholder="Ingrese nombre y apellido" name="nombre_apellido" value="${cliente.getNombre_Apellido()}">
 	                    </div>
 	                  </div>
                 	</div>
@@ -57,7 +59,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input style="width:80%;" value="${cliente.getDni()}">
+	                    	<input required class="form-control" style="width:80%;" id="dni" placeholder="Ingrese dni" name="dni" value="${cliente.getDni()}">
 	                    </div>
 	                  </div>
                 	</div>
@@ -67,7 +69,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input style="width:80%;" type="date" value="${cliente.getFecha_Nacimiento()}">
+	                    	<input required class="form-control" style="width:80%;" type="date" id="fechaNac" placeholder="Ingrese fecha de nacimiento" name="fechaNac" value="${cliente.getFecha_Nacimiento()}">
 	                    </div>
 	                  </div>
                 	</div>
@@ -77,8 +79,9 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<select style="width:80%;">
-	                    		<option>- SELECCIONAR - </option>
+	                    	<select required style="width:80%;" id="sexo" name="sexo">
+	                    		<option value="M">Masculino </option>
+	                    		<option value="F">Femenino</option>
 	                    	</select>
 	                    </div>
 	                  </div>
@@ -88,19 +91,21 @@
 	                  	<h4>Dirección</h4>                  
                   	  </div>
 	                  <div class="col-md-4">
-	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input style="width:80%;" value="${cliente.getDireccion()}">
+	                    <div class="service-item second-item" style="padding-top: 1.5rem;" id="direccion" placeholder="Ingrese direccion" name="direccion">
+	                    	<input required class="form-control" style="width:80%;" value="${cliente.getDireccion()}">
 	                    </div>
 	                  </div>
                 	</div>
                 	<div class="row">
 	                  <div class="col-md-2">
-	                  	<h4>Localidad</h4>                  
+	                  	<h4>Provincia</h4>                  
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<select style="width:80%;">
-	                    		<option>- SELECCIONAR - </option>
+	                    	<select required style="width:80%;" id="provincia" name="provincia">
+		                    	<c:forEach var="provincia" items="${provincias}">
+					                <option value="${provincia.getId_Provincia()}">${provincia.getNombre()}</option>
+	        					</c:forEach>
 	                    	</select>
 	                    </div>
 	                  </div>
@@ -111,29 +116,19 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<select style="width:80%;">
-	                    		<option>- SELECCIONAR - </option>
-	                    	</select>
+	                    	<select required style="width:80%;" id="pais" name="pais">
+		                    	<c:forEach var="pais" items="${paises}">
+					                <option value="${pais.getId_Pais()}">${pais.getNombre()}</option>
+	        					</c:forEach>
+        					</select>
 	                    </div>
 	                  </div>
                 	</div>
                 <div class="row">
-	                  <div class="col-md-2">
-	                  	<h4>Estado</h4>                  
-                  	  </div>
-	                  <div class="col-md-4">
-	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<select style="width: 80%">
-	                    		<option>ACTIVO</option>
-	                    	</select>
-	                    </div>
-	                  </div>
-                	</div>	
-                <div class="row">
                   <div class="row" style="text-align: center;">
                   	<div class="col">
 	                  	<div class="primary-button">
-	                        <a href="NuevaTransferencia.html">Confirmar</a>
+	                        <a id="saveClient" href="NuevaTransferencia.html">Guardar</a>
 	               		</div>   
                   	</div>
                   	<div class="col">
@@ -148,6 +143,7 @@
                   	</div>
                   </div>
                 </div>
+                </form>
 			</section>
          
          
@@ -187,10 +183,32 @@
     <script src="./js/owl-carousel.js"></script>
     <script src="./js/custom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js" integrity="sha512-RdSPYh1WA6BF0RhpisYJVYkOyTzK4HwofJ3Q7ivt/jkpW6Vc8AurL1R+4AUcvn9IwEKAPm/fk7qFZW3OuiUDeg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.js" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./js/jquery-validation-1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/localization/messages_es_AR.min.js" integrity="sha512-IeJBPMkrv1HBLwIVpXQ2kEh24ocSZGuSXx6Jl5SIbeLoOtkXnEBghoSVmeJQerm3cRK9uKb1xxuHAEdxuVsBxg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <script type="text/javascript">
     	$(() =>{
+    		$('#sexo').selectize({
+    		    placeholder: 'Seleccione...'
+    		});
+    		
+    		$('#provincia').selectize({
+    		    placeholder: 'Seleccione...'
+    		})
+    		
+    		$('#pais').selectize({
+    		    placeholder: 'Seleccione...'
+    		})
+    		
+    		$('#saveClient').click((e)=>{
+    			e.preventDefault()
+    			
+    			if($('#mainForm').valid()){
+    				$.post('./Editar.html', $('#mainForm').serialize())
+    			}
+    		})
+    		
     		$('#deleteClient').click((e)=>{
     			e.preventDefault()
     			
