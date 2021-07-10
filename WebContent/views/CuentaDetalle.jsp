@@ -53,7 +53,12 @@
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
 	                    	<select required id="tiposCuenta" style="width: 80%" name="tiposCuenta">
 	                    		<c:forEach var="tipoCuenta" items="${tiposCuenta}">
-	                    			<option value="${tipoCuenta.getId_Tipo_Cuenta()}">${tipoCuenta.getNombre()}</option>
+	                    			<c:if test="${cuenta.getTipo_Cuenta().getId_Tipo_Cuenta() == tipoCuenta.getId_Tipo_Cuenta()}">
+	                    				<option selected value="${tipoCuenta.getId_Tipo_Cuenta()}">${tipoCuenta.getNombre()}</option>
+				                  	</c:if>
+				                  	<c:if test="${cuenta.getTipo_Cuenta().getId_Tipo_Cuenta() != tipoCuenta.getId_Tipo_Cuenta()}">
+				                  		<option value="${tipoCuenta.getId_Tipo_Cuenta()}">${tipoCuenta.getNombre()}</option>
+				                  	</c:if>
 				        		</c:forEach>	
 	                    	</select>
 	                    </div>
@@ -87,7 +92,13 @@
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
 	                    	<select required id="clientes" style="width: 80%" name="clientes">
 	                    		<c:forEach var="cliente" items="${clientes}">
-	                    			<option value="${cliente.getId_Cliente()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
+	                    			<c:if test="${cuenta.getUsuario().getId_Usuario() == cliente.getId_Cliente()}">
+				                  		<option selected value="${cliente.getId_Cliente()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
+				                  	</c:if>
+				                  	<c:if test="${cuenta.getUsuario().getId_Usuario() != cliente.getId_Cliente()}">
+				                  		<option value="${cliente.getId_Cliente()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
+				                  	</c:if>
+	                    			
 				        		</c:forEach>	
 	                    	</select>
 	                    </div>
