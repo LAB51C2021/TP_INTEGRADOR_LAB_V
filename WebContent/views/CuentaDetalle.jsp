@@ -99,7 +99,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input required class="form-control" style="width:80%;" type="number" name="saldo" value="${cuenta.getSaldo()}">
+	                    	<input required class="form-control" style="width:80%;" type="number" name="saldo" value="${cuenta.getId_Cuenta() != null ? cuenta.getSaldo() : 10000}">
 	                    </div>
 	                  </div>
                 	</div>

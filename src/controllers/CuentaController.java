@@ -107,6 +107,7 @@ public class CuentaController {
         		if(request.getParameter("tiposCuenta").toString() != null) {
         			Tipo_Cuenta tipo = cuentaHibernate.GetTipoCuenta(Integer.parseInt(request.getParameter("tiposCuenta").toString()));
         			cuenta.setTipo_Cuenta(tipo);
+        			cuenta.setNombre(tipo.getNombre());
         		}
         		
         		if(request.getParameter("clientes").toString() != null) {
