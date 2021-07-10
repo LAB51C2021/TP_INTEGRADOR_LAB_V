@@ -81,8 +81,16 @@
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
 	                    	<select required style="width:80%;" id="sexo" name="sexo">
-	                    		<option value="M">Masculino </option>
-	                    		<option value="F">Femenino</option>
+	                    		<c:if test="${cliente.getSexo() == 'M'}">
+                    				<option selected value="M">Masculino </option>
+                    				<option value="F">Femenino</option>
+			                  	</c:if>
+			                  	<c:if test="${cliente.getSexo() == 'F'}">
+			                  		<option value="M">Masculino </option>
+                    				<option selected value="F">Femenino</option>
+			                  	</c:if>
+	                    	
+	                    		
 	                    	</select>
 	                    </div>
 	                  </div>
@@ -115,7 +123,13 @@
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
 	                    	<select required style="width:80%;" id="provincia" name="provincia">
 		                    	<c:forEach var="provincia" items="${provincias}">
-					                <option value="${provincia.getId_Provincia()}">${provincia.getNombre()}</option>
+		                    		<c:if test="${cliente.getProvincia().getId_Provincia() == provincia.getId_Provincia()}">
+	                    				<option selected value="${provincia.getId_Provincia()}">${provincia.getNombre()}</option>
+				                  	</c:if>
+				                  	<c:if test="${cliente.getProvincia().getId_Provincia() != provincia.getId_Provincia()}">
+				                  		<option value="${provincia.getId_Provincia()}">${provincia.getNombre()}</option>
+				                  	</c:if>
+					                
 	        					</c:forEach>
 	                    	</select>
 	                    </div>
@@ -129,7 +143,13 @@
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
 	                    	<select required style="width:80%;" id="pais" name="pais">
 		                    	<c:forEach var="pais" items="${paises}">
-					                <option value="${pais.getId_Pais()}">${pais.getNombre()}</option>
+		                    		<c:if test="${cliente.getPais().getId_Pais() == pais.getId_Pais()}">
+	                    				<option selected value="${pais.getId_Pais()}">${pais.getNombre()}</option>
+				                  	</c:if>
+				                  	<c:if test="${cliente.getPais().getId_Pais() != pais.getId_Pais()}">
+				                  		<option value="${pais.getId_Pais()}">${pais.getNombre()}</option>
+				                  	</c:if>
+					                
 	        					</c:forEach>
         					</select>
 	                    </div>
