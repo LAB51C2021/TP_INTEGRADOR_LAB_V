@@ -80,6 +80,7 @@ public class ClienteController {
 	public ModelAndView Grabar(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		ModelAndView MV = new ModelAndView();
+		MV.setViewName("Login");   
 		
 		HttpSession sessionActiva = request.getSession();
     	Usuario user = null;
@@ -89,6 +90,7 @@ public class ClienteController {
     		if(request.getParameter("idCliente") != null) {
     			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
+    			
     			ClienteHibernate ClienteHibernate = new ClienteHibernate();
     			Persona datos = new Persona();
     			if(id != 0) {
@@ -133,8 +135,6 @@ public class ClienteController {
         		}
         		response.sendRedirect("Clientes.html");
     		}
-    	}else {
-    		MV.setViewName("Login");    		
     	}
 		
 		return MV;
