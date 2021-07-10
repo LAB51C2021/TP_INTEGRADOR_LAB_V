@@ -1,6 +1,9 @@
 package controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +86,7 @@ public class CuentaController {
 	public ModelAndView Grabar(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		ModelAndView MV = new ModelAndView();
+		MV.setViewName("Login");    
 		
 		HttpSession sessionActiva = request.getSession();
     	Usuario user = null;
@@ -95,30 +99,43 @@ public class CuentaController {
         		
     			ClienteHibernate clienteHibernate = new ClienteHibernate();
         		CuentaHibernate cuentaHibernate = new CuentaHibernate();
-        		Cuenta cuenta = cuentaHibernate.GetId(id);
+        		Cuenta cuenta = new Cuenta();
+        		if(id != 0) {
+        			cuenta = cuentaHibernate.GetId(id);
+    			}
         		
-        		if(request.getAttribute("tiposCuenta").toString() != null) {
-        			Tipo_Cuenta tipo = cuentaHibernate.GetTipoCuenta(Integer.parseInt(request.getAttribute("tiposCuenta").toString()));
+        		if(request.getParameter("tiposCuenta").toString() != null) {
+        			Tipo_Cuenta tipo = cuentaHibernate.GetTipoCuenta(Integer.parseInt(request.getParameter("tiposCuenta").toString()));
         			cuenta.setTipo_Cuenta(tipo);
         		}
         		
-        		if(request.getAttribute("clientes").toString() != null) {
-        			Persona cliente = clienteHibernate.GetCliente(Integer.parseInt(request.getAttribute("clientes").toString()));
+        		if(request.getParameter("clientes").toString() != null) {
+        			Persona cliente = clienteHibernate.GetCliente(Integer.parseInt(request.getParameter("clientes").toString()));
         			cuenta.setUsuario(cliente.getUsuario());
         		}
         			        		
-        		if(request.getAttribute("nroCuenta") != null)
-        			cuenta.setNumero_Cuenta(request.getAttribute("nroCuenta").toString());    
-        		if(request.getAttribute("cbu") != null)
-        			cuenta.setCbu(request.getAttribute("cbu").toString());
-        		if(request.getAttribute("saldo") != null)
-        			cuenta.setSaldo(Float.parseFloat(request.getAttribute("saldo").toString()));
+        		if(request.getParameter("nroCuenta") != null)
+        			cuenta.setNumero_Cuenta(request.getParameter("nroCuenta").toString());    
+        		if(request.getParameter("cbu") != null)
+        			cuenta.setCbu(request.getParameter("cbu").toString());
+        		if(request.getParameter("saldo") != null)
+        			cuenta.setSaldo(Float.parseFloat(request.getParameter("saldo").toString()));
         		
-        		cuentaHibernate.Actualizar(cuenta);
+        		if(id == 0) {
+        			Date input = new Date();
+        			LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        			cuenta.setFecha_Creacion(date);		        			
+        		}
+        		        		
+        		cuenta.setHabilitado(true);
+        		
+        		if(id != 0) {
+        			cuentaHibernate.Actualizar(cuenta);
+        		}else {
+        			cuentaHibernate.Grabar(cuenta);
+        		}
         		response.sendRedirect("Cuentas.html");
     		}
-    	}else {
-    		MV.setViewName("Login");    		
     	}
 		
 		return MV;

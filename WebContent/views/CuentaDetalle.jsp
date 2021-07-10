@@ -44,13 +44,14 @@
                   </div>
                   
                   <form autocomplete="off" id="mainForm" action="GuardarCuenta.html" method="POST">
+                  <input id="idCuenta" name="idCuenta" type="hidden" value="${cuenta.getId_Cuenta() != null ? cuenta.getId_Cuenta() : 0}">
                   <div class="row">
 	                  <div class="col-md-2">
 	                  	<h4>Tipo de Cuenta</h4>                  
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<select id="tiposCuenta" style="width: 80%" name="tiposCuenta">
+	                    	<select required id="tiposCuenta" style="width: 80%" name="tiposCuenta">
 	                    		<c:forEach var="tipoCuenta" items="${tiposCuenta}">
 	                    			<option value="${tipoCuenta.getId_Tipo_Cuenta()}">${tipoCuenta.getNombre()}</option>
 				        		</c:forEach>	
@@ -64,7 +65,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input class="form-control" style="width:80%;" type="number" name="nroCuenta" value="${cuenta.getNumero_Cuenta()}">
+	                    	<input required class="form-control" style="width:80%;" type="number" minlength="5" maxlength="5" name="nroCuenta" value="${cuenta.getNumero_Cuenta()}">
 	                    </div>
 	                  </div>
                 	</div>
@@ -74,7 +75,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input class="form-control" style="width:80%;" type="number" name="cbu" value="${cuenta.getCbu()}">
+	                    	<input required class="form-control" style="width:80%;" type="number" minlength="14" maxlength="14" name="cbu" value="${cuenta.getCbu()}">
 	                    </div>
 	                  </div>
                 	</div>
@@ -84,7 +85,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<select id="clientes" style="width: 80%" name="clientes">
+	                    	<select required id="clientes" style="width: 80%" name="clientes">
 	                    		<c:forEach var="cliente" items="${clientes}">
 	                    			<option value="${cliente.getId_Cliente()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
 				        		</c:forEach>	
@@ -98,7 +99,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input class="form-control" style="width:80%;" type="number" name="saldo" value="${cuenta.getSaldo()}">
+	                    	<input required class="form-control" style="width:80%;" type="number" name="saldo" value="${cuenta.getSaldo()}">
 	                    </div>
 	                  </div>
                 	</div>

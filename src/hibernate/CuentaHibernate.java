@@ -55,4 +55,16 @@ public class CuentaHibernate
 			throw ex;
 		}
 	}
+	
+	public void Grabar(Cuenta cuenta)
+	{
+		try {
+			
+			HibernateConnector hibernateConnector = new HibernateConnector();
+			hibernateConnector.AddEntity(cuenta);
+			hibernateConnector.SaveChange();
+		}catch(Exception ex) {
+			throw ex;
+		}
+	}
 }
