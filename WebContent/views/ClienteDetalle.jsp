@@ -43,6 +43,7 @@
                     </div>
                   </div>
                   <form autocomplete="off" id="mainForm" action="Editar.html" method="POST">
+                  <input id="idCliente" name="idCliente" type="hidden" value="${cliente.getId_Cliente() != null ? cliente.getId_Cliente() : 0}">
                   <div class="row">
 	                  <div class="col-md-2">
 	                  	<h4>Nombre y Apellido</h4>                  
@@ -93,6 +94,16 @@
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
 	                    	<input required id="direccion" placeholder="Ingrese direccion" name="direccion" class="form-control" style="width:80%;" value="${cliente.getDireccion()}">
+	                    </div>
+	                  </div>
+                	</div>
+                	<div class="row">
+	                  <div class="col-md-2">
+	                  	<h4>Localidad</h4>                  
+                  	  </div>
+	                  <div class="col-md-4">
+	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
+	                    	<input required id="localidad" placeholder="Ingrese localidad" name="localidad" class="form-control" style="width:80%;" value="${cliente.getLocalidad()}">
 	                    </div>
 	                  </div>
                 	</div>

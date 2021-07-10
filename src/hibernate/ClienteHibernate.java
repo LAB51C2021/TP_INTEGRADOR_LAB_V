@@ -37,6 +37,20 @@ public class ClienteHibernate {
 		
 	}
 	
+	public void Grabar(Persona cliente)
+	{
+		try {
+			
+			HibernateConnector hibernateConnector = new HibernateConnector();
+			hibernateConnector.AddEntity(cliente);
+			hibernateConnector.SaveChange();
+			
+		}catch(Exception ex) {
+			throw ex;
+		}
+		
+	}
+	
 	
 	public List<Object> getProvincias()
 	{

@@ -1,6 +1,9 @@
 package controllers;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,31 +89,48 @@ public class ClienteController {
     		if(request.getParameter("idCliente") != null) {
     			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
-        		        		
-        		ClienteHibernate ClienteHibernate = new ClienteHibernate();
-        		Persona datos = ClienteHibernate.GetCliente(id);
-        		if(request.getAttribute("nombre_apellido") != null)
-        			datos.setNombre_Apellido(request.getAttribute("nombre_apellido").toString());        		
-        		if(request.getAttribute("dni") != null)
-        			datos.setDni(request.getAttribute("dni").toString());    
-        		/*if(request.getAttribute("fechaNac") != null)
-        			datos.setFecha_Nacimiento(request.getAttribute("fechaNac").toString());    */
-        		if(request.getAttribute("sexo") != null)
-        			datos.setSexo(request.getAttribute("sexo").toString());    
-        		if(request.getAttribute("provincia") != null) {
-        			String idProv = (String) request.getAttribute("provincia");
+    			ClienteHibernate ClienteHibernate = new ClienteHibernate();
+    			Persona datos = new Persona();
+    			if(id != 0) {
+    				datos = ClienteHibernate.GetCliente(id);
+    			}
+    			
+        		
+        		if(request.getParameter("nombre_apellido") != null)
+        			datos.setNombre_Apellido(request.getParameter("nombre_apellido").toString());        		
+        		if(request.getParameter("dni") != null)
+        			datos.setDni(request.getParameter("dni").toString());    
+        		if(request.getParameter("fechaNac") != null) {
+        			String date = request.getParameter("fechaNac").toString();
+        			LocalDate localDate = LocalDate.parse(date);
+        			datos.setFecha_Nacimiento(localDate);		
+        		}
+        		if(request.getParameter("sexo") != null)
+        			datos.setSexo(request.getParameter("sexo").toString());    
+        		if(request.getParameter("direccion") != null)
+        			datos.setDireccion(request.getParameter("direccion").toString());    
+        		if(request.getParameter("localidad") != null)
+        			datos.setLocalidad(request.getParameter("localidad").toString());    
+        		if(request.getParameter("provincia") != null) {
+        			String idProv = (String) request.getParameter("provincia");
         			int intIdProv = Integer.parseInt(idProv);
         			Provincia prov = new Provincia(intIdProv);
         			datos.setProvincia(prov);    		
         		}
-        		if(request.getAttribute("pais") != null) {
-        			String idPais = (String) request.getAttribute("pais");
+        		if(request.getParameter("pais") != null) {
+        			String idPais = (String) request.getParameter("pais");
         			int intIdPais = Integer.parseInt(idPais);
         			Pais pais = new Pais(intIdPais);
         			datos.setPais(pais);   			
         		}
         		
-        		ClienteHibernate.Actualizar(datos);
+        		datos.setEsCliente(true);
+        		datos.setHabilitado(true);
+        		if(id != 0) {
+        			ClienteHibernate.Actualizar(datos);
+        		}else {
+        			ClienteHibernate.Grabar(datos);
+        		}
         		response.sendRedirect("Clientes.html");
     		}
     	}else {
