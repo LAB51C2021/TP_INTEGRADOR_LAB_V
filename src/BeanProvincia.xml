@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.1.xsd
+">
+
+<bean id="ProvinciaBuenosAires" class="models.Provincia">
+	<property name="Nombre" value="Buenos Aires"></property>
+</bean>
+
+<bean id="ProvinciaSantaFe" class="models.Provincia">
+	<property name="Nombre" value="Santa Fe"></property>
+</bean>
+
+<bean id="ProvinciaChubut" class="models.Provincia">
+	<property name="Nombre" value="Chubut"></property>
+</bean>
+
+<bean id="ProvinciaCordoba" class="models.Provincia">
+	<property name="Nombre" value="Cordoba"></property>
+</bean>
+
+<bean id="ProvinciaSanLuis" class="models.Provincia">
+	<property name="Nombre" value="San Luis"></property>
+</bean>
+
+<bean id="ProvinciaMendoza" class="models.Provincia">
+	<property name="Nombre" value="Mendoza"></property>
+</bean>
+
+<bean id="ProvinciaSalta" class="models.Provincia">
+	<property name="Nombre" value="Salta"></property>
+</bean>
+
+<bean id="ProvinciaJujuy" class="models.Provincia">
+	<property name="Nombre" value="Jujuy"></property>
+</bean>
+
+<bean id="ProvinciaChaco" class="models.Provincia">
+	<property name="Nombre" value="Chaco"></property>
+</bean>
+
+</beans>

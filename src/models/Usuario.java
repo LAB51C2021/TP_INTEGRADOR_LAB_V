@@ -53,7 +53,8 @@ public class Usuario implements Serializable {
 	@JoinColumn(name="Id_Persona")
 	private Persona Persona;
 	
-	@OneToMany(mappedBy = "Usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade= {CascadeType.ALL})
+	@JoinColumn(name="Id_Usuario")
 	private List<Cuenta> Cuentas = new ArrayList<>();
 	
 	@Override

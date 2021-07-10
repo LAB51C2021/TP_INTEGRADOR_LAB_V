@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.1.xsd
+">
+	<bean id="TipoCuentaCajaAhorroPesos" class="models.Tipo_Cuenta">
+		<property name="Nombre" value="Caja de ahorro en pesos"></property>
+	</bean>
+		
+	<bean id="TipoCuentaCajaAhorroDolares" class="models.Tipo_Cuenta">
+		<property name="Nombre" value="Caja de ahorro en dólares"></property>
+	</bean>
+		
+	<bean id="TipoCuentaCorrientePesos" class="models.Tipo_Cuenta">
+		<property name="Nombre" value="Cuenta corriente en pesos"></property>
+	</bean>
+		
+	<bean id="TipoCuentaCorrienteDolares" class="models.Tipo_Cuenta">
+		<property name="Nombre" value="Cuenta corriente en dólares"></property>
+	</bean>
+</beans>

@@ -4,7 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import Core.FileXml;
+import Core.HibernateLoad;
 import hibernate.HibernateConnector;
 import models.Persona;
 import models.Cuenta;
@@ -17,39 +22,30 @@ import models.Usuario;
 
 public class main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
+		CargarBeansHibernate();
+		CargarDatosHibernate();
+	}
+	
+	public static void Beans()
+	{
+	}
+	
+	public static void CargarBeansHibernate()
+	{
+		List<FileXml<?>> fileXmlList = new ArrayList<FileXml<?>>();
+		fileXmlList.add(new FileXml<Tipo_Cuenta>("BeanTipoCuenta.xml", Tipo_Cuenta.class));
+		fileXmlList.add(new FileXml<Tipo_Movimiento>("BeanTipoMovimiento.xml", Tipo_Movimiento.class));
+		fileXmlList.add(new FileXml<Provincia>("BeanProvincia.xml", Provincia.class));
+		fileXmlList.add(new FileXml<Pais>("BeanPais.xml", Pais.class));
 
+		HibernateLoad.LoadFilesXml(fileXmlList);
+	}
+	
+	public static void CargarDatosHibernate()
+	{
 		HibernateConnector hibernateConnector = new HibernateConnector();
-
-		hibernateConnector.AddEntity(new Tipo_Cuenta("Caja de ahorro en pesos"));
-		hibernateConnector.AddEntity(new Tipo_Cuenta("Caja de ahorro en dólares"));
-		hibernateConnector.AddEntity(new Tipo_Cuenta("Cuenta corriente en pesos"));
-		hibernateConnector.AddEntity(new Tipo_Cuenta("Cuenta corriente en dólares"));
-		
-		hibernateConnector.AddEntity(new Tipo_Movimiento("Alta"));
-		hibernateConnector.AddEntity(new Tipo_Movimiento("Ingreso"));
-		hibernateConnector.AddEntity(new Tipo_Movimiento("Egreso"));
-		
-		hibernateConnector.AddEntity(new Provincia("Buenos Aires"));
-		hibernateConnector.AddEntity(new Provincia("Santa Fe"));
-		hibernateConnector.AddEntity(new Provincia("Chubut"));
-		hibernateConnector.AddEntity(new Provincia("Cordoba"));
-		hibernateConnector.AddEntity(new Provincia("San Luis"));
-		hibernateConnector.AddEntity(new Provincia("Mendoza"));
-		hibernateConnector.AddEntity(new Provincia("Salta"));
-		hibernateConnector.AddEntity(new Provincia("Jujuy"));
-		hibernateConnector.AddEntity(new Provincia("Chaco"));
-		
-		hibernateConnector.AddEntity(new Pais("Argentina"));
-		hibernateConnector.AddEntity(new Pais("Bolivia"));
-		hibernateConnector.AddEntity(new Pais("Chile"));
-		hibernateConnector.AddEntity(new Pais("Brasil"));
-		hibernateConnector.AddEntity(new Pais("Mexico"));
-		hibernateConnector.AddEntity(new Pais("Estados Unidos"));
-		hibernateConnector.AddEntity(new Pais("Inglaterra"));
-		hibernateConnector.AddEntity(new Pais("España"));
-		hibernateConnector.AddEntity(new Pais("Costa rica"));
-		hibernateConnector.AddEntity(new Pais("Peru"));
 		
 		// Cliente 1
 		List<Cuenta> CuentaList = new ArrayList<Cuenta>();
