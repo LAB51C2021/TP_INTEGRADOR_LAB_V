@@ -6,10 +6,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import Core.FileXml;
-import Core.HibernateLoad;
+import beans.BeanConfig;
+import core.FileXml;
+import core.HibernateLoad;
 import hibernate.HibernateConnector;
 import models.Persona;
 import models.Cuenta;
@@ -24,107 +26,33 @@ public class main {
 
 	public static void main(String[] args) 
 	{
-		CargarBeansHibernate();
-		CargarDatosHibernate();
+		CargarBeansHibernateXml();
+		CargarBeansHibernateClassConfig();
+		CargarDatosHibernate(); // Quitar cuando se implemente el Bean de movimientos.
 	}
 	
-	public static void Beans()
-	{
-	}
-	
-	public static void CargarBeansHibernate()
+	public static void CargarBeansHibernateXml()
 	{
 		List<FileXml<?>> fileXmlList = new ArrayList<FileXml<?>>();
-		fileXmlList.add(new FileXml<Tipo_Cuenta>("BeanTipoCuenta.xml", Tipo_Cuenta.class));
-		fileXmlList.add(new FileXml<Tipo_Movimiento>("BeanTipoMovimiento.xml", Tipo_Movimiento.class));
-		fileXmlList.add(new FileXml<Provincia>("BeanProvincia.xml", Provincia.class));
-		fileXmlList.add(new FileXml<Pais>("BeanPais.xml", Pais.class));
+		fileXmlList.add(new FileXml<Tipo_Cuenta>("beans/BeanTipoCuenta.xml", Tipo_Cuenta.class));
+		fileXmlList.add(new FileXml<Tipo_Movimiento>("beans/BeanTipoMovimiento.xml", Tipo_Movimiento.class));
+		fileXmlList.add(new FileXml<Provincia>("beans/BeanProvincia.xml", Provincia.class));
+		fileXmlList.add(new FileXml<Pais>("beans/BeanPais.xml", Pais.class));
 
 		HibernateLoad.LoadFilesXml(fileXmlList);
+	}
+	
+	public static void CargarBeansHibernateClassConfig()
+	{
+		List<Class<?>> classConfigList = new ArrayList<Class<?>>();
+		classConfigList.add(Usuario.class);
+		//classConfigList.add(Movimiento.class); // FALTA AGREGAR AL BEANCONFIG LOS MOVIMIENTO para poder cargarlos por medio de Beans.
+		HibernateLoad.LoadClassConfig(classConfigList);
 	}
 	
 	public static void CargarDatosHibernate()
 	{
 		HibernateConnector hibernateConnector = new HibernateConnector();
-		
-		// Cliente 1
-		List<Cuenta> CuentaList = new ArrayList<Cuenta>();
-		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "214214444441", "03042146444", 10000, 1, true));
-		CuentaList.add(new Cuenta("Cuenta corriente", LocalDate.now(), "214214444442", "06004214445", 10000, 1, true));
-		CuentaList.add(new Cuenta("Caja de ahorro en dolares", LocalDate.now(), "21412545446", "41241545455", 5000, 2, true));
-		
-		hibernateConnector.AddEntity(new Usuario("Gabriel", "gaby-2011@hotmail.com.ar", "123", 
-				new Persona("Gabriel Robledo", "41459054", "M", LocalDate.now(), "Liquidambar 1122", "Pacheco", 1, 1, false, true), true, CuentaList));
-		
-		// Cliente 2
-		CuentaList = new ArrayList<Cuenta>();
-		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "215431515355", "235602630023", 10000, 1, true));
-		CuentaList.add(new Cuenta("Caja de ahorro en dolares", LocalDate.now(), "1254125555", "346346634", 1200, 2, true));
-		
-		hibernateConnector.AddEntity(new Usuario("Ezequiel", "Eze@hotmail.com.ar", "123", 
-						new Persona("Ezequiel Bobadilla", "34534523", "M", LocalDate.now(), "Av. Paloma 2133", "El Talar", 1, 1, false, true), true, CuentaList));
-		
-		// Cliente 3
-		CuentaList = new ArrayList<Cuenta>();
-		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "6346234111", "2355155551", 10000, 1, true));
-		CuentaList.add(new Cuenta("Cuenta corriente", LocalDate.now(), "623623542221", "64366777374", 0, 1, true));
-		
-		hibernateConnector.AddEntity(new Usuario("Ailen", "Ailen@hotmail.com.ar", "123", 
-				new Persona("Ailen Ramirez", "44214441", "F", LocalDate.now(), "Hipolito 2344", "Jose C. Paz", 1, 1, false, true), true, CuentaList));
-		// Cliente 4
-		CuentaList = new ArrayList<Cuenta>();
-		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "1255662463", "235235236236", 10000, 1, true));
-		CuentaList.add(new Cuenta("Cuenta corriente", LocalDate.now(), "21541254215", "535215314533", 0, 1, true));
-		CuentaList.add(new Cuenta("Caja de ahorro en dolares", LocalDate.now(), "2121214155", "2154124442", 0, 2, true));
-		
-		hibernateConnector.AddEntity(new Usuario("Luciano", "Luciano@hotmail.com.ar", "123", 
-				new Persona("Luciano Rodriguez", "34215555", "M", LocalDate.now(), "Av. Alere 2154", "Los Troncos", 1, 1, true, true), true, CuentaList));
-
-		// Cliente 5
-		CuentaList = new ArrayList<Cuenta>();
-		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "21513523525", "6436324235235", 10000, 1, true));
-		CuentaList.add(new Cuenta("Caja de ahorro en dolares", LocalDate.now(), "34634663434", "6436346346666", 0, 2, true));
-		
-		hibernateConnector.AddEntity(new Usuario("MaxMatiasGonzales", "Max@hotmail.com.ar", "123", 
-				new Persona("Matias Gonzales", "42545321", "M", LocalDate.now(), "Martinez 1322", "Tigre", 1, 1, true, true), true, CuentaList));
-		
-		// Cliente 6
-		CuentaList = new ArrayList<Cuenta>();
-		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "534644463421", "2356212314", 285200, 1, true));
-		
-		hibernateConnector.AddEntity(new Usuario("Franco", "Fran@hotmail.com.ar", "123",
-				new Persona("Franco Alvarez", "35566213", "M", LocalDate.now(), "Larte 1122", "Tigre", 1, 1, true, true), true, CuentaList));
-
-		// Cliente 7
-		CuentaList = new ArrayList<Cuenta>();
-		CuentaList.add(new Cuenta("Caja de ahorro en dolares", LocalDate.now(), "25323421412", "2362362366", 800, 2, true));
-		
-		hibernateConnector.AddEntity(new Usuario("Diego", "Diego@hotmail.com.ar", "123", 
-				new Persona("Diego Britez", "35235554", "M", LocalDate.now(), "Acceso 1245", "Tigre", 1, 1, true, true), true, CuentaList));
-		
-		// Cliente 8
-		CuentaList = new ArrayList<Cuenta>();
-		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "2151257547", "2362367231", 10000, 1, true));
-		CuentaList.add(new Cuenta("Caja de ahorro en dolares", LocalDate.now(), "1256347734", "23623425623", 4000, 2, true));
-		
-		hibernateConnector.AddEntity(new Usuario("Alfonso", "Alfonso@hotmail.com.ar", "123", 
-				new Persona("Alfonso Galarza", "33456236", "M", LocalDate.now(), "Lenue 2142", "Benavidez", 1, 1, false, true), true, CuentaList));
-
-		// Cliente 9
-		CuentaList = new ArrayList<Cuenta>();
-		CuentaList.add(new Cuenta("Caja de ahorros en pesos", LocalDate.now(), "2152152155", "215125515", 10000, 1, true));
-		CuentaList.add(new Cuenta("Caja de ahorro en dolares", LocalDate.now(), "2154123421556", "634634636", 0, 2, true));
-		
-		hibernateConnector.AddEntity(new Usuario("Federico", "Fede@hotmail.com.ar", "123", 
-				new Persona("Federico Acosta", "425453121", "M", LocalDate.now(), "Linier 4211", "San Fernando", 1, 1, false, true), true, CuentaList));
-		
-
-		// Cliente 10
-		CuentaList = new ArrayList<Cuenta>();
-		CuentaList.add(new Cuenta("Caja de ahorro en dolares", LocalDate.now(), "214215236662", "512551555", 18700, 2, true));
-		
-		hibernateConnector.AddEntity(new Usuario("Ana", "Ana@hotmail.com.ar", "123", 
-				new Persona("Ana Martinez", "33451555", "F", LocalDate.now(), "Cerrito 1241", "Recoleta", 1, 1, false, true), true, CuentaList));
 		
 		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 1, null));
 		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 2, null));
