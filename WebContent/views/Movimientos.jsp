@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="./css/flex-slider.css">
 	<link rel="stylesheet" href="./css/owl.css">
 	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <title></title>
   </head>
   <body>
@@ -50,7 +51,7 @@
                       </div>
                     </div>
                   <div class="col-md-10 offset-0">
-                  	<table id="example" class="display" style="width:120%; margin-bottom: 1rem;">
+                  	<table id="data" class="display" style="width:120%; margin-bottom: 1rem; padding-top: 2rem;">
 				        <thead>
 				            <tr>
 				                <th>Fecha movimiento</th>
@@ -74,18 +75,11 @@
 		            </table>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="down-content" style="text-align: right;">
-	                    <p>Movimientos totales: ${cantidadRegistros}</p>
-                    </div>
-                    </div>
-                  </div>
 			</section>
 		</div>
 	</div>
 
-      <!-- Sidebar -->
+        <!-- Sidebar -->
         <div id="sidebar">
           <div class="inner">
             <!-- Menu -->
@@ -94,9 +88,6 @@
               <ul>
                 <li><a href="HomeCliente.html">Inicio</a></li>
                 <li><a href="Transferencia.html">Nueva Transferencia</a></li>
-                <li>Tarjetas</li>
-                <li>Beneficios</li>
-                <li>Configuración</li>
                 <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>
@@ -109,12 +100,27 @@
 
           </div>
         </div>
-
+        
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script src="./js/browser.min.js"></script>
     <script src="./js/breakpoints.min.js"></script>
     <script src="./js/transition.js"></script>
     <script src="./js/owl-carousel.js"></script>
     <script src="./js/custom.js"></script>
+    
+	
+	<script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+		 $(document).ready(function() {
+			 $('#data').DataTable(
+				{
+					language: {
+			            url: './js/datatable-esp.json'
+			        }
+				}
+			 );
+		 });			 
+    </script>
+    
   </body>
 </html>

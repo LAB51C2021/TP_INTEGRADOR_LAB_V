@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="./css/flex-slider.css">
 	<link rel="stylesheet" href="./css/owl.css">
 	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <title></title>
   </head>
   <body>
@@ -51,7 +52,7 @@
                     </div>
                   </div>
                   <div class="col-md-10 offset-1">
-                  	<table id="table" class="display" style="width:100%; margin-bottom: 2rem;">
+                  	<table id="data" class="display" style="width:100%; margin-bottom: 2rem; padding-top: 2rem;">
 	        <thead>
 	            <tr>
 	            	<th></th>
@@ -64,15 +65,6 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	       	 	<tr id="notHidden">
-	                <td></td>
-	                <td><input id="nombre" placeholder="Nombre" onkeyup="BusquedaNombreApellido()"></td>
-	                <td><input id="DNI" placeholder="DNI" onkeyup="BusquedaDNI()"></td>		
-	                <td></td>
-	                <td></td>
-	                <td></td>
-	                <td></td>	               
-	            </tr>
                 <c:forEach var="cliente" items="${clientes}">
                 <tr>
 		            <td><a href="./Editar.html?idCliente=${cliente.getId_Cliente()}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
@@ -126,55 +118,17 @@
     <script src="./js/transition.js"></script>
     <script src="./js/owl-carousel.js"></script>
     <script src="./js/custom.js"></script>
+	<script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+		 $(document).ready(function() {
+			 $('#data').DataTable(
+				{
+					language: {
+			            url: './js/datatable-esp.json'
+			        }
+				}
+			 );
+		 });			 
+    </script>
   </body>
-  
-  <script>
-  function BusquedaNombreApellido() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("nombre");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("table");
-      tr = table.getElementsByTagName("tr");
-      for (i = 0; i < tr.length; i++) {
-    	  if(tr[i].id != 'notHidden'){
-	          td = tr[i].getElementsByTagName("td")[1];
-	          if (td) {
-	              txtValue = td.textContent || td.innerText;
-	              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-	                  tr[i].style.display = "";
-	              } else {
-	                  tr[i].style.display = "none";
-	              }
-	          }    		  
-    	  }
-      }
-  }
-
-  
-  function BusquedaDNI() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("DNI");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("table");
-      tr = table.getElementsByTagName("tr");
-      for (i = 0; i < tr.length; i++) {
-    	  if(tr[i].id != 'notHidden'){
-	          td = tr[i].getElementsByTagName("td")[2];
-	          if (td) {
-	              txtValue = td.textContent || td.innerText;
-	              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-	                  tr[i].style.display = "";
-	              } else {
-	                  tr[i].style.display = "none";
-	              }
-	          }    		  
-    	  }
-      }
-  }
-
-  
-  	$(() =>{
-  		
-  	})
-  </script>
 </html>

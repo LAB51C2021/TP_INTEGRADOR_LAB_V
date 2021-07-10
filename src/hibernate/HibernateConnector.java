@@ -10,6 +10,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import models.Cuenta;
+import models.Tipo_Cuenta;
 import models.Usuario;
 
 public class HibernateConnector 
@@ -112,6 +113,15 @@ public class HibernateConnector
 		CerrarConexion();
 
 		return registry;
+	}
+	
+	public List<Object> GetList(String table)
+	{
+		AbrirConexion();
+		List<Object> registryList = session.createQuery("FROM " + table).list();
+		CerrarConexion();
+
+		return registryList;
 	}
 	
 	public List<Object> GetList(String table, String where)

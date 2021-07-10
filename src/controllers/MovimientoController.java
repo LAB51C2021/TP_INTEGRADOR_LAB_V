@@ -46,7 +46,7 @@ public class MovimientoController
 		HttpSession sessionActiva = request.getSession();
 		Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
 		CuentaHibernate cuentaHibernate = new CuentaHibernate();
-		List listaCuentas = cuentaHibernate.GetAll(user.getId_Usuario());
+		List listaCuentas = cuentaHibernate.GetAllByUser(user.getId_Usuario());
 		
 		ModelAndView MV = new ModelAndView();
 		MV.setViewName("NuevaTransferencia");
@@ -75,7 +75,7 @@ public class MovimientoController
 		catch (Exception e) 
 		{
 			CuentaHibernate cuentaHibernate = new CuentaHibernate();
-			List listaCuentas = cuentaHibernate.GetAll(user.getId_Usuario());
+			List listaCuentas = cuentaHibernate.GetAllByUser(user.getId_Usuario());
 
 			MV.setViewName("NuevaTransferencia");
 			MV.addObject("cuentaList", listaCuentas);

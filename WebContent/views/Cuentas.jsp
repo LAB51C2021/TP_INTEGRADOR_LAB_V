@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="es-AR">
   <head>
@@ -13,6 +14,7 @@
 	<link rel="stylesheet" href="./css/flex-slider.css">
 	<link rel="stylesheet" href="./css/owl.css">
 	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <title></title>
   </head>
   <body>
@@ -44,13 +46,13 @@
                   <div class="col-md-12" style="margin-bottom: 2rem;">
                     <div class="down-content">
                     <div class="primary-button">
-                        <a href="Transferencia.html">Nueva Cuenta</a>
+                        <a href="EditarCuenta.html">Nueva Cuenta</a>
                       </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-10 offset-1">
-                  	<table id="example" class="display" style="width:100%; margin-bottom: 2rem;">
+                  	<table id="data" class="display" style="width:100%; margin-bottom: 2rem; padding-top: 2rem;">
 				        <thead>
 				            <tr>
 				            	<th></th>
@@ -60,106 +62,29 @@
 				                <th>Fecha Creación</th>
 				                <th>CBU</th>
 				                <th>Saldo</th>
-				                <th>Activo</th>
+				                <th>Activa</th>
 				            </tr>
 				        </thead>
 				        <tbody>
-				       	 	<tr>
-				       	 		<td></td>				       	 	
-				                <td><input placeholder="Nro Cuenta"></td>
-				                <td><select placeholder="Tipo Cuenta"><option>Caja de Ahorro en Pesos</option></select></td>
-				                <td><select placeholder="Cliente"><option>Jorge Perez (25487468)</option></select></td>
-				                <td></td>	
-				                <td></td>	
-				                <td></td>
-				                <td></td>					               
-				            </tr>
-				            <tr>
-				            <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-				                <td>12346577</td>
-				                <td>Caja de Ahorro en Pesos</td>
-				                <td>Jorge Perez (25487468)</td>
-				                <td>01/03/2019</td>
-				                <td>156467000321350004448</td>
-				                <td>$ 33000.97</td>
-								<td>
-									<label class="switch">
-								    <input type="checkbox" checked>
-								    <span class="slider round"></span>
-									</label>
-								</td>
-				            </tr>
-				            <tr>
-				            <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-				                <td>12346577</td>
-				                <td>Caja de Ahorro en Pesos</td>
-				                <td>Jorge Perez (25487468)</td>
-				                <td>01/03/2019</td>
-				                <td>156467000321350004448</td>
-				                <td>$ 33000.97</td>
-				                <td>
-									<label class="switch">
-								    <input type="checkbox" checked>
-								    <span class="slider round"></span>
-									</label>
-								</td>
-				            </tr>
-				            <tr>
-				            <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-				                <td>12346577</td>
-				                <td>Caja de Ahorro en Pesos</td>
-				                <td>Jorge Perez (25487468)</td>
-				                <td>01/03/2019</td>
-				                <td>156467000321350004448</td>
-				                <td>$ 33000.97</td>
-				                <td>
-									<label class="switch">
-								    <input type="checkbox" checked>
-								    <span class="slider round"></span>
-									</label>
-								</td>
-				            </tr>
-				            <tr>
-				            <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-				                <td>12346577</td>
-				                <td>Caja de Ahorro en Pesos</td>
-				                <td>Jorge Perez (25487468)</td>
-				                <td>01/03/2019</td>
-				                <td>156467000321350004448</td>
-				                <td>$ 33000.97</td>
-				                <td>
-									<label class="switch">
-								    <input type="checkbox" checked>
-								    <span class="slider round"></span>
-									</label>
-								</td>
-				            </tr>
-				            <tr>
-				            <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-				                <td>12346577</td>
-				                <td>Caja de Ahorro en Pesos</td>
-				                <td>Jorge Perez (25487468)</td>
-				                <td>01/03/2019</td>
-				                <td>156467000321350004448</td>
-				                <td>$ 33000.97</td>
-				                <td>
-									<label class="switch">
-								    <input type="checkbox" checked>
-								    <span class="slider round"></span>
-									</label>
-								</td>
-				            </tr>
+			                <c:forEach var="cuenta" items="${cuentas}">
+			                <tr>
+					            <td><a href="./EditarCuenta.html?idCuenta=${cuenta.getId_Cuenta()}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+					                <td>${cuenta.getNumero_Cuenta()}</td>
+					                <td>${cuenta.getTipo_Cuenta().getNombre()}</td>
+					                <td>${cuenta.getUsuario().getPersona().getNombre_Apellido()}</td>
+					                <td>${cuenta.getFecha_Creacion()}</td>
+					                <td>${cuenta.getCbu()}</td>
+					                <td>${cuenta.getTipo_Cuenta().getMoneda()} ${cuenta.getSaldo()}</td>
+					                <c:if test="${cuenta.isHabilitado()}">
+				                  		<td>SI</td>
+				                  	</c:if>
+				                  	<c:if test="${!cuenta.isHabilitado()}">
+				                  		<td>NO</td>
+				                  	</c:if>
+					            </tr>
+			        		</c:forEach>
 			            </tbody>
-		            </table>		            
-                  	<div class="row" style="text-align: center;">
-                  		<div class="col-md-4 offset-4">
-                  			<span style="padding: 0 1rem 0 0;">1</span>
-                  			<span style="padding: 0 1rem 0 0;">2</span>
-                  			<span style="padding: 0 1rem 0 0;">3</span>
-                  			<span style="padding: 0 1rem 0 0;">4</span>
-                  			<span style="padding: 0 1rem 0 0;">5</span>
-                  		</div>
-                  	</div>
+		            </table>		
                   </div>
                 </div>
 			</section>
@@ -167,6 +92,7 @@
 	</div>
 
     
+      
       <!-- Sidebar -->
         <div id="sidebar">
           <div class="inner">
@@ -195,5 +121,18 @@
     <script src="./js/transition.js"></script>
     <script src="./js/owl-carousel.js"></script>
     <script src="./js/custom.js"></script>
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+		 $(document).ready(function() {
+			 $('#data').DataTable(
+				{
+					lengthMenu: [ 5, 10, 20],
+					language: {
+			            url: './js/datatable-esp.json'
+			        }
+				}
+			 );
+		 });			 
+    </script>
   </body>
 </html>

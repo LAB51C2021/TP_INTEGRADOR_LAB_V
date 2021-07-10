@@ -75,7 +75,7 @@
                   </div>
                 </div><br><br>
       				<p class="message" style="color: #dc3545;">${error}</p>
-                </div><br><br>
+                <br><br>
                 <div align="center" style="width: 469px; ">
              		<button style="color: black; width: 158px" id="transferirButton" type="submit">Transferir</button>
                 </div>
@@ -92,10 +92,7 @@
             	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
                 <li><a href="HomeCliente.html">Inicio</a></li>
-                <li style="color:#286797">Nueva Transferencia</li>
-                <li>Tarjetas</li>
-                <li>Beneficios</li>
-                <li>Configuración</li>
+                <li><a href="Transferencia.html">Nueva Transferencia</a></li>
                 <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>
@@ -108,7 +105,6 @@
 
           </div>
         </div>
-    </div>
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script src="./js/browser.min.js"></script>
@@ -119,6 +115,8 @@
     <script>
    		 $(document).ready(function() {
 
+   			 
+   			 
    		  $('form[id="formTransferencia"]').validate({
    			    rules: {
    			      cuentaOrigen: { required: true },

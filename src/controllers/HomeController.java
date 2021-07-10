@@ -31,7 +31,7 @@ public class HomeController {
     		user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
     		CuentaHibernate cuentaHibernate = new CuentaHibernate();
-    		List datos = cuentaHibernate.GetAll(user.getId_Usuario());
+    		List datos = cuentaHibernate.GetAllByUser(user.getId_Usuario());
     		
     		MV.addObject("lista", datos);
     	}

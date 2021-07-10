@@ -56,7 +56,7 @@
           </div>
         </div>
 
-      <!-- Sidebar -->
+       <!-- Sidebar -->
         <div id="sidebar">
           <div class="inner">
             <!-- Menu -->
@@ -65,9 +65,6 @@
               <ul>
                 <li><a href="HomeCliente.html">Inicio</a></li>
                 <li><a href="Transferencia.html">Nueva Transferencia</a></li>
-                <li>Tarjetas</li>
-                <li>Beneficios</li>
-                <li>Configuración</li>
                 <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>

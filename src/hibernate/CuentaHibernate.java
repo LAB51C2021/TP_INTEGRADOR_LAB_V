@@ -3,6 +3,8 @@ package hibernate;
 import java.util.List;
 
 import models.Cuenta;
+import models.Persona;
+import models.Tipo_Cuenta;
 
 public class CuentaHibernate 
 {
@@ -18,15 +20,39 @@ public class CuentaHibernate
 		return (Cuenta) hibernateConnector.GetEntityKey(idCuenta, Cuenta.class.getName());
 	}
 	
-	public List<Object> GetAll(int idUsuario)
+	public List<Object> GetAll()
 	{
 		HibernateConnector hibernateConnector = new HibernateConnector();
-		return hibernateConnector.GetList(Cuenta.class.getSimpleName(), "Id_Usuario = " + idUsuario);
+		return hibernateConnector.GetList(Cuenta.class.getSimpleName());
 	}
 	
 	public Cuenta GetCuentaPorCbu(String cbu)
 	{
 		HibernateConnector hibernateConnector = new HibernateConnector();
 		return (Cuenta) hibernateConnector.GetAccountByCredentials(cbu);
+	}
+	
+	public Tipo_Cuenta GetTipoCuenta(int idTipoCuenta)
+	{
+		HibernateConnector hibernateConnector = new HibernateConnector();
+		return (Tipo_Cuenta) hibernateConnector.GetEntityKey(idTipoCuenta, Tipo_Cuenta.class.getName());
+	}
+	
+	public List<Object> GetTiposCuenta()
+	{
+		HibernateConnector hibernateConnector = new HibernateConnector();
+		return hibernateConnector.GetList(Tipo_Cuenta.class.getSimpleName());
+	}
+	
+	public void Actualizar(Cuenta cuenta)
+	{
+		try {
+			
+			HibernateConnector hibernateConnector = new HibernateConnector();
+			hibernateConnector.UpdateEntity(cuenta);
+			hibernateConnector.SaveChange();
+		}catch(Exception ex) {
+			throw ex;
+		}
 	}
 }

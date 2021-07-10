@@ -31,7 +31,7 @@ public class Cuenta implements Serializable {
 		
 	}
 	
-	public Cuenta(String nombre, LocalDate fechaCreacion, String numeroCuenta, String cbu, float saldo, int idTipoCuenta)
+	public Cuenta(String nombre, LocalDate fechaCreacion, String numeroCuenta, String cbu, float saldo, int idTipoCuenta, boolean habilitado)
 	{
 		this.Nombre = nombre;
 		this.Fecha_Creacion = fechaCreacion;
@@ -39,6 +39,7 @@ public class Cuenta implements Serializable {
 		this.Cbu = cbu;
 		this.Saldo = saldo;
 		this.Tipo_Cuenta = new Tipo_Cuenta(idTipoCuenta);
+		this.Habilitado = habilitado;
 	}
 
 	public Cuenta(int idCuenta)
@@ -64,6 +65,9 @@ public class Cuenta implements Serializable {
 	@Column(unique=true)
 	private String Cbu;
 
+	@Column
+	private boolean Habilitado;
+	
 	@Column
 	private float Saldo;
 	
@@ -141,7 +145,15 @@ public class Cuenta implements Serializable {
 	public void setRestarSaldo(float monto) {
 		Saldo -= monto;
 	}
+	
+	public boolean isHabilitado() {
+		return Habilitado;
+	}
 
+	public void setHabilitado(boolean habilitado) {
+		Habilitado = habilitado;
+	}
+	
 	public Tipo_Cuenta getTipo_Cuenta() {
 		return Tipo_Cuenta;
 	}
