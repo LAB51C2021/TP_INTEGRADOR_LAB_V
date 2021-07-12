@@ -1,4 +1,4 @@
-package controllers;
+package src.controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import hibernate.ClienteHibernate;
-import hibernate.CuentaHibernate;
 import models.Cuenta;
 import models.Pais;
 import models.Persona;
 import models.Provincia;
 import models.Tipo_Cuenta;
 import models.Usuario;
+import src.hibernate.ClienteHibernate;
+import src.hibernate.CuentaHibernate;
 
 @Controller
 @EnableWebMvc

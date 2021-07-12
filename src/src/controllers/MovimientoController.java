@@ -1,4 +1,4 @@
-package controllers;
+package src.controllers;
 
 import java.util.List;
 
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import hibernate.CuentaHibernate;
-import hibernate.MovimientoHibernate;
 import models.Cuenta;
 import models.Usuario;
+import src.hibernate.CuentaHibernate;
+import src.hibernate.MovimientoHibernate;
 
 @Controller
 public class MovimientoController 

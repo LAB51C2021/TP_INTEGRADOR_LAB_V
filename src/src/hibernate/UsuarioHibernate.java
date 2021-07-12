@@ -1,4 +1,4 @@
-package hibernate;
+package src.hibernate;
 
 import models.Usuario;
 

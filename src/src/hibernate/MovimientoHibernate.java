@@ -1,4 +1,4 @@
-package hibernate;
+package src.hibernate;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;

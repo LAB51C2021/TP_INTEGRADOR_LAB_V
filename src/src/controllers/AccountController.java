@@ -1,4 +1,4 @@
-package controllers;
+package src.controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import helper.ViewHelper;
-import hibernate.UsuarioHibernate;
 import models.Cuenta;
 import models.Persona;
 import models.Usuario;
+import src.hibernate.UsuarioHibernate;
 
 @Controller
 public class AccountController 

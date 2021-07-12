@@ -1,4 +1,4 @@
-package controllers;
+package src.controllers;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -10,21 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import helper.ViewHelper;
-import hibernate.ClienteHibernate;
 import models.Pais;
 import models.Persona;
 import models.Provincia;
 import models.Usuario;
+import src.hibernate.ClienteHibernate;
+import src.servicesImplementation.ClienteService;
 
 @Controller
 public class ClienteController {
 
+	@Autowired
+	private ClienteService clienteService;
+	
 	@RequestMapping("Clientes.html")
 	public ModelAndView Clientes(HttpServletRequest request)
 	{
@@ -35,8 +40,10 @@ public class ClienteController {
     	if(sessionActiva.getAttribute("sessionUser") != null) {
     		user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
-    		ClienteHibernate ClienteHibernate = new ClienteHibernate();
-    		List datos = ClienteHibernate.GetAllClientes();
+    		//ClienteHibernate ClienteHibernate = new ClienteHibernate();
+    		//List datos = ClienteHibernate.GetAllClientes();
+    		
+    		List<Object> datos = clienteService.getAll();
     		
     		MV.addObject("clientes", datos);
     		MV.setViewName("Clientes");
@@ -64,7 +71,8 @@ public class ClienteController {
     			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
         		        		
-        		Persona datos = ClienteHibernate.GetCliente(id);
+        		//Persona datos = ClienteHibernate.GetCliente(id);
+        		Persona datos = clienteService.get(id);
         		MV.addObject("cliente", datos);
         		
     		}
