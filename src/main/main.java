@@ -28,7 +28,6 @@ public class main {
 	{
 		CargarBeansHibernateXml();
 		CargarBeansHibernateClassConfig();
-		CargarDatosHibernate(); // Quitar cuando se implemente el Bean de movimientos.
 	}
 	
 	public static void CargarBeansHibernateXml()
@@ -46,31 +45,7 @@ public class main {
 	{
 		List<Class<?>> classConfigList = new ArrayList<Class<?>>();
 		classConfigList.add(Usuario.class);
-		//classConfigList.add(Movimiento.class); // FALTA AGREGAR AL BEANCONFIG LOS MOVIMIENTO para poder cargarlos por medio de Beans.
+		classConfigList.add(Movimiento.class);
 		HibernateLoad.LoadClassConfig(classConfigList);
-	}
-	
-	public static void CargarDatosHibernate()
-	{
-		HibernateConnector hibernateConnector = new HibernateConnector();
-		
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 1, null));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 2, null));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 3, null));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 4, null));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 5, null));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 6, null));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 7, null));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 8, null));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 9, null));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 0, 1, 10, null));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 2500, 2, 1, 2));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 2500, 3, 2, 1));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 1200, 2, 5, 6));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 1200, 3, 6, 5));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 8000, 2, 3, 7));
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), 8000, 3, 7, 3));
-		
-		hibernateConnector.SaveChange();
 	}
 }

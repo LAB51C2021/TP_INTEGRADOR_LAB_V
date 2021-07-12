@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import models.Cuenta;
+import models.Movimiento;
 import models.Persona;
 import models.Usuario;
 
@@ -144,4 +145,99 @@ public class BeanConfig
 		return new Usuario("Ana", "Ana@hotmail.com.ar", "123", 
 				new Persona("Ana Martinez", "33451555", "F", LocalDate.now(), "Cerrito 1241", "Recoleta", 1, 1, false, true), true, CuentaList);
 	}
+	
+	@Bean
+	public Movimiento Movimiento1() 
+	{
+	    return new Movimiento(LocalDate.now(), 0, 1, 1, null);
+    }
+
+	@Bean
+	public Movimiento Movimiento2() 
+	{
+	    return new Movimiento(LocalDate.now(), 0, 1, 2, null);
+	}
+	@Bean
+	public Movimiento Movimiento3() 
+	{
+	    return new Movimiento(LocalDate.now(), 0, 1, 3, null);
+	}
+	
+	@Bean
+	public Movimiento Movimiento4() 
+	{
+	    return new Movimiento(LocalDate.now(), 0, 1, 4, null);
+    }
+
+	@Bean
+	public Movimiento Movimiento5() 
+	{
+	    return new Movimiento(LocalDate.now(), 0, 1, 5, null);
+    }
+	
+	@Bean
+	public Movimiento Movimiento6() 
+	{
+	    return new Movimiento(LocalDate.now(), 0, 1, 6, null);
+    }
+
+	@Bean
+	public Movimiento Movimiento7() 
+	{
+	    return new Movimiento(LocalDate.now(), 0, 1, 7, null);
+    }
+	
+	@Bean
+	public Movimiento Movimiento8() 
+	{
+	    return new Movimiento(LocalDate.now(), 0, 1, 8, null);
+    }
+	
+	@Bean
+	public Movimiento Movimiento9() 
+	{
+	    return new Movimiento(LocalDate.now(), 0, 1, 9, null);
+    }
+	
+	@Bean
+	public Movimiento Movimiento10() 
+	{
+	    return new Movimiento(LocalDate.now(), 0, 1, 10, null);
+    }
+	
+	@Bean
+	public Movimiento Movimiento11() 
+	{
+	    return new Movimiento(LocalDate.now(), 2500, 2, 1, 2);
+    }
+	
+	@Bean
+	public Movimiento Movimiento12() 
+	{
+	    return new Movimiento(LocalDate.now(), 2500, 3, 2, 1);
+    }
+	
+	@Bean
+	public Movimiento Movimiento13() 
+	{
+	    return new Movimiento(LocalDate.now(), 1200, 2, 5, 6);
+	}
+	
+	@Bean
+	public Movimiento Movimiento14() 
+	{
+	    return new Movimiento(LocalDate.now(), 1200, 3, 6, 5);
+    }
+
+	@Bean
+	public Movimiento Movimiento15() 
+	{
+	    return new Movimiento(LocalDate.now(), 8000, 2, 3, 7);
+    }
+
+	@Bean
+	public Movimiento Movimiento16() 
+	{
+	    return new Movimiento(LocalDate.now(), 8000, 3, 7, 3);
+    }
 }
