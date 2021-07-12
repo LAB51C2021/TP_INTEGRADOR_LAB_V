@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import helper.ViewHelper;
+import models.Cuenta;
 import models.Pais;
 import models.Persona;
 import models.Provincia;
@@ -176,6 +177,12 @@ public class ClienteController {
         		ClienteHibernate ClienteHibernate = new ClienteHibernate();
         		Persona datos = ClienteHibernate.GetCliente(id);
         		datos.setHabilitado(false);
+        		datos.getUsuario().setHabilitado(false);
+        		
+        		for (Cuenta cnt: datos.getUsuario().getCuentas()) {
+        		      cnt.setHabilitado(false);
+    		    }
+        		
         		ClienteHibernate.Actualizar(datos);
         		MV.setViewName("Clientes");
     		}

@@ -276,7 +276,7 @@
     			});
     		})
     		
-    		$('#dni').focusout((e) =>{
+    		$('#dni').focusout((e) => {
     			if(e.target.value.trim()){
     				$.getJSON('./ValidaDuplicateDNI.html', {dni : e.target.value.trim() }, (resp) => {
     					if(resp.status){
