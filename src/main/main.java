@@ -12,7 +12,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import beans.BeanConfig;
 import core.FileXml;
 import core.HibernateLoad;
-import hibernate.HibernateConnector;
 import models.Persona;
 import models.Cuenta;
 import models.Movimiento;
@@ -21,6 +20,7 @@ import models.Provincia;
 import models.Tipo_Cuenta;
 import models.Tipo_Movimiento;
 import models.Usuario;
+import src.hibernate.HibernateConnector;
 
 public class main {
 

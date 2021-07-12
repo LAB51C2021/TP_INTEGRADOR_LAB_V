@@ -1,4 +1,4 @@
-package controllers;
+package src.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import helper.ViewHelper;
-import hibernate.CuentaHibernate;
 import models.Cuenta;
 import models.Persona;
 import models.Usuario;
+import src.hibernate.CuentaHibernate;
 
 @Controller
 public class HomeController {
