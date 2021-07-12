@@ -64,4 +64,15 @@ public class ClienteHibernate {
 		return hibernateConnector.GetList(Pais.class.getSimpleName(), "1 = 1");
 	}
 
+	public boolean ValidateDNI(String dni) {
+		HibernateConnector hibernateConnector = new HibernateConnector();
+		Persona persona = hibernateConnector.ValidateDNI(dni);
+		
+		if(persona != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -131,7 +133,17 @@ public class ClienteController {
         		if(id != 0) {
         			ClienteHibernate.Actualizar(datos);
         		}else {
+        			
+        			Usuario userSave = new Usuario();
+        			userSave.setHabilitado(true);
+        			String username = datos.getNombre_Apellido().split(" ")[0];
+        			userSave.setNombre(username);
+        			userSave.setClave("123");
+        			userSave.setPersona(datos);
+
+        			datos.setUsuario(userSave);
         			ClienteHibernate.Grabar(datos);
+        			
         		}
         		response.sendRedirect("Clientes.html");
     		}
@@ -153,7 +165,7 @@ public class ClienteController {
     		if(request.getParameter("idCliente") != null) {
     			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
-        		        		
+    			
         		ClienteHibernate ClienteHibernate = new ClienteHibernate();
         		Persona datos = ClienteHibernate.GetCliente(id);
         		datos.setHabilitado(false);
@@ -165,5 +177,31 @@ public class ClienteController {
     	}
 		
 		return MV;
+	}
+	
+	@RequestMapping(value = "ValidaDuplicateDNI", method = RequestMethod.GET,
+			produces="application/json; charset=UTF-8"
+            /*produces = MediaType.APPLICATION_JSON_VALUE*/)
+	public String ValidacionDNI(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String ret = "";
+		HttpSession sessionActiva = request.getSession();
+    	Usuario user = null;
+    	if(sessionActiva.getAttribute("sessionUser") != null) {
+    		user = (Usuario) sessionActiva.getAttribute("sessionUser");
+    		
+    		if(request.getParameter("dni") != null) {
+    			String dni = request.getParameter("dni");
+        		        		
+        		ClienteHibernate ClienteHibernate = new ClienteHibernate();
+        		boolean existe = ClienteHibernate.ValidateDNI(dni);
+        		if(existe) {
+        			ret = "{ \"message\" : \"No se pudo dar de alta correctamente al cliente, porque ya existe el DNI en la base.\", \"status\": true}";	
+        		}else {
+        			ret = "{ \"status\": false}";	
+        		}
+    		}
+    	}
+    	return ret;
 	}
 }

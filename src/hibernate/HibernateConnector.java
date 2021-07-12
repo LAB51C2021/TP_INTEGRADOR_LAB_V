@@ -10,6 +10,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import models.Cuenta;
+import models.Persona;
 import models.Tipo_Cuenta;
 import models.Usuario;
 
@@ -142,6 +143,19 @@ public class HibernateConnector
 		query.setParameter("clave", clave);
 		
 		Usuario foundUser = (Usuario) query.uniqueResult();
+		CerrarConexion();
+
+		return foundUser;
+	}
+	
+	public Persona ValidateDNI(String dni)
+	{
+		AbrirConexion();
+		
+		Query query = session.createQuery("FROM " + Persona.class.getSimpleName() + " WHERE EsCliente = 1 AND Habilitado = 1 AND DNI= :dni");
+		query.setParameter("dni", dni);
+		
+		Persona foundUser = (Persona) query.uniqueResult();
 		CerrarConexion();
 
 		return foundUser;

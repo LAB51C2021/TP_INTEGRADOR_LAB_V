@@ -61,6 +61,7 @@
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
 	                    	<input required class="form-control" style="width:80%;" id="dni" placeholder="Ingrese dni" name="dni" value="${cliente.getDni()}">
+	                    	<span class="error" id="errorDNIduplicado"></span>
 	                    </div>
 	                  </div>
                 	</div>
@@ -88,6 +89,10 @@
 			                  	<c:if test="${cliente.getSexo() == 'F'}">
 			                  		<option value="M">Masculino </option>
                     				<option selected value="F">Femenino</option>
+			                  	</c:if>
+			                  	<c:if test="${cliente.getSexo() == null}">
+                    				<option value="M">Masculino </option>
+                    				<option value="F">Femenino</option>
 			                  	</c:if>
 	                    	
 	                    		
@@ -237,7 +242,7 @@
     		$('#saveClient').click((e)=>{
     			e.preventDefault()
     			
-    			if($('#mainForm').valid()){
+    			if($('#mainForm').valid() && $('#errorDNIduplicado').text()){
     				$.post('./Grabar.html', $('#mainForm').serialize())
     			}
     		})
@@ -271,6 +276,19 @@
     			});
     		})
     		
+    		$('#dni').focusout((e) =>{
+    			if(e.target.value.trim()){
+    				$.getJSON('./ValidaDuplicateDNI.html', {dni : e.target.value.trim() }, (resp) => {
+    					if(resp.status){
+    						$('#errorDNIduplicado').text(resp.message);
+    					}else{
+    						$('#errorDNIduplicado').text('');
+    					}
+    					
+    				})
+    			}
+    			
+    		})
     		
     	})
     
