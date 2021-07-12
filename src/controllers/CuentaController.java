@@ -110,8 +110,8 @@ public class CuentaController {
         			cuenta.setNombre(tipo.getNombre());
         		}
         		
-        		if(request.getParameter("clientes").toString() != null) {
-        			Persona cliente = clienteHibernate.GetCliente(Integer.parseInt(request.getParameter("clientes").toString()));
+        		if(request.getParameter("clienteID").toString() != null) {
+        			Persona cliente = clienteHibernate.GetCliente(Integer.parseInt(request.getParameter("clienteID").toString()));
         			cuenta.setUsuario(cliente.getUsuario());
         		}
         			        		

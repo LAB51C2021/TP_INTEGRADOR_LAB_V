@@ -28,7 +28,7 @@
             <!-- Header -->
             <header id="header">
               <div class="logo">
-                <a href="Home.html">Banco</a>
+                <a href="HomeRepresentante.html">Home Banking</a>
               </div>
             </header>
 
@@ -90,7 +90,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<select required id="clientes" style="width: 80%" name="clientes">
+	                    	<select required id="clienteID" style="width: 80%" name="clienteID">
 	                    		<c:forEach var="cliente" items="${clientes}">
 	                    			<c:if test="${cuenta.getUsuario().getId_Usuario() == cliente.getId_Cliente()}">
 				                  		<option selected value="${cliente.getId_Cliente()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
@@ -148,10 +148,11 @@
           <div class="inner">
             <!-- Menu -->
             <nav id="menu">
-            	<span>Jorge Perez</span>
+            	<span>Bienvenido de nuevo ${sessionScope.sessionUser.toString()}</span>
               <ul>
                 <li><a href="Clientes.html">Clientes</a></li>
                 <li><a href="Cuentas.html">Cuentas</a></li>
+                <li><a href="Logout.html">Salir</a></li>
               </ul>
             </nav>
 
@@ -163,6 +164,7 @@
 
           </div>
         </div>
+        
     </div>
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
@@ -193,7 +195,7 @@
     		    placeholder: 'Seleccione...'
     		});
     		
-    		$('#clientes').selectize({
+    		$('#clienteID').selectize({
     		    placeholder: 'Seleccione...'
     		})
     		
@@ -204,7 +206,10 @@
     				 $.ajax({
 					    type: 'POST',
 					    url: 'GuardarCuenta.html',
-					    data: $("#mainForm").serialize()
+					    data: $("#mainForm").serialize(),
+					    success: () => {
+					    		location.href = 'Cuentas.html'
+					    }
 					});
     			}
     		})
