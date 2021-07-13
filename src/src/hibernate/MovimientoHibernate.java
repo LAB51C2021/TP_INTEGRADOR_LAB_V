@@ -54,6 +54,6 @@ public class MovimientoHibernate
 
 		cuentaDestino.setSumarSaldo(monto);
 		cuentaService.Update(cuentaDestino);
-		movimientoService.Add(new Movimiento(LocalDate.now(), monto, 2, cuentaDestino.getId_Cuenta(), cuentaDestino.getId_Cuenta()));
+		movimientoService.Add(new Movimiento(LocalDate.now(), monto, 2, cuentaDestino.getId_Cuenta(), cuentaOrigen.getId_Cuenta()));
 	}
 }

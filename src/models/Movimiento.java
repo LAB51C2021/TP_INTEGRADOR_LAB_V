@@ -76,7 +76,7 @@ public class Movimiento implements Serializable {
 	}
 
 	public float getMonto() {
-		return Monto;
+		return Tipo_Movimiento.getNombre().contains("Egreso") ? -(Monto) : Monto;
 	}
 
 	public void setMonto(float monto) {
@@ -105,5 +105,15 @@ public class Movimiento implements Serializable {
 
 	public void setCuenta_Destino(Cuenta cuenta_Destino) {
 		Cuenta_Destino = cuenta_Destino;
+	}
+
+	public String getCbuCuentaOrigen() {
+		
+		if (Tipo_Movimiento.getNombre().contains("-"))
+		{
+			return "-";
+		}
+		
+		return Cuenta_Destino.getCbu();
 	}
 }

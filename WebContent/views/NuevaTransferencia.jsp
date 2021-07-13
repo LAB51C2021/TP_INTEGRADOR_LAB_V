@@ -38,6 +38,7 @@
                   <div class="col-md-15" style="margin-bottom: 2rem;">
                     <div class="down-content">
 	                    <h1>Transferencia</h1>
+	                    <hr>
                       </div>
                     </div>
                   </div>
@@ -74,9 +75,12 @@
                     	 <input required class="form-control" autocomplete="off" style="width: 80%" type="number" id="monto" placeholder="0.00" name="monto" value="${monto}"/>
                     </div>
                   </div>
-                </div><br><br>
+                  <br>
+                
+                </div><br>
       				<p class="message" style="color: #dc3545;">${error}</p>
-                <br><br>
+                <br>
+                <hr><br>
                 <div align="center" style="width: 469px; ">
              		<button style="color: black; width: 158px" id="transferirButton" type="submit">Transferir</button>
                 </div>

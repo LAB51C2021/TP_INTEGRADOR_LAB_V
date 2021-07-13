@@ -38,10 +38,14 @@
                   <div class="col-md-12">
                     <div class="down-content">
 	                    <h1>Movimientos</h1>
-	                    <p>${datosCuenta}</p>
+	                    <hr>
+	                    <h6>${datosCuenta}</h6>
+	                    <h6>${datoCbu}</h6>
+	                    <h6>${datoSaldo}</h6>
                     </div>
                     </div>
                   </div>
+                <hr>
                 <div class="row">
                   <div class="col-md-12" style="margin-bottom: 2rem;">
                     <div class="down-content">
@@ -56,8 +60,7 @@
 				            <tr>
 				                <th>Fecha movimiento</th>
 				                <th>Tipo operación</th>
-				                <th>Cuenta Origen</th>
-				                <th>Cuenta Destino</th>
+				                <th>Cuenta Cbu</th>
 				                <th>Monto</th>
 				            </tr>
 				        </thead>
@@ -66,9 +69,8 @@
 					            <tr>
 					                <td>${dato.getFecha()}</td>
 					                <td>${dato.getTipo_Movimiento().getNombre()}</td>
-					                <td>${dato.getCuenta_Origen().getCbu()}</td>
-					                <td>${dato.getCuenta_Destino().getCbu()}</td>
-					                <td>${dato.getCuenta_Origen().getTipo_Cuenta().getMoneda()} ${dato.getMonto()}</td>
+					                <td>${dato.getCbuCuentaOrigen()}</td>
+					                <td>${dato.getMonto()}</td>
 					            </tr>
 				            </c:forEach>
 			            </tbody>

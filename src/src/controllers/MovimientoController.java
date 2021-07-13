@@ -51,6 +51,8 @@ public class MovimientoController
 		ModelAndView MV = new ModelAndView();
 		
 		modelo.addAttribute("datosCuenta", "Cuenta N° " + cuenta.getNumero_Cuenta() + " - " + cuenta.getNombre());
+		modelo.addAttribute("datoCbu", "Cbu: " + cuenta.getCbu());
+		modelo.addAttribute("datoSaldo", "Saldo: " + cuenta.getSaldo());
 		modelo.addAttribute("cantidadRegistros", cuenta.getMovimiento().size());
 		modelo.addAttribute("listaMovimientos", cuenta.getMovimiento());
 
