@@ -62,11 +62,10 @@
 				                <th>Fecha Creación</th>
 				                <th>CBU</th>
 				                <th>Saldo</th>
-				                <th>Activa</th>
 				            </tr>
 				        </thead>
 				        <tbody>
-			                <c:forEach var="cuenta" items="${cuentas}">
+			                <c:forEach var="cuenta" items="${cuentaListado}">
 			                <tr>
 					            <td><a href="./EditarCuenta.html?idCuenta=${cuenta.getId_Cuenta()}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
 					                <td>${cuenta.getNumero_Cuenta()}</td>
@@ -75,12 +74,7 @@
 					                <td>${cuenta.getFecha_Creacion()}</td>
 					                <td>${cuenta.getCbu()}</td>
 					                <td>${cuenta.getTipo_Cuenta().getMoneda()} ${cuenta.getSaldo()}</td>
-					                <c:if test="${cuenta.isHabilitado()}">
-				                  		<td>SI</td>
-				                  	</c:if>
-				                  	<c:if test="${!cuenta.isHabilitado()}">
-				                  		<td>NO</td>
-				                  	</c:if>
+					                
 					            </tr>
 			        		</c:forEach>
 			            </tbody>

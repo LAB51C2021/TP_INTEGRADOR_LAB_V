@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import models.Cuenta;
 import models.Movimiento;
 import models.Usuario;
-import src.hibernate.CuentaHibernate;
 import src.hibernate.MovimientoHibernate;
 import src.services.IEntityService;
 

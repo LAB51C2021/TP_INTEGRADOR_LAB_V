@@ -181,7 +181,7 @@ public class HibernateConnector
 	{
 		AbrirConexion();
 		
-		Query query = session.createQuery("FROM " + Cuenta.class.getSimpleName() + " WHERE " + where);
+		Query query = session.createQuery("FROM " + table + " WHERE " + where);
 		
 		Cuenta foundAccount = (Cuenta)query.uniqueResult();
 		CerrarConexion();

@@ -94,10 +94,10 @@
 	                    	<select required id="clienteID" style="width: 80%" name="clienteID">
 	                    		<c:forEach var="cliente" items="${clientes}">
 	                    			<c:if test="${cuenta.getUsuario().getId_Usuario() == cliente.getUsuario().getId_Usuario()}">
-				                  		<option selected value="${cliente.getId_Cliente()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
+				                  		<option idUser="${cliente.getUsuario().getId_Usuario()}" selected value="${cliente.getId_Cliente()}_${cliente.getUsuario().getId_Usuario()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
 				                  	</c:if>
 				                  	<c:if test="${cuenta.getUsuario().getId_Usuario() != cliente.getUsuario().getId_Usuario()}">
-				                  		<option value="${cliente.getId_Cliente()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
+				                  		<option idUser="${cliente.getUsuario().getId_Usuario()}" value="${cliente.getId_Cliente()}_${cliente.getUsuario().getId_Usuario()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
 				                  	</c:if>
 	                    			
 				        		</c:forEach>	
@@ -193,7 +193,10 @@
 	    }
 	    
 	    function validaCantCuentasAsignadas(){
-	    	$.get('./ValidaCantCuentasAsignadasPorCliente.html', { userID : $('#clienteID').val() }, (resp) => {
+	    	var a = $('#clienteID').find(":selected")
+	    	var code = a[0].value.split('_')[1];
+	    	
+	    	$.get('./ValidaCantCuentasAsignadasPorCliente.html', { userID : code }, (resp) => {
 				$('#errorCantCuentasAsignadas').html(resp);
 			});
 	    }
@@ -205,6 +208,18 @@
     		
     		$('#clienteID').selectize({
     		    placeholder: 'Seleccione...',
+    		    render: {
+                    item: function (item) {
+                    	var codes = item.value.split('_')
+                    	
+                        return '<div userid="' + codes[1] + '" id="' + codes[0] + '" data-value="' + codes[0] + '" class="item">' + item.text + '</div>';
+                    },
+                    option: function (item) {
+                    	var codes = item.value.split('_')
+                    	
+                        return '<div userid="' + codes[1] + '" id="' + codes[0] + '" data-value="' + codes[0] + '" data-selectable="" class="option">' + item.text + '</div>';
+                    }
+                },
     		    onChange: (val) => {
     		    	if(val){
     		    		validaCantCuentasAsignadas()
@@ -215,7 +230,11 @@
     		$('#saveCuenta').click((e)=>{
     			e.preventDefault()
     			
-    			if($('#mainForm').valid() && !$('#errorNroCuenta').text()){
+    			if($('#mainForm').valid() && !$('#errorNroCuenta').text() && !$('#errorMaxCuentasAsignadas').text()){
+    				var a = $('#clienteID').find(":selected")
+    		    	var code = a[0].value.split('_')[0];
+    				a[0].value = code
+    				
     				 $.ajax({
 					    type: 'POST',
 					    url: 'GuardarCuenta.html',

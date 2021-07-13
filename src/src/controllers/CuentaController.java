@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +24,20 @@ import models.Tipo_Cuenta;
 import models.Usuario;
 import src.hibernate.ClienteHibernate;
 import src.hibernate.CuentaHibernate;
+import src.services.IEntityService;
 
 @Controller
 @EnableWebMvc
 public class CuentaController {
+	
+	@Autowired
+	private IEntityService<Cuenta> cuentaService;
+	
+	@Autowired
+	private IEntityService<Tipo_Cuenta> tiposCuentaService;
+	
+	@Autowired
+	private IEntityService<Persona> personaService;
 
 	@RequestMapping("Cuentas.html")
 	public ModelAndView Clientes(HttpServletRequest request, Model modelo)
@@ -39,8 +50,7 @@ public class CuentaController {
     	{
     		Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
-    		CuentaHibernate cuentaHibernate = new CuentaHibernate();
-    		List datos = cuentaHibernate.GetAll();
+    		List datos = cuentaService.GetAll("Habilitado = 1");
     		
     		modelo.addAttribute("cuentaListado", datos);
     		
@@ -58,22 +68,21 @@ public class CuentaController {
 	public ModelAndView Cliente(HttpServletRequest request)
 	{
 		ModelAndView MV = new ModelAndView();
-		CuentaHibernate cuentaHibernate = new CuentaHibernate();
-		ClienteHibernate clienteHibernate = new ClienteHibernate();
 		String idCuenta = request.getParameter("idCuenta");
 		HttpSession sessionActiva = request.getSession();
     	
     	if(sessionActiva.getAttribute("sessionUser") != null) {
     		Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
 
-    		List tiposCuenta = cuentaHibernate.GetTiposCuenta();
+    		List tiposCuenta = tiposCuentaService.GetAll();
 			MV.addObject("tiposCuenta", tiposCuenta);
     		
-    		List clientes = clienteHibernate.GetAllClientes();
+    		List clientes = personaService.GetAll("EsCliente = 1 AND Habilitado = 1");
     		MV.addObject("clientes", clientes);
     		
     		if(idCuenta != null) {
-    			Cuenta cuenta = cuentaHibernate.GetId(Integer.parseInt(idCuenta));
+    			int id = Integer.parseInt(idCuenta);
+    			Cuenta cuenta = cuentaService.FirstOrDefault(id);
     			MV.addObject("cuenta", cuenta);
     		}
     		
@@ -104,7 +113,7 @@ public class CuentaController {
         		CuentaHibernate cuentaHibernate = new CuentaHibernate();
         		Cuenta cuenta = new Cuenta();
         		if(id != 0) {
-        			cuenta = cuentaHibernate.GetId(id);
+        			cuenta = cuentaService.FirstOrDefault(id);
     			}
         		
         		
@@ -136,9 +145,9 @@ public class CuentaController {
         		cuenta.setHabilitado(true);
         		
         		if(id != 0) {
-        			cuentaHibernate.Actualizar(cuenta);
+        			cuentaService.Update(cuenta);
         		}else {
-        			cuentaHibernate.Grabar(cuenta);
+        			cuentaService.Add(cuenta);
         		}
         		response.sendRedirect("Cuentas.html");
     		}
@@ -162,10 +171,9 @@ public class CuentaController {
     			String idCuenta = request.getParameter("idCuenta");
     			int id = Integer.parseInt(idCuenta);
         		        		
-    			CuentaHibernate cuentaHibernate = new CuentaHibernate();
-        		Cuenta cuenta = cuentaHibernate.GetId(id);
+        		Cuenta cuenta = cuentaService.FirstOrDefault(id);
         		cuenta.setHabilitado(false);
-        		cuentaHibernate.Actualizar(cuenta);
+        		cuentaService.Update(cuenta);
         		MV.setViewName("Cuentas");
     		}
     	}else {
