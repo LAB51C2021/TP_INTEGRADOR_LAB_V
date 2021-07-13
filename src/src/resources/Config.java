@@ -9,6 +9,7 @@ import models.Pais;
 import models.Persona;
 import models.Provincia;
 import models.Tipo_Cuenta;
+import models.Usuario;
 import src.hibernate.ClienteHibernate;
 import src.hibernate.HibernateConnector;
 import src.services.EntityService;
@@ -51,6 +52,12 @@ public class Config
     public IEntityService<Tipo_Cuenta> getTiposCuentaService() 
     {
         return new EntityService<Tipo_Cuenta>(new Tipo_Cuenta());
+    }
+    
+    @Bean(name="usuarioService")
+    public IEntityService<Usuario> getUsuarioService() 
+    {
+        return new EntityService<Usuario>(new Usuario());
     }
 
 	@Bean(name="hibernateConnector")
