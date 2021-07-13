@@ -200,7 +200,7 @@ public class CuentaController {
     			CuentaHibernate cuentaHibernate = new CuentaHibernate();
         		int cant = cuentaHibernate.GetAllCuentasByUser(userID);
         		
-        		if(cant == 3) {
+        		if(cant >= 4) {
         			MV.addObject("error", "El cliente a llegado al limite de cuentas por asignar.");
         		}
     		}
