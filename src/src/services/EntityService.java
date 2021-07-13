@@ -47,7 +47,7 @@ public class EntityService<T> implements IEntityService<T>
 	// Devuelve una lista con todos los registros que cumplan con where que se pasa por parametro.
 	@Override
 	public List<T> GetAll(String where) {
-		return (List<T>) hibernateConnector.GetList(Cuenta.class.getSimpleName(), where);
+		return (List<T>) hibernateConnector.GetList(entity.getClass().getName(), where);
 	}
 
 	// Agrega una nueva entidad.
