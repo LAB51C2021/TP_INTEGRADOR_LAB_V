@@ -1,41 +1,44 @@
 package src.controllers;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import helper.ViewHelper;
 import models.Cuenta;
-import models.Persona;
 import models.Usuario;
-import src.hibernate.CuentaHibernate;
+import src.services.IEntityService;
 
 @Controller
-public class HomeController {
-
+public class HomeController 
+{
+	@Autowired
+	private IEntityService<Cuenta> cuentaService;
+	
     @RequestMapping("HomeCliente.html")
-	public ModelAndView Home(HttpServletRequest request)
+	public ModelAndView Home(HttpServletRequest request, Model modelo)
 	{
     	ModelAndView MV = new ModelAndView();
     	//obtengo variable de session
     	HttpSession sessionActiva = request.getSession();
     	Usuario user = null;
-    	if(sessionActiva.getAttribute("sessionUser") != null) {
+    	
+    	if(sessionActiva.getAttribute("sessionUser") != null) 
+    	{
     		user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
-    		CuentaHibernate cuentaHibernate = new CuentaHibernate();
-    		List datos = cuentaHibernate.GetAllByUser(user.getId_Usuario());
-    		
-    		MV.addObject("lista", datos);
+    		List cuentaList = cuentaService.GetAll("Id_Usuario = " + user.getId_Usuario());
+
+    		modelo.addAttribute("cuentaListado", cuentaList);
     	}
-    	    	
+    	
     	//redirecciono a donde corresponda
 		MV.setViewName(ViewHelper.SetViewNameByUser(user));
 		
@@ -48,7 +51,9 @@ public class HomeController {
     	//obtengo variable de session
     	HttpSession sessionActiva = request.getSession();
     	Usuario user = null;
-    	if(sessionActiva.getAttribute("sessionUser") != null) {
+    	
+    	if(sessionActiva.getAttribute("sessionUser") != null) 
+    	{
     		user = (Usuario) sessionActiva.getAttribute("sessionUser");
     	}
     	

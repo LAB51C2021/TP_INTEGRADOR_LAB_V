@@ -1,29 +1,19 @@
-package main;
+package src.main;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import beans.BeanConfig;
 import core.FileXml;
 import core.HibernateLoad;
-import models.Persona;
-import models.Cuenta;
 import models.Movimiento;
 import models.Pais;
 import models.Provincia;
 import models.Tipo_Cuenta;
 import models.Tipo_Movimiento;
 import models.Usuario;
-import src.hibernate.HibernateConnector;
 
-public class main {
-
+public class main 
+{
 	public static void main(String[] args) 
 	{
 		CargarBeansHibernateXml();
