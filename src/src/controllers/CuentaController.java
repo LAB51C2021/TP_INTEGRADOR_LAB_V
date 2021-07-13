@@ -50,7 +50,7 @@ public class CuentaController {
     	{
     		Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
-    		List datos = cuentaService.GetAll("Habilitado = 1");
+    		List datos = cuentaService.GetAll();
     		
     		modelo.addAttribute("cuentaListado", datos);
     		
@@ -77,7 +77,7 @@ public class CuentaController {
     		List tiposCuenta = tiposCuentaService.GetAll();
 			MV.addObject("tiposCuenta", tiposCuenta);
     		
-    		List clientes = personaService.GetAll("EsCliente = 1 AND Habilitado = 1");
+    		List clientes = personaService.GetAll("EsCliente = 1");
     		MV.addObject("clientes", clientes);
     		
     		if(idCuenta != null) {
@@ -170,9 +170,10 @@ public class CuentaController {
     		if(request.getParameter("idCuenta") != null) {
     			String idCuenta = request.getParameter("idCuenta");
     			int id = Integer.parseInt(idCuenta);
-        		        		
+    			boolean estado = Boolean.parseBoolean(request.getParameter("habilitado"));
+    			
         		Cuenta cuenta = cuentaService.FirstOrDefault(id);
-        		cuenta.setHabilitado(false);
+        		cuenta.setHabilitado(estado);
         		cuentaService.Update(cuenta);
         		MV.setViewName("Cuentas");
     		}

@@ -49,7 +49,7 @@ public class ClienteController {
     	{
     		user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
-    		List datos = personaService.GetAll("EsCliente = 1 AND Habilitado = 1");
+    		List datos = personaService.GetAll("EsCliente = 1");
     		
     		modelo.addAttribute("clienteListado", datos);
     		
@@ -162,6 +162,9 @@ public class ClienteController {
         			personaService.Add(datos);
         			
         		}
+        		
+        		MV.addObject("respuesta", "Se agregó el cliente correctamente");
+        		
         		response.sendRedirect("Clientes.html");
     		}
     	}
@@ -182,19 +185,23 @@ public class ClienteController {
     		if(request.getParameter("idCliente") != null) {
     			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
+    			boolean estado = Boolean.parseBoolean(request.getParameter("habilitado"));
     			
         		Persona datos = personaService.FirstOrDefault(id);
-        		datos.setHabilitado(false);
-        		datos.getUsuario().setHabilitado(false);
+        		datos.setHabilitado(estado);
+        		datos.getUsuario().setHabilitado(estado);
         		
         		List<Cuenta> cuentas = cuentaService.GetAll("Id_Cuenta = " + datos.getUsuario().getId_Usuario());
         		
         		for (Cuenta cnt: cuentas) {
-        		      cnt.setHabilitado(false);
+        		      cnt.setHabilitado(estado);
         		      cuentaService.Update(cnt);
     		    }
         		
         		personaService.Update(datos);
+        		
+        		MV.addObject("respuesta", "Se modifico el cliente correctamente");
+        		
         		MV.setViewName("Clientes");
     		}
     	}else {

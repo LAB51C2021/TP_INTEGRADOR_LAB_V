@@ -127,7 +127,12 @@
                   	<c:if test="${cuenta.getId_Cuenta() != null}">
                   		<div class="col">
 		                  	<div class="primary-button">
-		                        <a href="#" id="deleteCuenta">Eliminar</a>
+		                  		<c:if test="${cuenta.isHabilitado() == true}">
+		                  			<a href="#" id="eliminarCuenta">Eliminar</a>	
+		                  		</c:if>
+		                        <c:if test="${cuenta.isHabilitado() == false}">
+		                  			<a href="#" id="habilitarCuenta">Habilitar</a>	
+		                  		</c:if>
 		               		</div>   
 	                  	</div>
                   	</c:if>
@@ -246,7 +251,7 @@
     			}
     		})
     		
-    		$('#deleteCuenta').click((e)=>{
+    		$('#eliminarCuenta').click((e)=>{
     			e.preventDefault()
     			
     			bootbox.confirm({
@@ -265,13 +270,23 @@
     			    },
     			    callback: function (result) {
     			    	if(result){
-    			    		var code = ${cuenta.getId_Cuenta() != null ? cuenta.getId_Cuenta() : cuenta.getId_Cuenta() }
-    			    		$.post('EliminarCuenta.html', { idCuenta: code }, (data) => {
+    			    		var code = ${cuenta.getId_Cuenta() != null ? cuenta.getId_Cuenta() : cuenta.getId_Cuenta() };
+    			    		var status = ${!cuenta.isHabilitado()};
+    			    		$.post('EliminarCuenta.html', { idCuenta: code, habilitado: status }, (data) => {
     			    			location.href = "Cuentas.html"
     			    		})
     			    	}
     			    }
     			});
+    		})
+    		
+    		$('#habilitarCuenta').click((e)=>{
+    			e.preventDefault();
+    			var code = ${cuenta.getId_Cuenta() != null ? cuenta.getId_Cuenta() : cuenta.getId_Cuenta() };
+    			var status = ${!cuenta.isHabilitado()};
+    			$.post('EliminarCuenta.html', { idCuenta: code, habilitado: status }, (data) => {
+    			    			location.href = "Cuentas.html"
+  			    		})
     		})
     		
     		$('#nroCuenta').focusout((e) => {

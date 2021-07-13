@@ -41,6 +41,13 @@
                     </div>
                     </div>
                   </div>
+                <c:if test="${respuesta != null}">
+    	            <div class="row" id="respuesta">
+        	          <br>
+      					<p style="color: #2d7eb7;">${respuesta}</p>
+	            	  <br>
+            	  </div>
+                </c:if>
                 <div class="row">
                   <div class="col-md-12" style="margin-bottom: 2rem;">
                     <div class="down-content">
@@ -60,7 +67,8 @@
 	                <th>Fec. Nacimiento</th>
 	                <th>Direccion</th>
 	                <th>Localidad</th>
-	                <th>Provincia</th>		                
+	                <th>Provincia</th>
+	                <th>Activo</th>		                
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -73,6 +81,12 @@
 		                <td>${cliente.getDireccion()}</td>
 		                <td>${cliente.getLocalidad()}</td>
 		                <td>${cliente.getProvincia().getNombre()}</td>
+		                <c:if test="${cliente.isHabilitado()}">
+		                	<td>SI</td>
+		                </c:if>
+		                <c:if test="${!cliente.isHabilitado()}">
+		                	<td>NO</td>
+		                </c:if>
 		            </tr>
         		</c:forEach>
             </tbody>
@@ -127,6 +141,9 @@
 			        }
 				}
 			 );
+			 
+			 setTimeout(function(){$('#respuesta').hide();}, 5000);
+			 
 		 });			 
     </script>
   </body>

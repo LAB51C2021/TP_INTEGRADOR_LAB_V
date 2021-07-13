@@ -20,7 +20,7 @@ public class ClienteHibernate {
 	public List<Object> GetAllClientes()
 	{
 		HibernateConnector hibernateConnector = new HibernateConnector();
-		return hibernateConnector.GetList(Persona.class.getSimpleName(), "EsCliente = 1 AND Habilitado = 1");
+		return hibernateConnector.GetList(Persona.class.getSimpleName(), "EsCliente = 1");
 	}
 	
 	public void Actualizar(Persona cliente)

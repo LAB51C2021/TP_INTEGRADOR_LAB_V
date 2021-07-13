@@ -62,6 +62,7 @@
 				                <th>Fecha Creación</th>
 				                <th>CBU</th>
 				                <th>Saldo</th>
+				                <th>Activo</th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -74,7 +75,12 @@
 					                <td>${cuenta.getFecha_Creacion()}</td>
 					                <td>${cuenta.getCbu()}</td>
 					                <td>${cuenta.getTipo_Cuenta().getMoneda()} ${cuenta.getSaldo()}</td>
-					                
+					                <c:if test="${cuenta.isHabilitado()}">
+					                	<td>SI</td>
+					                </c:if>
+					                <c:if test="${!cuenta.isHabilitado()}">
+					                	<td>NO</td>
+					                </c:if>
 					            </tr>
 			        		</c:forEach>
 			            </tbody>

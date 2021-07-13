@@ -170,7 +170,12 @@
                   	<c:if test="${cliente.getId_Cliente() != null}">
                   		<div class="col">
 		                  	<div class="primary-button">
-		                        <a href="#" id="deleteClient">Eliminar</a>
+		                  		<c:if test="${cliente.isHabilitado() == true}">
+		                  			<a href="#" id="eliminarCliente">Eliminar</a>	
+		                  		</c:if>
+		                        <c:if test="${cliente.isHabilitado() == false}">
+		                  			<a href="#" id="habilitarCliente">Habilitar</a>	
+		                  		</c:if>
 		               		</div>   
 	                  	</div>
                   	</c:if>
@@ -245,9 +250,9 @@
     			if($('#mainForm').valid() && !$('#errorDNI').text()){
     				$.post('./Grabar.html', $('#mainForm').serialize(), () => { location.href = "./Clientes.html" })
     			}
-    		})
+    		});
     		
-    		$('#deleteClient').click((e)=>{
+    		$('#eliminarCliente').click((e)=>{
     			e.preventDefault()
     			
     			
@@ -267,14 +272,26 @@
     			    },
     			    callback: function (result) {
     			    	if(result){
-    			    		var code = ${cliente.getId_Cliente() != null ? cliente.getId_Cliente() : cliente.getId_Cliente()}
-    			    		$.post('./Eliminar.html', { idCliente: code }, (data) => {
+    			    		var code = ${cliente.getId_Cliente() != null ? cliente.getId_Cliente() : cliente.getId_Cliente()};
+    			    		var status = ${!cliente.isHabilitado()};
+    			    		$.post('./Eliminar.html', { idCliente: code, habilitado: status }, (data) => {
     			    			location.href = "./Clientes.html"
     			    		})
     			    	}
     			    }
     			});
     		})
+    		
+    		$('#habilitarCliente').click((e)=>{
+    			e.preventDefault()
+    			
+    			var code = ${cliente.getId_Cliente() != null ? cliente.getId_Cliente() : cliente.getId_Cliente()};
+    			var status = ${!cliente.isHabilitado()};
+	    		
+    			$.post('./Eliminar.html', { idCliente: code, habilitado: status }, (data) => {
+	    				location.href = "./Clientes.html"
+	    			});
+    			})
     		
     		$('#dni').focusout((e) => {
     			if(e.target.value.trim()){
