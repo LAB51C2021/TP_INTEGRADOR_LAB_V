@@ -93,10 +93,10 @@
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
 	                    	<select required id="clienteID" style="width: 80%" name="clienteID">
 	                    		<c:forEach var="cliente" items="${clientes}">
-	                    			<c:if test="${cuenta.getUsuario().getId_Usuario() == cliente.getId_Cliente()}">
+	                    			<c:if test="${cuenta.getUsuario().getId_Usuario() == cliente.getUsuario().getId_Usuario()}">
 				                  		<option selected value="${cliente.getId_Cliente()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
 				                  	</c:if>
-				                  	<c:if test="${cuenta.getUsuario().getId_Usuario() != cliente.getId_Cliente()}">
+				                  	<c:if test="${cuenta.getUsuario().getId_Usuario() != cliente.getUsuario().getId_Usuario()}">
 				                  		<option value="${cliente.getId_Cliente()}">${cliente.getNombre_Apellido()} (DNI ${cliente.getDni()})</option>
 				                  	</c:if>
 	                    			
