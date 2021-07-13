@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import helper.ViewHelper;
@@ -193,12 +194,11 @@ public class ClienteController {
 		return MV;
 	}
 	
-	@RequestMapping(value = "ValidaDuplicateDNI", method = RequestMethod.GET,
-			produces="application/json; charset=UTF-8"
-            /*produces = MediaType.APPLICATION_JSON_VALUE*/)
-	public String ValidacionDNI(HttpServletRequest request, HttpServletResponse response) throws IOException
+	@RequestMapping(value = "ValidaDuplicateDNI.html", method = RequestMethod.GET)
+	public ModelAndView ValidacionDNI(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		String ret = "";
+		ModelAndView MV = new ModelAndView();
+		MV.setViewName("ValidaDuplicateDNI");
 		HttpSession sessionActiva = request.getSession();
     	Usuario user = null;
     	if(sessionActiva.getAttribute("sessionUser") != null) {
@@ -209,13 +209,12 @@ public class ClienteController {
         		        		
         		ClienteHibernate ClienteHibernate = new ClienteHibernate();
         		boolean existe = ClienteHibernate.ValidateDNI(dni);
+        		
         		if(existe) {
-        			ret = "{ \"message\" : \"No se pudo dar de alta correctamente al cliente, porque ya existe el DNI en la base.\", \"status\": true}";	
-        		}else {
-        			ret = "{ \"status\": false}";	
+        			MV.addObject("error", "No se pudo dar de alta correctamente al cliente, porque ya existe el DNI en la base.");	
         		}
     		}
     	}
-    	return ret;
+    	return MV;
 	}
 }

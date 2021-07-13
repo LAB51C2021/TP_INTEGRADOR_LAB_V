@@ -61,7 +61,7 @@
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
 	                    	<input required class="form-control" style="width:80%;" id="dni" placeholder="Ingrese dni" name="dni" value="${cliente.getDni()}">
-	                    	<span class="error" id="errorDNIduplicado"></span>
+	                    	<div id="errorDNIduplicado"></div>
 	                    </div>
 	                  </div>
                 	</div>
@@ -242,7 +242,7 @@
     		$('#saveClient').click((e)=>{
     			e.preventDefault()
     			
-    			if($('#mainForm').valid() && $('#errorDNIduplicado').text()){
+    			if($('#mainForm').valid() && !$('#errorDNI').text()){
     				$.post('./Grabar.html', $('#mainForm').serialize())
     			}
     		})
@@ -278,13 +278,8 @@
     		
     		$('#dni').focusout((e) => {
     			if(e.target.value.trim()){
-    				$.getJSON('./ValidaDuplicateDNI.html', {dni : e.target.value.trim() }, (resp) => {
-    					if(resp.status){
-    						$('#errorDNIduplicado').text(resp.message);
-    					}else{
-    						$('#errorDNIduplicado').text('');
-    					}
-    					
+    				$.get('./ValidaDuplicateDNI.html', {dni : e.target.value.trim() }, (resp) => {
+    					$('#errorDNIduplicado').html(resp);
     				})
     			}
     			
