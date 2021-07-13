@@ -47,7 +47,7 @@
                   <div class="col-md-4">
                     <div class="service-item second-item" style="padding-top: 1.5rem;">
                     	<select id="cuentaOrigen" name="cuentaOrigen" style="width: 80%">
-				        	<c:forEach var="cuentaItem" items="${cuentaList}">
+				        	<c:forEach var="cuentaItem" items="${cuentaListado}">
                     			<option value="${cuentaItem.getId_Cuenta()}">${cuentaItem}</option>
 				        	</c:forEach>
 				        </select>

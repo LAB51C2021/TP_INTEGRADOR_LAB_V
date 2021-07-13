@@ -34,10 +34,10 @@
                 
                 <div class="row" style="margin-bottom: 2rem;">
                 <c:set var="contador" value="${1}" />
-	                <c:forEach var="dato" items="${lista}">
+	                <c:forEach var="dato" items="${cuentaListado}">
 	       				<tr>
 		                  	<div class="col-md-4 offset-1">
-								<a href="Movimientos.html?id=${dato.getId_Cuenta()}" class="cuenta">
+								<a href="Movimientos.html?id=${dato.getId_Cuenta()}" class="cuentaListado">
 				                    <div class="service-item second-item" >
 					                      	<h1>CUENTA ${contador}</h1>
 					                      	<p>${dato.getNombre()}</p>

@@ -11,15 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import models.Cuenta;
-import models.Pais;
 import models.Persona;
-import models.Provincia;
 import models.Tipo_Cuenta;
 import models.Usuario;
 import src.hibernate.ClienteHibernate;
@@ -30,21 +29,25 @@ import src.hibernate.CuentaHibernate;
 public class CuentaController {
 
 	@RequestMapping("Cuentas.html")
-	public ModelAndView Clientes(HttpServletRequest request)
+	public ModelAndView Clientes(HttpServletRequest request, Model modelo)
 	{
 		ModelAndView MV = new ModelAndView();
 		
 		HttpSession sessionActiva = request.getSession();
-    	Usuario user = null;
-    	if(sessionActiva.getAttribute("sessionUser") != null) {
-    		user = (Usuario) sessionActiva.getAttribute("sessionUser");
+    	
+    	if(sessionActiva.getAttribute("sessionUser") != null) 
+    	{
+    		Usuario user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
     		CuentaHibernate cuentaHibernate = new CuentaHibernate();
     		List datos = cuentaHibernate.GetAll();
     		
-    		MV.addObject("cuentas", datos);
+    		modelo.addAttribute("cuentaListado", datos);
+    		
     		MV.setViewName("Cuentas");
-    	}else {
+    	}
+    	else 
+    	{
     		MV.setViewName("Login");
     	}
 		

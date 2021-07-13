@@ -62,7 +62,7 @@
 				            </tr>
 				        </thead>
 				        <tbody>
-				        	<c:forEach var="dato" items="${listamovimientos}">
+				        	<c:forEach var="dato" items="${listaMovimientos}">
 					            <tr>
 					                <td>${dato.getFecha()}</td>
 					                <td>${dato.getTipo_Movimiento().getNombre()}</td>

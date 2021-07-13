@@ -7,15 +7,23 @@ import java.util.List;
 
 import models.Cuenta;
 import models.Movimiento;
+import src.services.IEntityService;
 
 public class MovimientoHibernate 
 {
+	private IEntityService<Cuenta> cuentaService;
+	private IEntityService<Movimiento> movimientoService;
+	
+	public MovimientoHibernate(IEntityService<Cuenta> cuentaService, 
+			IEntityService<Movimiento> movimientoService)
+	{
+		this.cuentaService = cuentaService;
+		this.movimientoService = movimientoService;
+	}
+	
 	public void NuevaTransferencia(int idCuentaOrigen, String cbuCuentaDestino, float monto) throws Exception
 	{
-		HibernateConnector hibernateConnector = new HibernateConnector();
-		CuentaHibernate cuentaHibernate = new CuentaHibernate();
-
-		Cuenta cuentaDestino = cuentaHibernate.GetCuentaPorCbu(cbuCuentaDestino);
+		Cuenta cuentaDestino = cuentaService.FirstOrDefault("cbu = " + cbuCuentaDestino);
 
 		if (cuentaDestino == null)
 		{
@@ -27,7 +35,7 @@ public class MovimientoHibernate
 			throw new Exception("No es posible transferir dinero a la misma cuenta.");
 		}
 		
-		Cuenta cuentaOrigen = cuentaHibernate.GetId(idCuentaOrigen);
+		Cuenta cuentaOrigen = cuentaService.FirstOrDefault(idCuentaOrigen);
 
 		if (cuentaDestino.getTipo_Cuenta() == cuentaOrigen.getTipo_Cuenta())
 		{
@@ -40,13 +48,12 @@ public class MovimientoHibernate
 		}
 
 		cuentaOrigen.setRestarSaldo(monto);
-		hibernateConnector.UpdateEntity(cuentaOrigen);
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), monto, 3, cuentaOrigen.getId_Cuenta(), cuentaDestino.getId_Cuenta()));
+		
+		cuentaService.Update(cuentaOrigen);
+		movimientoService.Add(new Movimiento(LocalDate.now(), monto, 3, cuentaOrigen.getId_Cuenta(), cuentaDestino.getId_Cuenta()));
 
 		cuentaDestino.setSumarSaldo(monto);
-		hibernateConnector.UpdateEntity(cuentaDestino);
-		hibernateConnector.AddEntity(new Movimiento(LocalDate.now(), monto, 2, cuentaDestino.getId_Cuenta(), cuentaDestino.getId_Cuenta()));
-
-		hibernateConnector.SaveChange();
+		cuentaService.Update(cuentaDestino);
+		movimientoService.Add(new Movimiento(LocalDate.now(), monto, 2, cuentaDestino.getId_Cuenta(), cuentaDestino.getId_Cuenta()));
 	}
 }

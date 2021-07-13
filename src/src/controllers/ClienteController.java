@@ -13,42 +13,41 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import helper.ViewHelper;
 import models.Cuenta;
 import models.Pais;
 import models.Persona;
 import models.Provincia;
 import models.Usuario;
 import src.hibernate.ClienteHibernate;
-import src.servicesImplementation.ClienteService;
+import src.services.EntityService;
 
 @Controller
 public class ClienteController {
 
 	@Autowired
-	private ClienteService clienteService;
+	private EntityService<Persona> personaService;
 	
 	@RequestMapping("Clientes.html")
-	public ModelAndView Clientes(HttpServletRequest request)
+	public ModelAndView Clientes(HttpServletRequest request, Model modelo)
 	{
 		ModelAndView MV = new ModelAndView();
 		
 		HttpSession sessionActiva = request.getSession();
     	Usuario user = null;
-    	if(sessionActiva.getAttribute("sessionUser") != null) {
+    	if(sessionActiva.getAttribute("sessionUser") != null) 
+    	{
     		user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
-    		//ClienteHibernate ClienteHibernate = new ClienteHibernate();
-    		//List datos = ClienteHibernate.GetAllClientes();
+    		List datos = personaService.GetAll();
     		
-    		List<Object> datos = clienteService.getAll();
+    		modelo.addAttribute("clienteListado", datos);
     		
-    		MV.addObject("clientes", datos);
     		MV.setViewName("Clientes");
     	}else {
     		MV.setViewName("Login");
@@ -62,25 +61,31 @@ public class ClienteController {
 	{
 		ModelAndView MV = new ModelAndView();
 		ClienteHibernate ClienteHibernate = new ClienteHibernate();
+		
 		MV.addObject("provincias", ClienteHibernate.getProvincias());
 		MV.addObject("paises", ClienteHibernate.getPaises());
 		
 		HttpSession sessionActiva = request.getSession();
     	Usuario user = null;
-    	if(sessionActiva.getAttribute("sessionUser") != null) {
+    	
+    	if (sessionActiva.getAttribute("sessionUser") != null) 
+    	{
     		user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
-    		if(request.getParameter("idCliente") != null) {
+    		if (request.getParameter("idCliente") != null) 
+    		{
     			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
         		        		
-        		//Persona datos = ClienteHibernate.GetCliente(id);
-        		Persona datos = clienteService.get(id);
+        		Persona datos = personaService.FirstOrDefault(id);
         		MV.addObject("cliente", datos);
         		
     		}
+    		
     		MV.setViewName("ClienteDetalle");   
-    	}else {
+    	}
+    	else 
+    	{
     		MV.setViewName("Login");    		
     	}
 		

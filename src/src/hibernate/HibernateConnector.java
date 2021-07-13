@@ -70,18 +70,21 @@ public class HibernateConnector
 	{
 		StartTransaction();
 		session.save(entity);
+		SaveChange();
 	}
 	
 	public void UpdateEntity(Object entity)
 	{
 		StartTransaction();
 		session.update(entity);
+		SaveChange();
 	}
 	
 	public void DeleteEntity(Object entity)
 	{
 		StartTransaction();
 		session.delete(entity);
+		SaveChange();
 	}
 	
 	public void SaveChange()
@@ -91,9 +94,9 @@ public class HibernateConnector
 	
 	public Object GetEntityKey(int key, String table)
 	{
-		StartTransaction();
+		AbrirConexion();
 		Object entity = session.get(table, key);
-		CloseTransaction();
+		CerrarConexion();
 
 		return entity;
 	}
@@ -168,7 +171,19 @@ public class HibernateConnector
 		Query query = session.createQuery("FROM " + Cuenta.class.getSimpleName() + " WHERE cbu=:cbu");
 		query.setParameter("cbu", cbu);
 		
-		Cuenta foundAccount = (Cuenta) query.uniqueResult();
+		Cuenta foundAccount = (Cuenta)query.uniqueResult();
+		CerrarConexion();
+
+		return foundAccount;
+	}	
+	
+	public Object GetFirstOrDefaultWhere(String table, String where)
+	{
+		AbrirConexion();
+		
+		Query query = session.createQuery("FROM " + Cuenta.class.getSimpleName() + " WHERE " + where);
+		
+		Cuenta foundAccount = (Cuenta)query.uniqueResult();
 		CerrarConexion();
 
 		return foundAccount;

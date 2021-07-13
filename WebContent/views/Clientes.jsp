@@ -20,7 +20,6 @@
   <body>
 	
    <div id="wrapper">
-
       <!-- Main -->
         <div id="main">
           <div class="inner">
@@ -65,7 +64,7 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-                <c:forEach var="cliente" items="${clientes}">
+                <c:forEach var="cliente" items="${clienteListado}">
                 <tr>
 		            <td><a href="./Editar.html?idCliente=${cliente.getId_Cliente()}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
 		                <td>${cliente.getNombre_Apellido()}</td>
