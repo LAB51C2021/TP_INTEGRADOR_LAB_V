@@ -78,4 +78,11 @@ public class CuentaHibernate
 			return false;
 		}
 	}
+
+	public int GetAllCuentasByUser(String userID) {
+		HibernateConnector hibernateConnector = new HibernateConnector();
+		List<Cuenta> cuentas = hibernateConnector.GetAllCuentasByUser(userID);
+		
+		return cuentas.size();
+	}
 }

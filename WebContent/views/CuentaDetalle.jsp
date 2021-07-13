@@ -112,6 +112,7 @@
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
 	                    	<input required class="form-control" style="width:80%;" type="number" name="saldo" value="${cuenta.getId_Cuenta() != null ? cuenta.getSaldo() : 10000}">
+	                    	<div id="errorCantCuentasAsignadas"></div>
 	                    </div>
 	                  </div>
                 	</div>
@@ -190,6 +191,12 @@
 	
 	        return indexed_array;
 	    }
+	    
+	    function validaCantCuentasAsignadas(){
+	    	$.get('./ValidaCantCuentasAsignadasPorCliente.html', { userID : $('#clienteID').val() }, (resp) => {
+				$('#errorCantCuentasAsignadas').html(resp);
+			});
+	    }
     
     	$(() =>{
     		$('#tiposCuenta').selectize({
@@ -197,7 +204,12 @@
     		});
     		
     		$('#clienteID').selectize({
-    		    placeholder: 'Seleccione...'
+    		    placeholder: 'Seleccione...',
+    		    onChange: (val) => {
+    		    	if(val){
+    		    		validaCantCuentasAsignadas()
+    		    	}
+    		    }
     		})
     		
     		$('#saveCuenta').click((e)=>{
@@ -252,6 +264,7 @@
     			
     		})
     		
+    		validaCantCuentasAsignadas();
     		
     	})
     

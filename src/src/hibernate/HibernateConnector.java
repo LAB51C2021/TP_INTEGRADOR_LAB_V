@@ -184,5 +184,15 @@ public class HibernateConnector
 		CerrarConexion();
 		
 		return foundCuenta;
+	}
+
+	public List<Cuenta> GetAllCuentasByUser(String userID) {
+		AbrirConexion();
+		Query query = session.createQuery("FROM Cuenta WHERE Habilitado = 1 AND Id_Usuario=:user");
+		query.setParameter("user", userID);
+		List<Cuenta> registryList = query.list();
+		CerrarConexion();
+
+		return registryList;
 	}	
 }

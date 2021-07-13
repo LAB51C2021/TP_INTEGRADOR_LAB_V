@@ -102,13 +102,9 @@ public class CuentaController {
         		Cuenta cuenta = new Cuenta();
         		if(id != 0) {
         			cuenta = cuentaHibernate.GetId(id);
-    			}else {
-    				if(cuenta.getUsuario().getCuentas().size() == 3) {
-    					MV.addObject("errorMaxCuentasAsignadas", "El cliente a llegado al limite de cuentas por asignar.");
-    					MV.setViewName("CuentaDetalle");
-    					return MV;
-    				}
     			}
+        		
+        		
         		
         		if(request.getParameter("tiposCuenta").toString() != null) {
         			Tipo_Cuenta tipo = cuentaHibernate.GetTipoCuenta(Integer.parseInt(request.getParameter("tiposCuenta").toString()));
@@ -174,6 +170,30 @@ public class CuentaController {
     	}
 		
 		return MV;
+	}
+		
+	@RequestMapping(value = "ValidaCantCuentasAsignadasPorCliente.html", method = RequestMethod.GET)
+	public ModelAndView ValidacionCantidadCuentas(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		ModelAndView MV = new ModelAndView();
+		MV.setViewName("ValidaCantCuentasAsignadasPorCliente");
+		HttpSession sessionActiva = request.getSession();
+    	Usuario user = null;
+    	if(sessionActiva.getAttribute("sessionUser") != null) {
+    		user = (Usuario) sessionActiva.getAttribute("sessionUser");
+    		
+    		if(request.getParameter("userID") != null) {
+    			String userID = request.getParameter("userID");
+        		        		
+    			CuentaHibernate cuentaHibernate = new CuentaHibernate();
+        		int cant = cuentaHibernate.GetAllCuentasByUser(userID);
+        		
+        		if(cant == 3) {
+        			MV.addObject("error", "El cliente a llegado al limite de cuentas por asignar.");
+        		}
+    		}
+    	}
+    	return MV;
 	}
 	
 	@RequestMapping(value = "ValidaDuplicateNroCuenta.html", method = RequestMethod.GET)
