@@ -1451,3 +1451,7 @@ input:checked + .slider:before {
 .error {
 	color: red;
 }
+
+.cuentaListado {
+	text-decoration: none;
+}
