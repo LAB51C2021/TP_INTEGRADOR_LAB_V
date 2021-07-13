@@ -243,7 +243,7 @@
     			e.preventDefault()
     			
     			if($('#mainForm').valid() && !$('#errorDNI').text()){
-    				$.post('./Grabar.html', $('#mainForm').serialize())
+    				$.post('./Grabar.html', $('#mainForm').serialize(), () => { location.href = "./Clientes.html" })
     			}
     		})
     		

@@ -175,4 +175,28 @@ public class CuentaController {
 		
 		return MV;
 	}
+	
+	@RequestMapping(value = "ValidaDuplicateNroCuenta.html", method = RequestMethod.GET)
+	public ModelAndView ValidacionNroCuenta(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		ModelAndView MV = new ModelAndView();
+		MV.setViewName("ValidaDuplicateNroCuenta");
+		HttpSession sessionActiva = request.getSession();
+    	Usuario user = null;
+    	if(sessionActiva.getAttribute("sessionUser") != null) {
+    		user = (Usuario) sessionActiva.getAttribute("sessionUser");
+    		
+    		if(request.getParameter("nroCuenta") != null) {
+    			String nroCuenta = request.getParameter("nroCuenta");
+        		        		
+    			CuentaHibernate cuentaHibernate = new CuentaHibernate();
+        		boolean existe = cuentaHibernate.ValidateNroCuenta(nroCuenta);
+        		
+        		if(existe) {
+        			MV.addObject("error", "No se pudo dar de alta correctamente al cliente, porque ya existe el DNI en la base.");	
+        		}
+    		}
+    	}
+    	return MV;
+	}
 }

@@ -172,5 +172,17 @@ public class HibernateConnector
 		CerrarConexion();
 
 		return foundAccount;
+	}
+
+	public Cuenta ValidateNroCuenta(String nroCuenta) {
+		AbrirConexion();
+		
+		Query query = session.createQuery("FROM " + Cuenta.class.getSimpleName() + " WHERE Habilitado = 1 AND Numero_Cuenta= :nro");
+		query.setParameter("nro", nroCuenta);
+		
+		Cuenta foundCuenta = (Cuenta) query.uniqueResult();
+		CerrarConexion();
+		
+		return foundCuenta;
 	}	
 }

@@ -67,4 +67,15 @@ public class CuentaHibernate
 			throw ex;
 		}
 	}
+
+	public boolean ValidateNroCuenta(String nroCuenta) {
+		HibernateConnector hibernateConnector = new HibernateConnector();
+		Cuenta cuenta = hibernateConnector.ValidateNroCuenta(nroCuenta);
+		
+		if(cuenta != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
