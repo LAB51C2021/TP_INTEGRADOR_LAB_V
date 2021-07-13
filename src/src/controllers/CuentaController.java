@@ -102,6 +102,12 @@ public class CuentaController {
         		Cuenta cuenta = new Cuenta();
         		if(id != 0) {
         			cuenta = cuentaHibernate.GetId(id);
+    			}else {
+    				if(cuenta.getUsuario().getCuentas().size() == 3) {
+    					MV.addObject("errorMaxCuentasAsignadas", "El cliente a llegado al limite de cuentas por asignar.");
+    					MV.setViewName("CuentaDetalle");
+    					return MV;
+    				}
     			}
         		
         		if(request.getParameter("tiposCuenta").toString() != null) {
