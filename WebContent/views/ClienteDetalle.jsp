@@ -277,7 +277,7 @@
     			    },
     			    callback: function (result) {
     			    	if(result){
-    			    		var code = ${cliente.getId_Cliente() != null ? cliente.getId_Cliente() : cliente.getId_Cliente()};
+    			    		var code = ${cliente.getId_Cliente() != null ? cliente.getId_Cliente() : 0};
     			    		var status = ${!cliente.isHabilitado()};
     			    		$.post('./Eliminar.html', { idCliente: code, habilitado: status }, (data) => {
     			    			alert(data)
@@ -291,7 +291,7 @@
     		$('#habilitarCliente').click((e)=>{
     			e.preventDefault()
     			
-    			var code = ${cliente.getId_Cliente() != null ? cliente.getId_Cliente() : cliente.getId_Cliente()};
+    			var code = ${cliente.getId_Cliente() != null ? cliente.getId_Cliente() : 0};
     			var status = ${!cliente.isHabilitado()};
 	    		
     			$.post('./Eliminar.html', { idCliente: code, habilitado: status }, (data) => {

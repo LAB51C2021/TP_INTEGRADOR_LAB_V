@@ -240,14 +240,10 @@
     		    	var code = a[0].value.split('_')[0];
     				a[0].value = code
     				
-    				 $.ajax({
-					    type: 'POST',
-					    url: 'GuardarCuenta.html',
-					    data: $("#mainForm").serialize(),
-					    success: () => {
-					    		location.href = 'Cuentas.html'
-					    }
-					});
+    				$.post('GuardarCuenta.html', $("#mainForm").serialize(), (resp) => {
+				    	alert(resp)
+			    		location.href = 'Cuentas.html'
+				    })
     			}
     		})
     		
@@ -270,9 +266,10 @@
     			    },
     			    callback: function (result) {
     			    	if(result){
-    			    		var code = ${cuenta.getId_Cuenta() != null ? cuenta.getId_Cuenta() : cuenta.getId_Cuenta() };
+    			    		var code = ${cuenta.getId_Cuenta() != null ? cuenta.getId_Cuenta() : 0 };
     			    		var status = ${!cuenta.isHabilitado()};
     			    		$.post('EliminarCuenta.html', { idCuenta: code, habilitado: status }, (data) => {
+    			    			alert(data)
     			    			location.href = "Cuentas.html"
     			    		})
     			    	}
@@ -282,11 +279,12 @@
     		
     		$('#habilitarCuenta').click((e)=>{
     			e.preventDefault();
-    			var code = ${cuenta.getId_Cuenta() != null ? cuenta.getId_Cuenta() : cuenta.getId_Cuenta() };
+    			var code = ${cuenta.getId_Cuenta() != null ? cuenta.getId_Cuenta() : 0 };
     			var status = ${!cuenta.isHabilitado()};
     			$.post('EliminarCuenta.html', { idCuenta: code, habilitado: status }, (data) => {
-    			    			location.href = "Cuentas.html"
-  			    		})
+    					alert(data)	
+ 			    		location.href = "Cuentas.html"
+  			    })
     		})
     		
     		$('#nroCuenta').focusout((e) => {

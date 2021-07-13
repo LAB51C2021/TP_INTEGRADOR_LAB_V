@@ -112,6 +112,7 @@ public class CuentaController {
     			ClienteHibernate clienteHibernate = new ClienteHibernate();
         		CuentaHibernate cuentaHibernate = new CuentaHibernate();
         		Cuenta cuenta = new Cuenta();
+        		
         		if(id != 0) {
         			cuenta = cuentaService.FirstOrDefault(id);
     			}
@@ -139,17 +140,22 @@ public class CuentaController {
         		if(id == 0) {
         			Date input = new Date();
         			LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        			cuenta.setFecha_Creacion(date);		        			
+        			cuenta.setFecha_Creacion(date);
         		}
         		        		
         		cuenta.setHabilitado(true);
         		
+        		String respuesta;
         		if(id != 0) {
         			cuentaService.Update(cuenta);
+        			respuesta = "Se actualizo la cuenta correctamente";
         		}else {
         			cuentaService.Add(cuenta);
+        			respuesta = "Se agregó la cuenta correctamente";
         		}
-        		response.sendRedirect("Cuentas.html");
+    			MV.addObject("respuesta", respuesta);
+        		
+        		MV.setViewName("EditCuenta");  
     		}
     	}
 		
@@ -171,11 +177,19 @@ public class CuentaController {
     			String idCuenta = request.getParameter("idCuenta");
     			int id = Integer.parseInt(idCuenta);
     			boolean estado = Boolean.parseBoolean(request.getParameter("habilitado"));
-    			
+    			String respuesta;
         		Cuenta cuenta = cuentaService.FirstOrDefault(id);
         		cuenta.setHabilitado(estado);
         		cuentaService.Update(cuenta);
-        		MV.setViewName("Cuentas");
+        		
+        		if(!estado) {
+        			respuesta = "Se des habilito la cuenta correctamente";        			
+        		}else {
+        			respuesta = "Se habilito la cuenta correctamente";
+        		}
+        		MV.addObject("respuesta", respuesta);
+        		
+        		MV.setViewName("EditCuenta");
     		}
     	}else {
     		MV.setViewName("Login");    		
