@@ -248,7 +248,12 @@
     			e.preventDefault()
     			
     			if($('#mainForm').valid() && !$('#errorDNI').text()){
-    				$.post('./Grabar.html', $('#mainForm').serialize(), () => { location.href = "./Clientes.html" })
+    				$.post('./Grabar.html', $('#mainForm').serialize(), (resp) => { 
+    					
+    					alert(resp)
+    					location.href = "./Clientes.html" 
+    					
+    				})
     			}
     		});
     		
@@ -275,6 +280,7 @@
     			    		var code = ${cliente.getId_Cliente() != null ? cliente.getId_Cliente() : cliente.getId_Cliente()};
     			    		var status = ${!cliente.isHabilitado()};
     			    		$.post('./Eliminar.html', { idCliente: code, habilitado: status }, (data) => {
+    			    			alert(data)
     			    			location.href = "./Clientes.html"
     			    		})
     			    	}
@@ -289,6 +295,7 @@
     			var status = ${!cliente.isHabilitado()};
 	    		
     			$.post('./Eliminar.html', { idCliente: code, habilitado: status }, (data) => {
+    					alert(data) 
 	    				location.href = "./Clientes.html"
 	    			});
     			})

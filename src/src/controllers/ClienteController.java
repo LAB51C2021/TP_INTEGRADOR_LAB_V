@@ -147,8 +147,11 @@ public class ClienteController {
         		
         		datos.setEsCliente(true);
         		datos.setHabilitado(true);
+        		
+        		String respuesta;
         		if(id != 0) {
         			personaService.Update(datos);
+        			respuesta = "Se actualizo el cliente correctamente";
         		}else {
         			
         			Usuario userSave = new Usuario();
@@ -160,12 +163,12 @@ public class ClienteController {
 
         			datos.setUsuario(userSave);
         			personaService.Add(datos);
-        			
+        			respuesta = "Se agregó el cliente correctamente";
         		}
         		
-        		MV.addObject("respuesta", "Se agregó el cliente correctamente");
+        		MV.addObject("respuesta", respuesta);
         		
-        		response.sendRedirect("Clientes.html");
+        		MV.setViewName("EditCliente");   
     		}
     	}
 		
@@ -185,6 +188,7 @@ public class ClienteController {
     		if(request.getParameter("idCliente") != null) {
     			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
+    			String respuesta;
     			boolean estado = Boolean.parseBoolean(request.getParameter("habilitado"));
     			
         		Persona datos = personaService.FirstOrDefault(id);
@@ -199,10 +203,14 @@ public class ClienteController {
     		    }
         		
         		personaService.Update(datos);
+        		if(!estado) {
+        			respuesta = "Se des habilito al cliente correctamente";        			
+        		}else {
+        			respuesta = "Se habilito el cliente correctamente";
+        		}
+        		MV.addObject("respuesta", respuesta);
         		
-        		MV.addObject("respuesta", "Se modifico el cliente correctamente");
-        		
-        		MV.setViewName("Clientes");
+        		MV.setViewName("EditCliente");  
     		}
     	}else {
     		MV.setViewName("Login");    		
