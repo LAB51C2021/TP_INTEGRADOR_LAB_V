@@ -90,14 +90,14 @@ public class MovimientoController
 
 			cuentasList = null;
 			modelo.addAttribute("cuentaListado", GetCuentaList(user.getId_Usuario()));
-			MV.addObject("respuesta", "Se realizo la transferencia con exito");
+			MV.addObject("respuesta", "{ \"status\": \"ok\", \"message\": \"Se realizo la transferencia con exito\" }");
     		
     		MV.setViewName("AlertTransferencia");
 		} 
 		catch (Exception e) 
 		{
 			MV.setViewName("AlertTransferencia");
-			MV.addObject("respuesta", e.getMessage());
+			MV.addObject("respuesta", "{ \"status\": \"error\", \"message\": \"" + e.getMessage() + "\" }");
 		}
 
 		return MV;

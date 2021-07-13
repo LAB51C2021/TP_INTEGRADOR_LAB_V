@@ -138,9 +138,10 @@
    			    },
    			    submitHandler: function(form) {
    			    	$.post('NuevaTransferencia.html',  $('#formTransferencia').serialize(), (resp) => { 
-    					
-    					alert(resp)
-    					location.href = "./Movimientos.html?id=" + $('#cuentaOrigen').val()
+    					var result = JSON.parse(resp.trim())
+    					alert(result.message)
+   			    		if(result.status != 'error')
+    						location.href = "./Movimientos.html?id=" + $('#cuentaOrigen').val()
     					
     				})
    			    }
