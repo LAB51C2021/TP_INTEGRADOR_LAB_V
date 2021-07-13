@@ -1,10 +1,7 @@
 package src.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import models.Cuenta;
@@ -25,13 +21,22 @@ import models.Persona;
 import models.Provincia;
 import models.Usuario;
 import src.hibernate.ClienteHibernate;
-import src.services.EntityService;
+import src.services.IEntityService;
 
 @Controller
 public class ClienteController {
 
 	@Autowired
-	private EntityService<Persona> personaService;
+	private IEntityService<Persona> personaService;
+	
+	@Autowired
+	private IEntityService<Cuenta> cuentaService;
+	
+	@Autowired
+	private IEntityService<Pais> paisService;
+	
+	@Autowired
+	private IEntityService<Provincia> provinciaService;
 	
 	@RequestMapping("Clientes.html")
 	public ModelAndView Clientes(HttpServletRequest request, Model modelo)
@@ -44,7 +49,7 @@ public class ClienteController {
     	{
     		user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
-    		List datos = personaService.GetAll();
+    		List datos = personaService.GetAll("EsCliente = 1 AND Habilitado = 1");
     		
     		modelo.addAttribute("clienteListado", datos);
     		
@@ -60,10 +65,9 @@ public class ClienteController {
 	public ModelAndView Cliente(HttpServletRequest request)
 	{
 		ModelAndView MV = new ModelAndView();
-		ClienteHibernate ClienteHibernate = new ClienteHibernate();
 		
-		MV.addObject("provincias", ClienteHibernate.getProvincias());
-		MV.addObject("paises", ClienteHibernate.getPaises());
+		MV.addObject("provincias", provinciaService.GetAll());
+		MV.addObject("paises", paisService.GetAll());
 		
 		HttpSession sessionActiva = request.getSession();
     	Usuario user = null;
@@ -107,10 +111,9 @@ public class ClienteController {
     			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
     			
-    			ClienteHibernate ClienteHibernate = new ClienteHibernate();
     			Persona datos = new Persona();
     			if(id != 0) {
-    				datos = ClienteHibernate.GetCliente(id);
+    				datos = personaService.FirstOrDefault(id);
     			}
     			
         		
@@ -145,7 +148,7 @@ public class ClienteController {
         		datos.setEsCliente(true);
         		datos.setHabilitado(true);
         		if(id != 0) {
-        			ClienteHibernate.Actualizar(datos);
+        			personaService.Update(datos);
         		}else {
         			
         			Usuario userSave = new Usuario();
@@ -156,7 +159,7 @@ public class ClienteController {
         			userSave.setPersona(datos);
 
         			datos.setUsuario(userSave);
-        			ClienteHibernate.Grabar(datos);
+        			personaService.Add(datos);
         			
         		}
         		response.sendRedirect("Clientes.html");
@@ -180,16 +183,18 @@ public class ClienteController {
     			String idPersona = request.getParameter("idCliente");
     			int id = Integer.parseInt(idPersona);
     			
-        		ClienteHibernate ClienteHibernate = new ClienteHibernate();
-        		Persona datos = ClienteHibernate.GetCliente(id);
+        		Persona datos = personaService.FirstOrDefault(id);
         		datos.setHabilitado(false);
         		datos.getUsuario().setHabilitado(false);
         		
-        		for (Cuenta cnt: datos.getUsuario().getCuentas()) {
+        		List<Cuenta> cuentas = cuentaService.GetAll("Id_Cuenta = " + datos.getUsuario().getId_Usuario());
+        		
+        		for (Cuenta cnt: cuentas) {
         		      cnt.setHabilitado(false);
+        		      cuentaService.Update(cnt);
     		    }
         		
-        		ClienteHibernate.Actualizar(datos);
+        		personaService.Update(datos);
         		MV.setViewName("Clientes");
     		}
     	}else {
