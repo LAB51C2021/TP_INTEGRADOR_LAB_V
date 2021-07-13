@@ -90,17 +90,14 @@ public class MovimientoController
 
 			cuentasList = null;
 			modelo.addAttribute("cuentaListado", GetCuentaList(user.getId_Usuario()));
-			MV.setViewName("HomeCliente");
+			MV.addObject("respuesta", "Se realizo la transferencia con exito");
+    		
+    		MV.setViewName("AlertTransferencia");
 		} 
 		catch (Exception e) 
 		{
-			MV.setViewName("NuevaTransferencia");
-
-			modelo.addAttribute("cuentaListado", GetCuentaList(user.getId_Usuario()));
-			modelo.addAttribute("cuentaOrigen", idCuentaOrigen);
-			modelo.addAttribute("cbuDestino", cbuCuentaDestino);
-			modelo.addAttribute("monto", monto);
-			modelo.addAttribute("error", e.getMessage());
+			MV.setViewName("AlertTransferencia");
+			MV.addObject("respuesta", e.getMessage());
 		}
 
 		return MV;

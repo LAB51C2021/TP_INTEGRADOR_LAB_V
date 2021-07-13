@@ -14,7 +14,8 @@
 	<link rel="stylesheet" href="./css/flex-slider.css">
 	<link rel="stylesheet" href="./css/owl.css">
 	<link rel="stylesheet" href="./css/style.css">
-	<script src="./js/jquery-validation-1.19.3/dist/jquery.validate.min.js"></script>
+	<script src="./js/jquery-validation-1.19.3/dist/jquery.validate.min.js">
+	</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.bootstrap4.min.css" integrity="sha512-MMojOrCQrqLg4Iarid2YMYyZ7pzjPeXKRvhW9nZqLo6kPBBTuvNET9DBVWptAo/Q20Fy11EIHM5ig4WlIrJfQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title></title>
   </head>
   <body>
@@ -60,7 +61,7 @@
                   </div>
                    <div class="col-md-4">
                    	<div class="service-item second-item"  style="padding-top: 1.5rem;">
-                    	 <input required autocomplete="off" style="width: 80%" type="number" id="cbuDestino" placeholder="Ingrese un CBU" name="cbuDestino" value="${cbuDestino}"/>
+                    	 <input required class="form-control" autocomplete="off" style="width: 80%" type="number" id="cbuDestino" placeholder="Ingrese un CBU" name="cbuDestino" value="${cbuDestino}"/>
                     </div>
                   </div>
                 </div>
@@ -70,7 +71,7 @@
                   	</div>
                   <div class="col-md-4">
                     <div class="service-item second-item"  style="padding-top: 1.5rem;">
-                    	 <input required autocomplete="off" style="width: 80%" type="number" id="monto" placeholder="0.00" name="monto" value="${monto}"/>
+                    	 <input required class="form-control" autocomplete="off" style="width: 80%" type="number" id="monto" placeholder="0.00" name="monto" value="${monto}"/>
                     </div>
                   </div>
                 </div><br><br>
@@ -112,10 +113,14 @@
     <script src="./js/transition.js"></script>
     <script src="./js/owl-carousel.js"></script>
     <script src="./js/custom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.js" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <script>
    		 $(document).ready(function() {
 
-   			 
+   			$('#cuentaOrigen').selectize({
+    		    placeholder: 'Seleccione...'
+    		});
    			 
    		  $('form[id="formTransferencia"]').validate({
    			    rules: {
@@ -132,7 +137,12 @@
    			      }
    			    },
    			    submitHandler: function(form) {
-   			      form.submit();
+   			    	$.post('NuevaTransferencia.html',  $('#formTransferencia').serialize(), (resp) => { 
+    					
+    					alert(resp)
+    					location.href = "./Movimientos.html?id=" + $('#cuentaOrigen').val()
+    					
+    				})
    			    }
    			  });
    	  	});
