@@ -3,6 +3,7 @@ package src.controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import models.Cuenta;
+import models.Movimiento;
 import models.Persona;
 import models.Tipo_Cuenta;
 import models.Usuario;
@@ -38,6 +40,9 @@ public class CuentaController {
 	
 	@Autowired
 	private IEntityService<Persona> personaService;
+	
+	@Autowired
+	private IEntityService<Movimiento> movimientoService;
 
 	@RequestMapping("Cuentas.html")
 	public ModelAndView Clientes(HttpServletRequest request, Model modelo)
@@ -151,6 +156,15 @@ public class CuentaController {
         			respuesta = "Se actualizo la cuenta correctamente";
         		}else {
         			cuentaService.Add(cuenta);
+        			
+        			Date input = new Date();
+        			LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        			cuenta.setFecha_Creacion(date);
+        			Movimiento movimiento = new Movimiento(date, Float.parseFloat(request.getParameter("saldo").toString()),
+        					1, cuenta.getId_Cuenta(), null);
+        			
+        			movimientoService.Add(movimiento);
+        			
         			respuesta = "Se agregó la cuenta correctamente";
         		}
     			MV.addObject("respuesta", respuesta);
