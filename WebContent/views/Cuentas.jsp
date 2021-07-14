@@ -39,6 +39,7 @@
                   <div class="col-md-12">
                     <div class="down-content">
 	                    <h1>Cuentas</h1>
+	                    <hr>
                     </div>
                     </div>
                   </div>
@@ -51,7 +52,6 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-10 offset-1">
                   	<table id="data" class="display" style="width:100%; margin-bottom: 2rem; padding-top: 2rem;">
 				        <thead>
 				            <tr>
@@ -74,7 +74,7 @@
 					                <td>${cuenta.getUsuario().getPersona().getNombre_Apellido()}</td>
 					                <td>${cuenta.getFecha_Creacion()}</td>
 					                <td>${cuenta.getCbu()}</td>
-					                <td>${cuenta.getTipo_Cuenta().getMoneda()} ${cuenta.getSaldo()}</td>
+					                <td>${cuenta.getTipo_Cuenta().getSigno_Moneda()} ${cuenta.getSaldo()}</td>
 					                <c:if test="${cuenta.isHabilitado()}">
 					                	<td>SI</td>
 					                </c:if>
@@ -84,8 +84,7 @@
 					            </tr>
 			        		</c:forEach>
 			            </tbody>
-		            </table>		
-                  </div>
+		            </table>	
                 </div>
 			</section>
 		</div>

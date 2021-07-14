@@ -10,17 +10,11 @@
 ">
 	<bean id="TipoCuentaCajaAhorroPesos" class="models.Tipo_Cuenta">
 		<property name="Nombre" value="Caja de ahorro en pesos"></property>
+		<property name="Signo_Moneda" value="$"></property>
 	</bean>
 		
 	<bean id="TipoCuentaCajaAhorroDolares" class="models.Tipo_Cuenta">
 		<property name="Nombre" value="Caja de ahorro en dólares"></property>
-	</bean>
-		
-	<bean id="TipoCuentaCorrientePesos" class="models.Tipo_Cuenta">
-		<property name="Nombre" value="Cuenta corriente en pesos"></property>
-	</bean>
-		
-	<bean id="TipoCuentaCorrienteDolares" class="models.Tipo_Cuenta">
-		<property name="Nombre" value="Cuenta corriente en dólares"></property>
+		<property name="Signo_Moneda" value="U$S"></property>
 	</bean>
 </beans>

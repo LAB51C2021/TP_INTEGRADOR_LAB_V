@@ -40,9 +40,9 @@
 								<a href="Movimientos.html?id=${dato.getId_Cuenta()}" class="cuentaListado">
 				                    <div class="service-item second-item" >
 					                      	<h1>CUENTA ${contador}</h1>
-					                      	<p>${dato.getNombre()}</p>
+					                      	<p>${dato.getTipo_Cuenta().getNombre()}</p>
 					                      	<h4>N° ${dato.getNumero_Cuenta()}</h4>
-					                      	<p>${dato.getTipo_Cuenta().getMoneda()} ${dato.getSaldo()}</p>
+					                      	<p>${dato.getTipo_Cuenta().getSigno_Moneda()} ${dato.getSaldo()}</p>
 					                      	<p>CBU ${dato.getCbu()}</p>
 					                    	<c:set var="contador" value="${contador + 1}" />
 				                    </div>

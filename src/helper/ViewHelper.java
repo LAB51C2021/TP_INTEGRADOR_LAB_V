@@ -30,15 +30,14 @@ public abstract class ViewHelper
 	{
 		if (tipo != null)
 		{
-			switch(tipo.getNombre()) {
-				case "Caja de ahorro en pesos":
-					return "CA $";
-				case "Caja de ahorro en dólares":
-					return "CA U$S";
-				case "Cuenta corriente en pesos":
-					return "CC $";
-				case "Cuenta corriente en dólares":
-					return "CC U$S";
+			if (tipo.getNombre().equals("Caja de ahorro en pesos"))
+			{
+				return "CA " + tipo.getSigno_Moneda();
+			}
+
+			if (tipo.getNombre().equals("Caja de ahorro en dólares"))
+			{
+				return "CA " + tipo.getSigno_Moneda();
 			}
 		}
 

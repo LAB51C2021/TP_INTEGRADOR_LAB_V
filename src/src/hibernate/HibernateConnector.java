@@ -141,7 +141,7 @@ public class HibernateConnector
 	{
 		AbrirConexion();
 		
-		Query query = session.createQuery("FROM " + Usuario.class.getSimpleName() + " WHERE nombre=:nombre AND clave=:clave");
+		Query query = session.createQuery("FROM " + Usuario.class.getSimpleName() + " WHERE nombre=:nombre AND clave=:clave AND habilitado=1");
 		query.setParameter("nombre", nombre);
 		query.setParameter("clave", clave);
 		

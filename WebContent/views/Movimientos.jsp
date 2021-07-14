@@ -70,7 +70,7 @@
 					                <td>${dato.getFecha()}</td>
 					                <td>${dato.getTipo_Movimiento().getNombre()}</td>
 					                <td>${dato.getCbuCuentaOrigen()}</td>
-					                <td>${dato.getMonto()}</td>
+					                <td>${dato.getSignoMoneda()}${dato.getMonto()}</td>
 					            </tr>
 				            </c:forEach>
 			            </tbody>

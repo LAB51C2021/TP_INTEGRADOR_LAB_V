@@ -36,6 +36,8 @@
                   <div class="col-md-12" style="margin-bottom: 2rem;">
                     <div class="down-content">
 	                    <h1>Inicio</h1>
+	                    <br>
+	                    <hr>
                       </div>
                     </div>
                   </div>
@@ -52,6 +54,8 @@
                   </div>
                   <div></div>
                   </div>
+                  <br>
+                <hr>
               </div>
             </section>
           </div>
