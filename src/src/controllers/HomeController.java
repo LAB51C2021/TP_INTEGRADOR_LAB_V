@@ -34,7 +34,7 @@ public class HomeController
     	{
     		user = (Usuario) sessionActiva.getAttribute("sessionUser");
     		
-    		List cuentaList = cuentaService.GetAll("Id_Usuario = " + user.getId_Usuario());
+    		List cuentaList = cuentaService.GetAll("Habilitado = 1 AND Id_Usuario = " + user.getId_Usuario());
 
     		modelo.addAttribute("cuentaListado", cuentaList);
     	}

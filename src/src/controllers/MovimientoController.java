@@ -27,7 +27,7 @@ public class MovimientoController
 	{
 		if (cuentasList == null)
 		{
-			cuentasList = cuentaService.GetAll("Id_Usuario = " + idUser);
+			cuentasList = cuentaService.GetAll("Habilitado = 1 AND Id_Usuario = " + idUser);
 		}
 		
 		return cuentasList;
