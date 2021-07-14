@@ -37,9 +37,12 @@ public class MovimientoHibernate
 		
 		Cuenta cuentaOrigen = cuentaService.FirstOrDefault(idCuentaOrigen);
 
-		if (cuentaDestino.getTipo_Cuenta() == cuentaOrigen.getTipo_Cuenta())
+		String monedaCuentaDestino = cuentaDestino.getTipo_Cuenta().getSigno_Moneda();
+		String monedaCuentaOrigen = cuentaOrigen.getTipo_Cuenta().getSigno_Moneda();
+		
+		if (!monedaCuentaDestino.equals(monedaCuentaOrigen))
 		{
-			throw new Exception("No es posible realizar una transferencia a un tipo de cuenta distinta.");
+			throw new Exception("No es posible realizar una transferencia porque la moneda de la cuenta destino es distinta.");
 		}
 		
 		if (cuentaOrigen.getSaldo() < monto)

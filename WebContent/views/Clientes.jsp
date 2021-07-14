@@ -38,6 +38,7 @@
                   <div class="col-md-12">
                     <div class="down-content">
 	                    <h1>Clientes</h1>
+	                    <hr>
                     </div>
                     </div>
                   </div>
@@ -56,49 +57,42 @@
                       </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-md-10 offset-1">
-                  	<table id="data" class="display" style="width:100%; margin-bottom: 2rem; padding-top: 2rem;">
-	        <thead>
-	            <tr>
-	            	<th></th>
-	                <th>Nombre</th>
-	                <th>DNI</th>
-	                <th>Fec. Nacimiento</th>
-	                <th>Direccion</th>
-	                <th>Localidad</th>
-	                <th>Provincia</th>
-	                <th>Activo</th>		                
-	            </tr>
-	        </thead>
-	        <tbody>
-                <c:forEach var="cliente" items="${clienteListado}">
-                <tr>
-		            <td><a href="./Editar.html?idCliente=${cliente.getId_Cliente()}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-		                <td>${cliente.getNombre_Apellido()}</td>
-		                <td>${cliente.getDni()}</td>
-		                <td>${cliente.getFecha_Nacimiento()}</td>
-		                <td>${cliente.getDireccion()}</td>
-		                <td>${cliente.getLocalidad()}</td>
-		                <td>${cliente.getProvincia().getNombre()}</td>
-		                <c:if test="${cliente.isHabilitado()}">
-		                	<td>SI</td>
-		                </c:if>
-		                <c:if test="${!cliente.isHabilitado()}">
-		                	<td>NO</td>
-		                </c:if>
+                  </div>      
+	            <table id="data" style="width:100%; margin-bottom: 1rem; padding-top: 2rem;">
+		        <thead>
+		            <tr>
+		            	<th></th>
+		                <th>Nombre</th>
+		                <th>DNI</th>
+		                <th>Fec. Nacimiento</th>
+		                <th>Direccion</th>
+		                <th>Localidad</th>
+		                <th>Provincia</th>
+		                <th>Activo</th>		                
 		            </tr>
-        		</c:forEach>
-            </tbody>
-           </table> 
-                  </div>
+		        </thead>
+		        <tbody>
+	                <c:forEach var="cliente" items="${clienteListado}">
+	                <tr>
+			            <td><a href="./Editar.html?idCliente=${cliente.getId_Cliente()}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+			                <td>${cliente.getNombre_Apellido()}</td>
+			                <td>${cliente.getDni()}</td>
+			                <td>${cliente.getFecha_Nacimiento()}</td>
+			                <td>${cliente.getDireccion()}</td>
+			                <td>${cliente.getLocalidad()}</td>
+			                <td>${cliente.getProvincia().getNombre()}</td>
+			                <c:if test="${cliente.isHabilitado()}">
+			                	<td>SI</td>
+			                </c:if>
+			                <c:if test="${!cliente.isHabilitado()}">
+			                	<td>NO</td>
+			                </c:if>
+			            </tr>
+	        		</c:forEach>
+	            </tbody>
+	           </table> 
                 </div>
-               
 			</section>
-		
-		
-		
-		
 		</div>
 	</div>
 

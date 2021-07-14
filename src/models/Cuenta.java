@@ -31,12 +31,12 @@ public class Cuenta implements Serializable {
 		
 	}
 	
-	public Cuenta(String nombre, LocalDate fechaCreacion, String numeroCuenta, String cbu, float saldo, int idTipoCuenta, boolean habilitado)
+	public Cuenta(String nombre, LocalDate fechaCreacion, String cbu, String numeroCuenta, float saldo, int idTipoCuenta, boolean habilitado)
 	{
 		this.Nombre = nombre;
 		this.Fecha_Creacion = fechaCreacion;
-		this.Numero_Cuenta = numeroCuenta;
 		this.Cbu = cbu;
+		this.Numero_Cuenta = numeroCuenta;
 		this.Saldo = saldo;
 		this.Tipo_Cuenta = new Tipo_Cuenta(idTipoCuenta);
 		this.Habilitado = habilitado;
@@ -86,7 +86,7 @@ public class Cuenta implements Serializable {
     @Override
     public String toString()
     {
-    	return ViewHelper.GetLetraPorTipo(getTipo_Cuenta()) + " N° " + Numero_Cuenta + " - " + getTipo_Cuenta().getMoneda() + " " + Saldo;
+    	return ViewHelper.GetLetraPorTipo(getTipo_Cuenta()) + " N° " + Numero_Cuenta + " - " + getTipo_Cuenta().getSigno_Moneda() + " " + Saldo;
     }
     
 	// Getters and Setters

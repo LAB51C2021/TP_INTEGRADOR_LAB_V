@@ -115,7 +115,6 @@ public class MovimientoController
 		ModelAndView MV = new ModelAndView();
 		MV.setViewName("HomeCliente.html");
 		
-		
 		return MV;
 	}
 }

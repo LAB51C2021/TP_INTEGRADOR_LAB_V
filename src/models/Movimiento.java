@@ -109,11 +109,23 @@ public class Movimiento implements Serializable {
 
 	public String getCbuCuentaOrigen() {
 		
-		if (Tipo_Movimiento.getNombre().contains("-"))
+		if (Tipo_Movimiento.getNombre().equals("Alta"))
 		{
 			return "-";
 		}
+		else
+		{
+			return Cuenta_Destino.getCbu();
+		}
+	}
+	
+	public String getSignoMoneda()
+	{
+		if (Cuenta_Origen != null)
+		{
+			return Cuenta_Origen.getTipo_Cuenta().getSigno_Moneda();
+		}
 		
-		return Cuenta_Destino.getCbu();
+		return "?";
 	}
 }

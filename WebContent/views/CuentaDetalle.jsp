@@ -70,7 +70,7 @@
                   	  </div>
 	                  <div class="col-md-4">
 	                    <div class="service-item second-item" style="padding-top: 1.5rem;">
-	                    	<input required class="form-control" style="width:80%;" type="number" minlength="5" maxlength="5" id="nroCuenta" name="nroCuenta" value="${cuenta.getNumero_Cuenta()}">
+	                    	<input required class="form-control" style="width:80%;" type="text" minlength="5" maxlength="5" id="nroCuenta" name="nroCuenta" value="${cuenta.getNumero_Cuenta()}">
 	                    	<div id="errorNroCuentaduplicado"></div>
 	                    </div>
 	                  </div>

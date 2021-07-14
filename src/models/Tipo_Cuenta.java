@@ -38,6 +38,9 @@ public class Tipo_Cuenta implements Serializable {
 	@Column(unique=true)
 	private String Nombre;
 
+	@Column
+	private String Signo_Moneda;
+
 	// Getters and Setters
 	public int getId_Tipo_Cuenta() {
 		return Id_Tipo_Cuenta;
@@ -54,8 +57,12 @@ public class Tipo_Cuenta implements Serializable {
 	public void setNombre(String nombre) {
 		Nombre = nombre;
 	}
-	
-	public String getMoneda() {
-		return this.Id_Tipo_Cuenta == 1 || this.Id_Tipo_Cuenta == 3 ? "$" : "U$S";
+
+	public String getSigno_Moneda() {
+		return Signo_Moneda;
+	}
+
+	public void setSigno_Moneda(String signo_Moneda) {
+		Signo_Moneda = signo_Moneda;
 	}
 }
